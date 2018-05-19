@@ -1,0 +1,57 @@
+<!--index.wxml-->
+<view class="container">
+  <!-- header start -->
+  <view class='header-nav'>
+    <view class='flex-nav'>
+      <view class='flex-nav-item'>
+        <view><image src='../../images/timg.jpeg' mode='aspectFit'></image></view>
+        <view>名人榜</view>
+      </view>
+      <view class='flex-nav-item'>
+        <view><image src='../../images/timg.jpeg' mode='aspectFit'></image></view>
+        <view>免费榜</view>
+      </view>
+      <view class='flex-nav-item'>
+        <view><image src='../../images/timg.jpeg' mode='aspectFit'></image></view>
+        <view>连红榜</view>
+      </view>
+      <view class='flex-nav-item'>
+        <view><image src='../../images/timg.jpeg' mode='aspectFit'></image></view>
+        <view>公告</view>
+      </view>
+    </view>
+  </view>
+  <!-- header end -->
+
+  <!-- split start -->
+  <view class='split'></view>
+  <!-- split end  -->
+  <!-- content start  -->
+  <view class='content'>
+    <view class='x-table'>
+      <view class='x-tr'>
+        <view class='x-th'>姓名</view>
+        <view class='x-th'>近5场胜率</view>
+        <view class='x-th'>近10场胜率</view>
+        <view class='x-th'>近20场胜率</view>
+      </view>
+      <scroll-view scroll-y style='height: calc(100% - 130rpx)'>
+        <view wx:for="{{ result }}" wx:key="{{ code }}">
+          <view class="x-tr" wx:if="{{index % 2 == 0}}">
+            <view class="x-td">{{ item.name }}</view>
+            <view class="x-td">{{ item.top5 }}</view>
+            <view class="x-td">{{ item.top10 }}</view>
+            <view class="x-td">{{ item.top20 }}</view>
+          </view>
+          <view class="x-tr stripe" wx:else>
+            <view class="x-td">{{ item.name }}</view>
+            <view class="x-td">{{ item.top5 }}</view>
+            <view class="x-td">{{ item.top10 }}</view>
+            <view class="x-td">{{ item.top20 }}</view>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+  </view>
+  <!-- content end  -->
+</view>
