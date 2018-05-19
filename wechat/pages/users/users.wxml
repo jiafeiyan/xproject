@@ -1,0 +1,49 @@
+<!--users.wxml-->
+<view class="container">
+  <!-- header start -->
+  <view class='header-nav'>
+    <text>{{ name }}</text>
+  </view>
+  <!-- header end -->
+
+  <!-- split start -->
+  <view class='split'>
+  </view>
+  <!-- split end  -->
+
+  <!-- chart start  -->
+  <view>
+  <canvas style="width: 300px; height: 200px;" canvas-id="firstCanvas">
+  </canvas>
+  </view>
+  <!-- chart end  -->
+
+  <!-- content start  -->
+  <view class='ContentWrapper'>
+  <view class='x-table'>
+      <view class='x-tr'>
+        <view class='x-th'>赛事种类</view>
+        <view class='x-th'>推荐内容</view>
+        <view class='x-th'>最终比分</view>
+        <view class='x-th'>赛事结果</view>
+      </view>
+      <scroll-view scroll-y style='height: calc(100% - 430rpx)'>
+        <view wx:for="{{ result }}" wx:key="{{ code }}">
+          <view class="x-tr" wx:if="{{index % 2 == 0}}">
+            <view class="x-td">{{ item.EventType }}</view>
+            <view class="x-td">{{ item.RecommendContent }}</view>
+            <view class="x-td">{{ item.EventResult }}</view>
+            <view class="x-td">{{ RecommendFlag.top20 }}</view>
+          </view>
+          <view class="x-tr stripe" wx:else>
+            <view class="x-td">{{ item.EventType }}</view>
+            <view class="x-td">{{ item.RecommendContent }}</view>
+            <view class="x-td">{{ item.EventResult }}</view>
+            <view class="x-td">{{ RecommendFlag.top20 }}</view>
+          </view>
+        </view>
+      </scroll-view>
+  </view>
+  </view>
+  <!-- content end  -->
+</view>
