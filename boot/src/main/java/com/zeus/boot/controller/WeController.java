@@ -9,7 +9,6 @@ public class WeController {
 
     @RequestMapping(value = "/getCelebrity", method = {RequestMethod.GET})
     public String getCelebrityLists(){
-        int a = 1/0;
         return "hhhhhhh";
     }
 }

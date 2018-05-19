@@ -7,6 +7,7 @@ import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter4;
 import com.zeus.boot.core.Result;
 import com.zeus.boot.core.ResultCode;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,8 +17,10 @@ import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.NoHandlerFoundException;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
+import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -31,8 +34,9 @@ public class WebMvcConfigurer extends WebMvcConfigurationSupport {
     // logger
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
+    //当前激活的配置文件
     @Value("${spring.profiles.active}")
-    private String env;//当前激活的配置文件
+    private String env;
 
     @Override
     protected void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
@@ -48,6 +52,22 @@ public class WebMvcConfigurer extends WebMvcConfigurationSupport {
         converters.add(converter);
     }
 
+    // 配置拦截器
+    @Override
+    protected void addInterceptors(InterceptorRegistry registry) {
+        //开发环境忽略签名认证
+        if (!StringUtils.contains(env, "dev")) {
+            registry.addInterceptor(new HandlerInterceptorAdapter(){
+                @Override
+                public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+                    // todo 以后处理认证问题
+                    return super.preHandle(request, response, handler);
+                }
+            });
+        }
+    }
+
+    // 配置异常处理
     @Override
     protected void configureHandlerExceptionResolvers(List<HandlerExceptionResolver> exceptionResolvers) {
        exceptionResolvers.add((HttpServletRequest request,
@@ -87,6 +107,7 @@ public class WebMvcConfigurer extends WebMvcConfigurationSupport {
         }
     }
 
+    // 配置静态资源
     @Override
     protected void addResourceHandlers(ResourceHandlerRegistry registry) {
         logger.info("addResourceHandlers");
