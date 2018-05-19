@@ -19,7 +19,7 @@ Page({
             {"name": "chen", "top5": "80%", "top10": "60%", "top20": "40%"},
             {"name": "chen", "top5": "80%", "top10": "60%", "top20": "40%"},
             {"name": "chen", "top5": "80%", "top10": "60%", "top20": "40%"},
-            {"name": "chen", "top5": "80%", "top10": "60%", "top20": "41%"}
+            {"name": "chen", "top5": "80%", "top10": "60%", "top20": "40%"}
         ],
     },
     //事件处理函数
@@ -29,6 +29,15 @@ Page({
         })
     },
     onLoad: function () {
+        wx.request({
+          url: 'https://127.0.0.1:8080/getCelebrity', //仅为示例，并非真实的接口地址
+          success: function (res) {
+            console.log(res.data)
+          },
+          fail: function(res){
+            console.log(res.data)
+          }
+        })
         if (app.globalData.userInfo) {
             this.setData({
                 userInfo: app.globalData.userInfo,
