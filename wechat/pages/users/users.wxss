@@ -1,0 +1,38 @@
+.ContentWrapper {
+    width: 100%;
+}
+
+.users-table {
+    width: 100%;
+    border: 0px solid darkgray;
+    font-size: 32rpx;
+    color: #606266
+}
+
+.users-th {
+    width: 40%;
+    justify-content: center;
+    background: #FDB87D;
+    color: #fff;
+    display: flex;
+    height: 3rem;
+    align-items: center;
+}
+
+.users-tr {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    height: 3rem;
+    align-items: center;
+}
+
+.users-td {
+    width: 40%;
+    justify-content: center;
+    text-align: center;
+}
+
+.users-table .stripe {
+    background: #FAFAFA;
+}
