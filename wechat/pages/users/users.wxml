@@ -7,39 +7,37 @@
   <!-- header end -->
 
   <!-- split start -->
-  <view class='split'>
-  </view>
   <!-- split end  -->
 
   <!-- chart start  -->
   <view>
-  <canvas style="width: 300px; height: 200px;" canvas-id="firstCanvas">
+  <canvas canvas-id="firstCanvas">
   </canvas>
   </view>
   <!-- chart end  -->
 
   <!-- content start  -->
   <view class='ContentWrapper'>
-  <view class='x-table'>
-      <view class='x-tr'>
-        <view class='x-th'>赛事种类</view>
-        <view class='x-th'>推荐内容</view>
-        <view class='x-th'>最终比分</view>
-        <view class='x-th'>赛事结果</view>
+  <view class='users-table'>
+      <view class='users-tr'>
+        <view class='users-th'>赛事种类</view>
+        <view class='users-th'>推荐内容</view>
+        <view class='users-th'>最终比分</view>
+        <view class='users-th'>赛事结果</view>
       </view>
       <scroll-view scroll-y style='height: calc(100% - 430rpx)'>
         <view wx:for="{{ result }}" wx:key="{{ code }}">
-          <view class="x-tr" wx:if="{{index % 2 == 0}}">
-            <view class="x-td">{{ item.EventType }}</view>
-            <view class="x-td">{{ item.RecommendContent }}</view>
-            <view class="x-td">{{ item.EventResult }}</view>
-            <view class="x-td">{{ RecommendFlag.top20 }}</view>
+          <view class="users-tr" wx:if="{{index % 2 == 0}}">
+            <view class="users-td">{{ item.EventType }}</view>
+            <view class="users-td">{{ item.RecommendContent }}</view>
+            <view class="users-td">{{ item.EventResult }}</view>
+            <view class="users-td">{{ item.RecommendFlag }}</view>
           </view>
-          <view class="x-tr stripe" wx:else>
-            <view class="x-td">{{ item.EventType }}</view>
-            <view class="x-td">{{ item.RecommendContent }}</view>
-            <view class="x-td">{{ item.EventResult }}</view>
-            <view class="x-td">{{ RecommendFlag.top20 }}</view>
+          <view class="users-tr stripe" wx:else>
+            <view class="users-td">{{ item.EventType }}</view>
+            <view class="users-td">{{ item.RecommendContent }}</view>
+            <view class="users-td">{{ item.EventResult }}</view>
+            <view class="users-td">{{ item.RecommendFlag }}</view>
           </view>
         </view>
       </scroll-view>
