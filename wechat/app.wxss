@@ -15,7 +15,7 @@ page{
   width: 100%;
   border: 0px solid darkgray;
   font-size: 32rpx;
-  color: #606266
+  color: #606266;
 }
 .x-th{
   width: 40%;
