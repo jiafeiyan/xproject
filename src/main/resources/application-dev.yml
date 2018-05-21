@@ -1,0 +1,22 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/zeus
+    username: root
+    password: chenyan
+    driver-class-name: com.mysql.jdbc.Driver
+  jpa:
+    show-sql: true
+
+logging:
+  level:
+    org:
+      springframework:
+        web: debug
+
+server:
+  port: 8080
+  ssl:
+    key-store: /Users/chenyan/develop/keystore.p12
+    key-store-password: chenyan
+    keyStoreType: JKS
+    keyAlias: tomcat
