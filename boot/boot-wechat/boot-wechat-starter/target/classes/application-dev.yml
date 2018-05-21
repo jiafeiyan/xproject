@@ -22,8 +22,13 @@ spring:
       # 打开PSCache，并且指定每个连接上PSCache的大小
       pool-prepared-statements: true
       max-pool-prepared-statement-per-connection-size: 20
+      # 配置监控统计拦截的filters
+      filters: stat
+      connect-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
   jpa:
     show-sql: true
+    hibernate:
+      ddl-auto: update
 
 logging:
   level:

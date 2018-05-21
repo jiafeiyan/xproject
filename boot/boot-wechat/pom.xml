@@ -17,7 +17,7 @@
         <module>boot-wechat-starter</module>
         <module>boot-wechat-commons</module>
         <module>boot-wechat-repo</module>
-        <module>boot-wechat-controller</module>
+        <module>boot-wechat-restful</module>
     </modules>
 
 </project>
