@@ -11,5 +11,11 @@
 
     <artifactId>boot-wechat-repo</artifactId>
 
-
+    <dependencies>
+        <dependency>
+            <groupId>com.zeus</groupId>
+            <artifactId>boot-wechat-entity</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 </project>
