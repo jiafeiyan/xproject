@@ -1,24 +1,28 @@
 package com.zeus.boot.controller;
 
-import com.alibaba.fastjson.JSONObject;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
 import java.util.Map;
 
 /* Hypermedia API HATEOAS */
-@RestController(value = "/api")
+@Api(value = "Hypermedia API", tags = {"统一接口列表"})
+@RestController
+@RequestMapping(value = "/api")
 public class ApiController {
 
     @Value("${web.url}")
     private String url;
 
-    @GetMapping()
-    private String getApi(){
+    @ApiOperation(value="获取所有API接口", notes="显示接口URL")
+    @GetMapping(value = "")
+    private Map<String, Object> getApi(){
         Map<String, Object> resful = new HashMap<>();
-
         // 组织机构
         resful.put("organizations_url", new StringBuilder(url).append("/org"));
         // 推荐表
@@ -26,8 +30,6 @@ public class ApiController {
         // 公告
         resful.put("board_url", new StringBuilder(url).append("/brd"));
 
-        String jsonString = JSONObject.toJSONString(resful);
-
-        return jsonString;
+        return resful;
     }
 }

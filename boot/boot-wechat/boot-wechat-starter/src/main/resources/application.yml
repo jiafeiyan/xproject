@@ -2,4 +2,4 @@ spring:
   profiles:
     active: dev
 web:
-  url: http://localhost:8080/
+  url: http://localhost:8080
