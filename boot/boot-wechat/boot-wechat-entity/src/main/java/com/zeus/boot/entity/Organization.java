@@ -7,6 +7,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Data
+@Entity
 @Table(
         name = "t_Organization",
         indexes = {

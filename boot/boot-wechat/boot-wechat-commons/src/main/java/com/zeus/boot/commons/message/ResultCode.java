@@ -5,6 +5,7 @@ package com.zeus.boot.commons.message;
  */
 public enum ResultCode {
     SUCCESS(200),//成功
+
     FAIL(400),//失败
     UNAUTHORIZED(401),//未认证（签名错误）
     NOT_FOUND(404),//接口不存在
