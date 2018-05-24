@@ -11,5 +11,37 @@
     "navigationBarTitleText": "红军蓝彩",
     "navigationBarTextStyle": "white",
     "enablePullDownRefresh": false
+  },
+  "tabBar": {
+    "color": "#ccc",
+    "selectedColor": "#35495e",
+    "borderStyle": "white",
+    "backgroundColor": "#FFF",
+    "list": [
+      {
+        "text": "名人榜",
+        "pagePath": "pages/index/index",
+        "iconPath": "",
+        "selectedIconPath": ""
+      },
+      {
+        "text": "免费榜",
+        "pagePath": "pages/index/index",
+        "iconPath": "",
+        "selectedIconPath": ""
+      },
+      {
+        "text": "连红榜",
+        "pagePath": "pages/index/index",
+        "iconPath": "",
+        "selectedIconPath": ""
+      },
+      {
+        "text": "公告",
+        "pagePath": "pages/index/index",
+        "iconPath": "",
+        "selectedIconPath": ""
+      }
+    ]
   }
 }

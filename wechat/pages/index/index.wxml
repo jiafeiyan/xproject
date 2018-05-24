@@ -26,16 +26,18 @@
   <!-- split start -->
   <view class='split'></view>
   <!-- split end  -->
-  <!-- content start  -->
-  <view class='content'>
-    <view class='x-table'>
+
+  <!-- content one start  -->
+  <view class='content' id='content-one'>
+    <view>名人推荐</view>
+    <view class='x-table' style='height: calc(100% - 80rpx)'>
       <view class='x-tr'>
         <view class='x-th'>姓名</view>
         <view class='x-th'>近5场胜率</view>
         <view class='x-th'>近10场胜率</view>
         <view class='x-th'>近20场胜率</view>
       </view>
-      <scroll-view scroll-y style='height: calc(100% - 130rpx)'>
+      <scroll-view scroll-y style='height: calc(100% - 105rpx)'>
         <view wx:for="{{ result }}" wx:key="{{ code }}">
           <view class="x-tr" wx:if="{{index % 2 == 0}}">
             <view class="x-td">{{ item.name }}</view>
@@ -53,5 +55,5 @@
       </scroll-view>
     </view>
   </view>
-  <!-- content end  -->
+  <!-- content one end  -->
 </view>
