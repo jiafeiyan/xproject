@@ -1,7 +1,7 @@
 package com.zeus.boot.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
+import org.hibernate.annotations.Proxy;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -9,6 +9,7 @@ import java.io.Serializable;
 @Data
 @Entity
 @Table(name = "t_Admin")
+@Proxy(lazy = false)
 public class Admin implements Serializable {
     private static final long serialVersionUID = 1L;
 

@@ -2,6 +2,11 @@ web:
   url: http://localhost:8080
 
 spring:
+  jpa:
+      show-sql: true
+      open-in-view: true
+      hibernate:
+        ddl-auto: update
   datasource:
     druid:
       url: jdbc:mysql://localhost:3306/zeus
@@ -28,11 +33,7 @@ spring:
       # 配置监控统计拦截的filters
       filters: stat
       connect-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
-  jpa:
-    show-sql: true
-    open-in-view: true
-    hibernate:
-      ddl-auto: update
+
 
 logging:
   level:

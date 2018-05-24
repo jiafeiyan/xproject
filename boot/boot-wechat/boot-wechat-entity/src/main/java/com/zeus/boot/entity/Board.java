@@ -1,6 +1,7 @@
 package com.zeus.boot.entity;
 
 import lombok.Data;
+import org.hibernate.annotations.Proxy;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -13,6 +14,7 @@ import java.io.Serializable;
                 @Index(name = "Board_Index",columnList = "BRD_ID")
         }
 )
+@Proxy(lazy = false)
 public class Board implements Serializable {
     private static final long serialVersionUID = 1L;
 
