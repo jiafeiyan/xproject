@@ -69,45 +69,45 @@ public class WebMvcConfigurer extends WebMvcConfigurationSupport {
         }
     }
 
-//    // 配置异常处理
-//    @Override
-//    protected void configureHandlerExceptionResolvers(List<HandlerExceptionResolver> exceptionResolvers) {
-//       exceptionResolvers.add((HttpServletRequest request,
-//                               HttpServletResponse response,
-//                               Object handler,
-//                               Exception e) -> {
-//           Result result = new Result();
-//           if (handler instanceof HandlerMethod) {
-//               HandlerMethod handlerMethod = (HandlerMethod) handler;
-//               result.setCode(ResultCode.INTERNAL_SERVER_ERROR).setMessage("接口 [" + request.getRequestURI() + "] 内部错误");
-//               String message = String.format("接口 [%s] 出现异常，方法：%s.%s，异常摘要：%s",
-//                       request.getRequestURI(),
-//                       handlerMethod.getBean().getClass().getName(),
-//                       handlerMethod.getMethod().getName(),
-//                       e.getMessage());
-//               logger.error(message, e);
-//           } else {
-//               if (e instanceof NoHandlerFoundException) {
-//                   result.setCode(ResultCode.NOT_FOUND).setMessage("接口 [" + request.getRequestURI() + "] 不存在");
-//               } else {
-//                   result.setCode(ResultCode.INTERNAL_SERVER_ERROR).setMessage(e.getMessage());
-//                   logger.error(e.getMessage(), e);
-//               }
-//           }
-//           responseResult(response, result);
-//           return new ModelAndView();
-//       });
-//    }
-//    private void responseResult(HttpServletResponse response, Result result) {
-//        response.setCharacterEncoding("UTF-8");
-//        response.setHeader("Content-type", "application/json;charset=UTF-8");
-//        response.setStatus(200);
-//        try {
-//            response.getWriter().write(JSON.toJSONString(result));
-//        } catch (IOException ex) {
-//            logger.error(ex.getMessage());
-//        }
-//    }
+    // 配置异常处理
+    @Override
+    protected void configureHandlerExceptionResolvers(List<HandlerExceptionResolver> exceptionResolvers) {
+       exceptionResolvers.add((HttpServletRequest request,
+                               HttpServletResponse response,
+                               Object handler,
+                               Exception e) -> {
+           Result result = new Result();
+           if (handler instanceof HandlerMethod) {
+               HandlerMethod handlerMethod = (HandlerMethod) handler;
+               result.setCode(ResultCode.INTERNAL_SERVER_ERROR).setMessage("接口 [" + request.getRequestURI() + "] 内部错误");
+               String message = String.format("接口 [%s] 出现异常，方法：%s.%s，异常摘要：%s",
+                       request.getRequestURI(),
+                       handlerMethod.getBean().getClass().getName(),
+                       handlerMethod.getMethod().getName(),
+                       e.getMessage());
+               logger.error(message, e);
+           } else {
+               if (e instanceof NoHandlerFoundException) {
+                   result.setCode(ResultCode.NOT_FOUND).setMessage("接口 [" + request.getRequestURI() + "] 不存在");
+               } else {
+                   result.setCode(ResultCode.INTERNAL_SERVER_ERROR).setMessage(e.getMessage());
+                   logger.error(e.getMessage(), e);
+               }
+           }
+           responseResult(response, result);
+           return new ModelAndView();
+       });
+    }
+    private void responseResult(HttpServletResponse response, Result result) {
+        response.setCharacterEncoding("UTF-8");
+        response.setHeader("Content-type", "application/json;charset=UTF-8");
+        response.setStatus(200);
+        try {
+            response.getWriter().write(JSON.toJSONString(result));
+        } catch (IOException ex) {
+            logger.error(ex.getMessage());
+        }
+    }
 
     // 配置静态资源
     @Override
