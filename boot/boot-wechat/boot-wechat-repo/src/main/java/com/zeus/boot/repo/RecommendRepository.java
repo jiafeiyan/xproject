@@ -10,7 +10,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 import java.util.Optional;
 
-public interface RecommendRepository extends JpaRepository<Recommend, Long> {
+public interface RecommendRepository extends JpaRepository<Recommend, String> {
     @Override
     List<Recommend> findAll();
 
@@ -21,13 +21,13 @@ public interface RecommendRepository extends JpaRepository<Recommend, Long> {
     Page<Recommend> findAll(Pageable pageable);
 
     @Override
-    List<Recommend> findAllById(Iterable<Long> longs);
+    List<Recommend> findAllById(Iterable<String> Strings);
 
     @Override
     long count();
 
     @Override
-    void deleteById(Long aLong);
+    void deleteById(String aString);
 
     @Override
     void delete(Recommend entity);
@@ -45,10 +45,10 @@ public interface RecommendRepository extends JpaRepository<Recommend, Long> {
     <S extends Recommend> List<S> saveAll(Iterable<S> entities);
 
     @Override
-    Optional<Recommend> findById(Long aLong);
+    Optional<Recommend> findById(String aString);
 
     @Override
-    boolean existsById(Long aLong);
+    boolean existsById(String aString);
 
     @Override
     void flush();
@@ -63,7 +63,7 @@ public interface RecommendRepository extends JpaRepository<Recommend, Long> {
     void deleteAllInBatch();
 
     @Override
-    Recommend getOne(Long aLong);
+    Recommend getOne(String aString);
 
     @Override
     <S extends Recommend> Optional<S> findOne(Example<S> example);

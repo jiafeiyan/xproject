@@ -19,7 +19,7 @@ public class Board implements Serializable {
     @Id
     @Column(columnDefinition = "varchar(255) COMMENT '公告ID'")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long BRD_ID;
+    private String BRD_ID;
 
     @Column(nullable = false, columnDefinition = "varchar(255) COMMENT '创建日期'")
     private String BRD_SETUPDATE;

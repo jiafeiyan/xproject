@@ -28,7 +28,7 @@ public class Swagger2 {
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 //页面标题
-                .title("红军蓝彩项目————接口测试平台")
+                .title("Boot ———— 接口测试平台")
                 //创建人
                 .contact(new Contact("Jaffe Yan", "http://localhost:8080", ""))
                 //版本号

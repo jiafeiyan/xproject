@@ -19,7 +19,7 @@ public class Recommend implements Serializable {
     @Id
     @Column(columnDefinition = "varchar(255) COMMENT '推荐ID'")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long RCM_ID;
+    private String RCM_ID;
 
     @Column(nullable = false, columnDefinition = "varchar(255) COMMENT '创建日期'")
     private String RCM_SETUPDATE;

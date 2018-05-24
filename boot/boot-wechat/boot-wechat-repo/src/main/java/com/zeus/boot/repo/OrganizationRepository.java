@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 
-public interface OrganizationRepository extends JpaRepository<Organization,Long> {
+public interface OrganizationRepository extends JpaRepository<Organization,String> {
     @Override
     List<Organization> findAll();
 
@@ -22,13 +22,13 @@ public interface OrganizationRepository extends JpaRepository<Organization,Long>
     Page<Organization> findAll(Pageable pageable);
 
     @Override
-    List<Organization> findAllById(Iterable<Long> longs);
+    List<Organization> findAllById(Iterable<String> Strings);
 
     @Override
     long count();
 
     @Override
-    void deleteById(Long aLong);
+    void deleteById(String aString);
 
     @Override
     void delete(Organization entity);
@@ -46,10 +46,10 @@ public interface OrganizationRepository extends JpaRepository<Organization,Long>
     <S extends Organization> List<S> saveAll(Iterable<S> entities);
 
     @Override
-    Optional<Organization> findById(Long aLong);
+    Optional<Organization> findById(String aString);
 
     @Override
-    boolean existsById(Long aLong);
+    boolean existsById(String aString);
 
     @Override
     void flush();
@@ -64,7 +64,7 @@ public interface OrganizationRepository extends JpaRepository<Organization,Long>
     void deleteAllInBatch();
 
     @Override
-    Organization getOne(Long aLong);
+    Organization getOne(String aString);
 
     @Override
     <S extends Organization> Optional<S> findOne(Example<S> example);

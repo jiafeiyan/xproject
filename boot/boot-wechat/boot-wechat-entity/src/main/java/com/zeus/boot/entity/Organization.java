@@ -20,7 +20,7 @@ public class Organization implements Serializable {
     @Id
     @Column(columnDefinition = "varchar(255) COMMENT '组织ID'")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long ORG_ID;
+    private String ORG_ID;
 
     @Column(nullable = false, columnDefinition = "varchar(255) COMMENT '创建日期'")
     private String ORG_SETUPDATE;

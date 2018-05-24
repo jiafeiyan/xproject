@@ -13,14 +13,14 @@ import java.util.Map;
 /* Hypermedia API HATEOAS */
 @Api(value = "Hypermedia API", tags = {"统一接口列表"})
 @RestController
-@RequestMapping(value = "/api")
+@RequestMapping(path = "api")
 public class ApiController {
 
     @Value("${web.url}")
     private String url;
 
     @ApiOperation(value="获取所有API接口", notes="显示接口URL")
-    @GetMapping(value = "")
+    @GetMapping(path = "")
     private Map<String, Object> getApi(){
         Map<String, Object> resful = new HashMap<>();
         // 组织机构

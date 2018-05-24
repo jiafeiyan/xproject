@@ -10,7 +10,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 import java.util.Optional;
 
-public interface BoardRepository extends JpaRepository<Board, Long> {
+public interface BoardRepository extends JpaRepository<Board, String> {
+
     @Override
     List<Board> findAll();
 
@@ -21,13 +22,13 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
     Page<Board> findAll(Pageable pageable);
 
     @Override
-    List<Board> findAllById(Iterable<Long> longs);
+    List<Board> findAllById(Iterable<String> strings);
 
     @Override
     long count();
 
     @Override
-    void deleteById(Long aLong);
+    void deleteById(String s);
 
     @Override
     void delete(Board entity);
@@ -45,10 +46,10 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
     <S extends Board> List<S> saveAll(Iterable<S> entities);
 
     @Override
-    Optional<Board> findById(Long aLong);
+    Optional<Board> findById(String s);
 
     @Override
-    boolean existsById(Long aLong);
+    boolean existsById(String s);
 
     @Override
     void flush();
@@ -63,7 +64,7 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
     void deleteAllInBatch();
 
     @Override
-    Board getOne(Long aLong);
+    Board getOne(String s);
 
     @Override
     <S extends Board> Optional<S> findOne(Example<S> example);
