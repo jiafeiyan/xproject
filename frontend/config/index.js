@@ -23,11 +23,19 @@ module.exports = {
   },
   dev: {
     env: require('./dev.env'),
-    port: 8080,
+    port: 8089,
     autoOpenBrowser: true,
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {},
+    proxyTable: {
+      '/crossApi': {
+        target: 'http://127.0.0.1:8080',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/crossApi': ''
+        }
+      }
+    },
     cssSourceMap: false
   }
 }
