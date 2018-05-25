@@ -22,5 +22,10 @@
             <artifactId>boot-wechat-service</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>com.zeus</groupId>
+            <artifactId>boot-wechat-commons</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 </project>
