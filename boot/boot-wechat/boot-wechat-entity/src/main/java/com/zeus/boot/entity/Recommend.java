@@ -27,60 +27,60 @@ public class Recommend implements Serializable {
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long RCM_ID;
+    private Long rcm_id;
 
     @Column()
     @CreatedDate
-    private String RCM_SETUPDATE;
+    private String rcm_setuptime;
 
-    @Column(nullable = false, columnDefinition = "varchar(255) COMMENT '推荐人ID'")
-    private String RCM_RCMERID;
+    @Column(nullable = true, columnDefinition = "varchar(255) COMMENT '推荐人ID'")
+    private String rcm_rcmerid;
 
-    @Column(nullable = false, columnDefinition = "varchar(255) COMMENT '推荐人姓名'")
-    private String RCM_RCMERNAME;
+    @Column(nullable = true, columnDefinition = "varchar(255) COMMENT '推荐人姓名'")
+    private String rcm_rcmername;
 
-    @Column(nullable = false, columnDefinition = "varchar(255) COMMENT '推荐人类型'")
-    private String RCM_RCMERTYPE;
+    @Column(nullable = true, columnDefinition = "varchar(255) COMMENT '推荐人类型'")
+    private String rcm_rcmertype;
 
     @Column(nullable = true, columnDefinition = "varchar(255) COMMENT '推荐简介'")
-    private String RCM_INTRODUCTION;
+    private String rcm_introduction;
 
-    @Column(nullable = false, columnDefinition = "varchar(255) COMMENT '付费标志'")
-    private String RCM_PAYFLAG;
+    @Column(nullable = true, columnDefinition = "varchar(255) COMMENT '付费标志'")
+    private String rcm_payflag;
 
-    @Column(nullable = false, columnDefinition = "varchar(255) COMMENT '推荐日期'")
-    private String RCM_DATE;
+    @Column(nullable = true, columnDefinition = "varchar(255) COMMENT '推荐日期'")
+    private String rcm_date;
 
-    @Column(nullable = false, columnDefinition = "varchar(255) COMMENT '推荐时间'")
-    private String RCM_TIME;
+    @Column(nullable = true, columnDefinition = "varchar(255) COMMENT '推荐时间'")
+    private String rcm_time;
 
-    @Column(nullable = false, columnDefinition = "varchar(255) COMMENT '推荐内容'")
-    private String RCM_CONTENT;
+    @Column(nullable = true, columnDefinition = "varchar(255) COMMENT '推荐内容'")
+    private String rcm_content;
 
-    @Column(nullable = false, columnDefinition = "varchar(255) COMMENT '推单结果'")
-    private String RCM_RESULT;
+    @Column(nullable = true, columnDefinition = "varchar(255) COMMENT '推单结果'")
+    private String rcm_result;
 
-    @Column(nullable = false, columnDefinition = "varchar(255) COMMENT '赛事开始日期'")
-    private String EVE_STARTDATE;
+    @Column(nullable = true, columnDefinition = "varchar(255) COMMENT '赛事开始日期'")
+    private String eve_startdate;
 
-    @Column(nullable = false, columnDefinition = "varchar(255) COMMENT '赛事开始时间'")
-    private String EVE_STARTTIME;
+    @Column(nullable = true, columnDefinition = "varchar(255) COMMENT '赛事开始时间'")
+    private String eve_starttime;
 
-    @Column(nullable = false, columnDefinition = "varchar(255) COMMENT '赛事状态'")
-    private String EVE_STATUS;
+    @Column(nullable = true, columnDefinition = "varchar(255) COMMENT '赛事状态'")
+    private String eve_status;
 
-    @Column(nullable = false, columnDefinition = "varchar(255) COMMENT '联赛种类'")
-    private String EVE_LEAGUETYPE;
+    @Column(nullable = true, columnDefinition = "varchar(255) COMMENT '联赛种类'")
+    private String eve_leaguetype;
 
-    @Column(nullable = false, columnDefinition = "varchar(255) COMMENT '归属球种'")
-    private String EVE_BALLTYPE;
+    @Column(nullable = true, columnDefinition = "varchar(255) COMMENT '归属球种'")
+    private String eve_balltype;
 
-    @Column(nullable = false, columnDefinition = "varchar(255) COMMENT '主队'")
-    private String EVE_HOMETEAM;
+    @Column(nullable = true, columnDefinition = "varchar(255) COMMENT '主队'")
+    private String eve_hometeam;
 
-    @Column(nullable = false, columnDefinition = "varchar(255) COMMENT '客队'")
-    private String EVE_VISITTEAM;
+    @Column(nullable = true, columnDefinition = "varchar(255) COMMENT '客队'")
+    private String eve_visitteam;
 
-    @Column(nullable = false, columnDefinition = "varchar(255) COMMENT '赛果'")
-    private String EVE_RESULT;
+    @Column(nullable = true, columnDefinition = "varchar(255) COMMENT '赛果'")
+    private String eve_result;
 }

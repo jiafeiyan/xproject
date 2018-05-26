@@ -77,23 +77,23 @@ public class ManagerController {
         try {
             Map<String, String> params = rcm.get("params");
             Recommend recommend = new Recommend();
-            recommend.setRCM_RCMERID(params.get("rcmerId"));
-            recommend.setRCM_RCMERNAME(params.get("rcmerName"));
-            recommend.setRCM_RCMERTYPE(params.get("rcmerType"));
-            recommend.setRCM_INTRODUCTION(params.get("rcmIntrocution"));
-            recommend.setRCM_PAYFLAG(params.get("rcmPayFlag"));
-            recommend.setRCM_DATE(params.get("rcmDate"));
-            recommend.setRCM_TIME(params.get("rcmTime"));
-            recommend.setRCM_CONTENT(params.get("rcmContent"));
-            recommend.setRCM_RESULT(params.get("rcmResult"));
-            recommend.setEVE_STARTDATE(params.get("eventStartDate"));
-            recommend.setEVE_STARTTIME(params.get("eventStartTime"));
-            recommend.setEVE_STATUS(params.get("eventStatus"));
-            recommend.setEVE_LEAGUETYPE(params.get("eventLeagueType"));
-            recommend.setEVE_BALLTYPE(params.get("eventBallType"));
-            recommend.setEVE_HOMETEAM(params.get("eventHomeTeam"));
-            recommend.setEVE_VISITTEAM(params.get("eventVisitTeam"));
-            recommend.setEVE_RESULT(params.get("eventResult"));
+            recommend.setRcm_rcmerid(params.get("rcmerId"));
+            recommend.setRcm_rcmername(params.get("rcmerName"));
+            recommend.setRcm_rcmertype(params.get("rcmerType"));
+            recommend.setRcm_introduction(params.get("rcmIntrocution"));
+            recommend.setRcm_payflag(params.get("rcmPayFlag"));
+            recommend.setRcm_date(params.get("rcmDate"));
+            recommend.setRcm_time(params.get("rcmTime"));
+            recommend.setRcm_content(params.get("rcmContent"));
+            recommend.setRcm_result(params.get("rcmResult"));
+            recommend.setEve_startdate(params.get("eventStartDate"));
+            recommend.setEve_starttime(params.get("eventStartTime"));
+            recommend.setEve_status(params.get("eventStatus"));
+            recommend.setEve_leaguetype(params.get("eventLeagueType"));
+            recommend.setEve_balltype(params.get("eventBallType"));
+            recommend.setEve_hometeam(params.get("eventHomeTeam"));
+            recommend.setEve_visitteam(params.get("eventVisitTeam"));
+            recommend.setEve_result(params.get("eventResult"));
             recommendRepository.save(recommend);
             return ResponseMessage.ok();
         }catch (Exception e){
@@ -107,7 +107,7 @@ public class ManagerController {
     private ResponseMessage<Object> removeRcm(@PathVariable("id") Long rcm_id){
         try {
             Recommend recommend = new Recommend();
-            recommend.setRCM_ID(rcm_id);
+            recommend.setRcm_id(rcm_id);
             recommendRepository.delete(recommend);
             return ResponseMessage.ok();
         }catch (Exception e){
@@ -134,24 +134,24 @@ public class ManagerController {
         try {
             Map<String, String> params = rcm.get("params");
             Recommend recommend = new Recommend();
-            recommend.setRCM_ID(Long.valueOf(params.get("rcmId")));
-            recommend.setRCM_RCMERID(params.get("rcmerId"));
-            recommend.setRCM_RCMERNAME(params.get("rcmerName"));
-            recommend.setRCM_RCMERTYPE(params.get("rcmerType"));
-            recommend.setRCM_INTRODUCTION(params.get("rcmIntrocution"));
-            recommend.setRCM_PAYFLAG(params.get("rcmPayFlag"));
-            recommend.setRCM_DATE(params.get("rcmDate"));
-            recommend.setRCM_TIME(params.get("rcmTime"));
-            recommend.setRCM_CONTENT(params.get("rcmContent"));
-            recommend.setRCM_RESULT(params.get("rcmResult"));
-            recommend.setEVE_STARTDATE(params.get("eventStartDate"));
-            recommend.setEVE_STARTTIME(params.get("eventStartTime"));
-            recommend.setEVE_STATUS(params.get("eventStatus"));
-            recommend.setEVE_LEAGUETYPE(params.get("eventLeagueType"));
-            recommend.setEVE_BALLTYPE(params.get("eventBallType"));
-            recommend.setEVE_HOMETEAM(params.get("eventHomeTeam"));
-            recommend.setEVE_VISITTEAM(params.get("eventVisitTeam"));
-            recommend.setEVE_RESULT(params.get("eventResult"));
+            recommend.setRcm_id(Long.valueOf(params.get("rcmId")));
+            recommend.setRcm_rcmerid(params.get("rcmerId"));
+            recommend.setRcm_rcmername(params.get("rcmerName"));
+            recommend.setRcm_rcmertype(params.get("rcmerType"));
+            recommend.setRcm_introduction(params.get("rcmIntrocution"));
+            recommend.setRcm_payflag(params.get("rcmPayFlag"));
+            recommend.setRcm_date(params.get("rcmDate"));
+            recommend.setRcm_time(params.get("rcmTime"));
+            recommend.setRcm_content(params.get("rcmContent"));
+            recommend.setRcm_result(params.get("rcmResult"));
+            recommend.setEve_startdate(params.get("eventStartDate"));
+            recommend.setEve_starttime(params.get("eventStartTime"));
+            recommend.setEve_status(params.get("eventStatus"));
+            recommend.setEve_leaguetype(params.get("eventLeagueType"));
+            recommend.setEve_balltype(params.get("eventBallType"));
+            recommend.setEve_hometeam(params.get("eventHomeTeam"));
+            recommend.setEve_visitteam(params.get("eventVisitTeam"));
+            recommend.setEve_result(params.get("eventResult"));
             recommendRepository.save(recommend);
             return ResponseMessage.ok();
         }catch (Exception e){
