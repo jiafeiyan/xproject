@@ -19,7 +19,7 @@ public class ResponseMessage<T> implements Serializable {
 
     protected T result;
 
-    protected int status;
+    protected ResultCode status;
 
     private Long timestamp;
 
@@ -30,7 +30,7 @@ public class ResponseMessage<T> implements Serializable {
 
     @ApiModelProperty(value = "状态码", required = true)
     public int getStatus() {
-        return status;
+        return status.code;
     }
 
     @ApiModelProperty("成功时响应数据")
@@ -44,10 +44,10 @@ public class ResponseMessage<T> implements Serializable {
     }
 
     public static <T> ResponseMessage<T> error(String message) {
-        return error(500, message);
+        return error(ResultCode.INTERNAL_SERVER_ERROR, message);
     }
 
-    public static <T> ResponseMessage<T> error(int status, String message) {
+    public static <T> ResponseMessage<T> error(ResultCode status, String message) {
         ResponseMessage<T> msg = new ResponseMessage<>();
         msg.message = message;
         msg.status(status);
@@ -67,7 +67,7 @@ public class ResponseMessage<T> implements Serializable {
         return new ResponseMessage<T>()
                 .result(result)
                 .putTimeStamp()
-                .status(200);
+                .status(ResultCode.SUCCESS);
     }
 
     public ResponseMessage<T> result(T result) {
@@ -196,7 +196,7 @@ public class ResponseMessage<T> implements Serializable {
         return JSON.toJSONStringWithDateFormat(this, "yyyy-MM-dd HH:mm:ss");
     }
 
-    public ResponseMessage<T> status(int status) {
+    public ResponseMessage<T> status(ResultCode status) {
         this.status = status;
         return this;
     }
@@ -219,7 +219,7 @@ public class ResponseMessage<T> implements Serializable {
         this.result = result;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(ResultCode status) {
         this.status = status;
     }
 

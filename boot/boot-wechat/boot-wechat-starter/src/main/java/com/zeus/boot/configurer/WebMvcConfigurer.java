@@ -5,7 +5,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter4;
-import com.zeus.boot.commons.message.Result;
+import com.zeus.boot.commons.message.ResponseMessage;
 import com.zeus.boot.commons.message.ResultCode;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -85,10 +85,10 @@ public class WebMvcConfigurer extends WebMvcConfigurationSupport {
                                HttpServletResponse response,
                                Object handler,
                                Exception e) -> {
-           Result result = new Result();
+           ResponseMessage<Object> error = null;
            if (handler instanceof HandlerMethod) {
                HandlerMethod handlerMethod = (HandlerMethod) handler;
-               result.setCode(ResultCode.INTERNAL_SERVER_ERROR).setMessage("接口 [" + request.getRequestURI() + "] 内部错误");
+               error = ResponseMessage.error(ResultCode.INTERNAL_SERVER_ERROR, "接口 [" + request.getRequestURI() + "] 内部错误");
                String message = String.format("接口 [%s] 出现异常，方法：%s.%s，异常摘要：%s",
                        request.getRequestURI(),
                        handlerMethod.getBean().getClass().getName(),
@@ -97,22 +97,22 @@ public class WebMvcConfigurer extends WebMvcConfigurationSupport {
                logger.error(message, e);
            } else {
                if (e instanceof NoHandlerFoundException) {
-                   result.setCode(ResultCode.NOT_FOUND).setMessage("接口 [" + request.getRequestURI() + "] 不存在");
+                   error = ResponseMessage.error(ResultCode.NOT_FOUND, "接口 [" + request.getRequestURI() + "] 不存在");
                } else {
-                   result.setCode(ResultCode.INTERNAL_SERVER_ERROR).setMessage(e.getMessage());
+                   error = ResponseMessage.error(ResultCode.INTERNAL_SERVER_ERROR, e.getMessage());
                    logger.error(e.getMessage(), e);
                }
            }
-           responseResult(response, result);
+           responseResult(response, error);
            return new ModelAndView();
        });
     }
-    private void responseResult(HttpServletResponse response, Result result) {
+    private void responseResult(HttpServletResponse response, ResponseMessage result) {
         response.setCharacterEncoding("UTF-8");
         response.setHeader("Content-type", "application/json;charset=UTF-8");
         response.setStatus(200);
         try {
-            response.getWriter().write(JSON.toJSONString(result));
+            response.getWriter().write(result.toString());
         } catch (IOException ex) {
             logger.error(ex.getMessage());
         }

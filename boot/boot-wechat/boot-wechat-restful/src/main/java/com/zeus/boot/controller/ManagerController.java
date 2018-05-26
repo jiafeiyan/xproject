@@ -68,26 +68,31 @@ public class ManagerController {
 
     @ApiOperation(value = "增加", notes = "推单相关api")
     @PutMapping(path = "/rcm/add")
-    private ResponseMessage addRcm(@RequestBody Map<String, String> rcm){
-        Recommend recommend = new Recommend();
-        recommend.setRCM_RCMERID(rcm.get("rcmerId"));
-        recommend.setRCM_RCMERNAME(rcm.get("rcmerName"));
-        recommend.setRCM_RCMERTYPE(rcm.get("rcmerType"));
-        recommend.setRCM_INTRODUCTION(rcm.get("rcmIntrocution"));
-        recommend.setRCM_PAYFLAG(rcm.get("rcmPayFlag"));
-        recommend.setRCM_DATE(rcm.get("rcmDate"));
-        recommend.setRCM_TIME(rcm.get("rcmTime"));
-        recommend.setRCM_CONTENT(rcm.get("rcmContent"));
-        recommend.setRCM_RESULT(rcm.get("rcmResult"));
-        recommend.setEVE_STARTDATE(rcm.get("eventStartDate"));
-        recommend.setEVE_STARTTIME(rcm.get("eventStartTime"));
-        recommend.setEVE_STATUS(rcm.get("eventStatus"));
-        recommend.setEVE_LEAGUETYPE(rcm.get("eventLeagueType"));
-        recommend.setEVE_BALLTYPE(rcm.get("eventBallType"));
-        recommend.setEVE_HOMETEAM(rcm.get("eventHomeTeam"));
-        recommend.setEVE_VISITTEAM(rcm.get("eventVisitTeam"));
-        recommend.setEVE_RESULT(rcm.get("eventResult"));
-        recommendRepository.save(recommend);
+    private ResponseMessage addRcm(@RequestBody Map<String, Map<String, String>> rcm){
+        try {
+            Map<String, String> params = rcm.get("params");
+            Recommend recommend = new Recommend();
+            recommend.setRCM_RCMERID(params.get("rcmerId"));
+            recommend.setRCM_RCMERNAME(params.get("rcmerName"));
+            recommend.setRCM_RCMERTYPE(params.get("rcmerType"));
+            recommend.setRCM_INTRODUCTION(params.get("rcmIntrocution"));
+            recommend.setRCM_PAYFLAG(params.get("rcmPayFlag"));
+            recommend.setRCM_DATE(params.get("rcmDate"));
+            recommend.setRCM_TIME(params.get("rcmTime"));
+            recommend.setRCM_CONTENT(params.get("rcmContent"));
+            recommend.setRCM_RESULT(params.get("rcmResult"));
+            recommend.setEVE_STARTDATE(params.get("eventStartDate"));
+            recommend.setEVE_STARTTIME(params.get("eventStartTime"));
+            recommend.setEVE_STATUS(params.get("eventStatus"));
+            recommend.setEVE_LEAGUETYPE(params.get("eventLeagueType"));
+            recommend.setEVE_BALLTYPE(params.get("eventBallType"));
+            recommend.setEVE_HOMETEAM(params.get("eventHomeTeam"));
+            recommend.setEVE_VISITTEAM(params.get("eventVisitTeam"));
+            recommend.setEVE_RESULT(params.get("eventResult"));
+            recommendRepository.save(recommend);
+        }catch (Exception e){
+            
+        }
         return ResponseMessage.ok();
     }
 
