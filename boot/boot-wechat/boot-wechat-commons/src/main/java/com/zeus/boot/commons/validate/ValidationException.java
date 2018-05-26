@@ -10,7 +10,6 @@ public class ValidationException extends BusinessException {
 
     private static final long serialVersionUID = 1L;
 
-    @Getter
     private ValidateResults results;
 
     public ValidationException(String message) {

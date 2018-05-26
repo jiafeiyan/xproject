@@ -2,9 +2,13 @@ package com.zeus.boot.entity;
 
 import lombok.Data;
 import org.hibernate.annotations.Proxy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.sql.Date;
 
 @Data
 @Entity
@@ -15,19 +19,18 @@ import java.io.Serializable;
         }
 )
 @Proxy(lazy = false)
+@EntityListeners(AuditingEntityListener.class)
 public class Recommend implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
     @Column(columnDefinition = "varchar(255) COMMENT '推荐ID'")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private String RCM_ID;
+    private Long RCM_ID;
 
+    @CreatedDate
     @Column(nullable = false, columnDefinition = "varchar(255) COMMENT '创建日期'")
-    private String RCM_SETUPDATE;
-
-    @Column(nullable = false, columnDefinition = "varchar(255) COMMENT '创建时间'")
-    private String RCM_SETUPTIME;
+    private Date RCM_SETUPDATE;
 
     @Column(nullable = false, columnDefinition = "varchar(255) COMMENT '推荐人ID'")
     private String RCM_RCMERID;
