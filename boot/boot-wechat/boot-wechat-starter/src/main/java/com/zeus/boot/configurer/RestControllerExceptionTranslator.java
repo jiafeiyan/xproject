@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONException;
 import com.zeus.boot.commons.exception.BusinessException;
 import com.zeus.boot.commons.exception.NotFoundException;
 import com.zeus.boot.commons.message.ResponseMessage;
+import com.zeus.boot.commons.message.ResultCode;
 import com.zeus.boot.commons.validate.SimpleValidateResults;
 import com.zeus.boot.commons.validate.ValidateResults;
 import com.zeus.boot.commons.validate.ValidationException;
@@ -31,14 +32,14 @@ public class RestControllerExceptionTranslator {
     @ResponseBody
     ResponseMessage handleException(JSONException exception) {
         logger.error("json error", exception);
-        return ResponseMessage.error(400, exception.getMessage());
+        return ResponseMessage.error(ResultCode.FAIL, exception.getMessage());
     }
 
     @ExceptionHandler(ValidationException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
     ResponseMessage<List<ValidateResults.Result>> handleException(ValidationException exception) {
-        return ResponseMessage.<List<ValidateResults.Result>>error(400, exception.getMessage())
+        return ResponseMessage.<List<ValidateResults.Result>>error(ResultCode.FAIL, exception.getMessage())
                 .result(exception.getResults());
     }
 
@@ -49,7 +50,7 @@ public class RestControllerExceptionTranslator {
         if (exception.getCause() != null) {
             logger.error("{}:{}", exception.getMessage(), exception.getStatus(), exception.getCause());
         }
-        return ResponseMessage.error(exception.getStatus(), exception.getMessage()).result(exception.getCode());
+        return ResponseMessage.error(ResultCode.INTERNAL_SERVER_ERROR, exception.getMessage()).result(exception.getCode());
     }
 
 
@@ -57,7 +58,7 @@ public class RestControllerExceptionTranslator {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ResponseBody
     ResponseMessage handleException(NotFoundException exception) {
-        return ResponseMessage.error(404, exception.getMessage());
+        return ResponseMessage.error(ResultCode.NOT_FOUND, exception.getMessage());
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -71,7 +72,7 @@ public class RestControllerExceptionTranslator {
                 .map(FieldError.class::cast)
                 .forEach(fieldError -> results.addResult(fieldError.getField(), fieldError.getDefaultMessage()));
 
-        return ResponseMessage.error(400, results.getResults().size() == 0 ? e.getMessage() : results.getResults().get(0).getMessage()).result(results.getResults());
+        return ResponseMessage.error(ResultCode.FAIL, results.getResults().size() == 0 ? e.getMessage() : results.getResults().get(0).getMessage()).result(results.getResults());
     }
 
     @ExceptionHandler(RuntimeException.class)
@@ -79,7 +80,7 @@ public class RestControllerExceptionTranslator {
     @ResponseBody
     ResponseMessage handleException(RuntimeException exception) {
         logger.error(exception.getMessage(), exception);
-        return ResponseMessage.error(500, exception.getMessage());
+        return ResponseMessage.error(ResultCode.INTERNAL_SERVER_ERROR, exception.getMessage());
     }
 
     @ExceptionHandler(NullPointerException.class)
@@ -87,7 +88,7 @@ public class RestControllerExceptionTranslator {
     @ResponseBody
     ResponseMessage handleException(NullPointerException exception) {
         logger.error(exception.getMessage(), exception);
-        return ResponseMessage.error(500, "服务器内部错误");
+        return ResponseMessage.error(ResultCode.INTERNAL_SERVER_ERROR, "服务器内部错误");
     }
 
 
@@ -96,7 +97,7 @@ public class RestControllerExceptionTranslator {
     @ResponseBody
     ResponseMessage handleException(SQLException exception) {
         logger.error(exception.getMessage(), exception);
-        return ResponseMessage.error(500, "服务器内部错误");
+        return ResponseMessage.error(ResultCode.INTERNAL_SERVER_ERROR, "服务器内部错误");
     }
 
 }
