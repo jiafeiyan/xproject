@@ -1,6 +1,7 @@
 package com.zeus.boot.controller;
 
 import com.zeus.boot.commons.message.ResponseMessage;
+import com.zeus.boot.commons.message.ResultCode;
 import com.zeus.boot.entity.Admin;
 import com.zeus.boot.entity.Recommend;
 import com.zeus.boot.repo.AdminRepository;
@@ -9,6 +10,8 @@ import com.zeus.boot.repo.OrganizationRepository;
 import com.zeus.boot.repo.RecommendRepository;
 import com.zeus.boot.service.ManagerService;
 import io.swagger.annotations.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -28,6 +31,8 @@ import java.util.Map;
 @RestController
 @RequestMapping(path = "/manager")
 public class ManagerController {
+
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private AdminRepository adminRepository;
@@ -90,66 +95,93 @@ public class ManagerController {
             recommend.setEVE_VISITTEAM(params.get("eventVisitTeam"));
             recommend.setEVE_RESULT(params.get("eventResult"));
             recommendRepository.save(recommend);
+            return ResponseMessage.ok();
         }catch (Exception e){
-            
+            logger.error(e.getMessage());
+            return ResponseMessage.error(ResultCode.INTERNAL_SERVER_ERROR, "接口 [ /rcm/add ] 内部错误");
         }
-        return ResponseMessage.ok();
     }
 
     @ApiOperation(value = "删除", notes = "推单相关api")
     @DeleteMapping(path = "/rcm/remove/{id}")
     private ResponseMessage<Object> removeRcm(@PathVariable("id") Long rcm_id){
-        Recommend recommend = new Recommend();
-        recommend.setRCM_ID(rcm_id);
-        recommendRepository.delete(recommend);
-        return ResponseMessage.ok();
+        try {
+            Recommend recommend = new Recommend();
+            recommend.setRCM_ID(rcm_id);
+            recommendRepository.delete(recommend);
+            return ResponseMessage.ok();
+        }catch (Exception e){
+            logger.error(e.getMessage());
+            return ResponseMessage.error(ResultCode.INTERNAL_SERVER_ERROR, "接口 [ /rcm/remove ] 内部错误");
+        }
     }
 
     @ApiOperation(value = "批量删除", notes = "推单相关api")
     @DeleteMapping(path = "/rcm/batchremove")
-    private ResponseMessage<Object> batchRemoveRcm(@RequestParam List<Long> rcms){
-        managerService.rcmBatchRemove(rcms);
-        return ResponseMessage.ok();
+    private ResponseMessage<Object> batchRemoveRcm(@RequestParam Map<String, List<Long>> rcms){
+        try {
+            managerService.rcmBatchRemove(rcms.get("params"));
+            return ResponseMessage.ok();
+        }catch (Exception e){
+            logger.error(e.getMessage());
+            return ResponseMessage.error(ResultCode.INTERNAL_SERVER_ERROR, "接口 [ /rcm/batchremove ] 内部错误");
+        }
     }
 
     @ApiOperation(value = "更新修改", notes = "推单相关api")
     @PostMapping(path = "/rcm/edit")
-    private ResponseMessage<Object> editRcm(@RequestBody Map<String, String> rcm){
-        Recommend recommend = new Recommend();
-        recommend.setRCM_ID(Long.valueOf(rcm.get("rcmId")));
-        recommend.setRCM_RCMERID(rcm.get("rcmerId"));
-        recommend.setRCM_RCMERNAME(rcm.get("rcmerName"));
-        recommend.setRCM_RCMERTYPE(rcm.get("rcmerType"));
-        recommend.setRCM_INTRODUCTION(rcm.get("rcmIntrocution"));
-        recommend.setRCM_PAYFLAG(rcm.get("rcmPayFlag"));
-        recommend.setRCM_DATE(rcm.get("rcmDate"));
-        recommend.setRCM_TIME(rcm.get("rcmTime"));
-        recommend.setRCM_CONTENT(rcm.get("rcmContent"));
-        recommend.setRCM_RESULT(rcm.get("rcmResult"));
-        recommend.setEVE_STARTDATE(rcm.get("eventStartDate"));
-        recommend.setEVE_STARTTIME(rcm.get("eventStartTime"));
-        recommend.setEVE_STATUS(rcm.get("eventStatus"));
-        recommend.setEVE_LEAGUETYPE(rcm.get("eventLeagueType"));
-        recommend.setEVE_BALLTYPE(rcm.get("eventBallType"));
-        recommend.setEVE_HOMETEAM(rcm.get("eventHomeTeam"));
-        recommend.setEVE_VISITTEAM(rcm.get("eventVisitTeam"));
-        recommend.setEVE_RESULT(rcm.get("eventResult"));
-        recommendRepository.save(recommend);
-        return ResponseMessage.ok();
+    private ResponseMessage<Object> editRcm(@RequestBody Map<String, Map<String, String>> rcm){
+        try {
+            Map<String, String> params = rcm.get("params");
+            Recommend recommend = new Recommend();
+            recommend.setRCM_ID(Long.valueOf(params.get("rcmId")));
+            recommend.setRCM_RCMERID(params.get("rcmerId"));
+            recommend.setRCM_RCMERNAME(params.get("rcmerName"));
+            recommend.setRCM_RCMERTYPE(params.get("rcmerType"));
+            recommend.setRCM_INTRODUCTION(params.get("rcmIntrocution"));
+            recommend.setRCM_PAYFLAG(params.get("rcmPayFlag"));
+            recommend.setRCM_DATE(params.get("rcmDate"));
+            recommend.setRCM_TIME(params.get("rcmTime"));
+            recommend.setRCM_CONTENT(params.get("rcmContent"));
+            recommend.setRCM_RESULT(params.get("rcmResult"));
+            recommend.setEVE_STARTDATE(params.get("eventStartDate"));
+            recommend.setEVE_STARTTIME(params.get("eventStartTime"));
+            recommend.setEVE_STATUS(params.get("eventStatus"));
+            recommend.setEVE_LEAGUETYPE(params.get("eventLeagueType"));
+            recommend.setEVE_BALLTYPE(params.get("eventBallType"));
+            recommend.setEVE_HOMETEAM(params.get("eventHomeTeam"));
+            recommend.setEVE_VISITTEAM(params.get("eventVisitTeam"));
+            recommend.setEVE_RESULT(params.get("eventResult"));
+            recommendRepository.save(recommend);
+            return ResponseMessage.ok();
+        }catch (Exception e){
+            logger.error(e.getMessage());
+            return ResponseMessage.error(ResultCode.INTERNAL_SERVER_ERROR, "接口 [ /rcm/edit ] 内部错误");
+        }
     }
 
     @ApiOperation(value = "查询所有推单", notes = "推单相关api")
     @GetMapping(path = "/rcm/list")
     private ResponseMessage<Object> getRcmList(){
-        List<Recommend> all = recommendRepository.findAll();
-        return ResponseMessage.ok(all);
+        try {
+            List<Recommend> all = recommendRepository.findAll();
+            return ResponseMessage.ok(all);
+        }catch (Exception e){
+            logger.error(e.getMessage());
+            return ResponseMessage.error(ResultCode.INTERNAL_SERVER_ERROR, "接口 [ /rcm/list ] 内部错误");
+        }
     }
 
     @ApiOperation(value = "分页查询推单", notes = "推单相关api")
     @GetMapping(path = "/rcm/listpage")
     private ResponseMessage<Page<Recommend>> getRcmListPage(@PageableDefault() Pageable pageable){
-        Page<Recommend> page = recommendRepository.findAll(pageable);
-        return ResponseMessage.ok(page);
+        try {
+            Page<Recommend> page = recommendRepository.findAll(pageable);
+            return ResponseMessage.ok(page);
+        }catch (Exception e){
+            logger.error(e.getMessage());
+            return ResponseMessage.error(ResultCode.INTERNAL_SERVER_ERROR, "接口 [ /rcm/listpage ] 内部错误");
+        }
     }
 
     @ApiOperation(value = "增加", notes = "媒体机构相关api")
