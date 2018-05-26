@@ -13,8 +13,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.method.HandlerMethod;
+import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.NoHandlerFoundException;
@@ -70,6 +72,7 @@ public class WebMvcConfigurer extends WebMvcConfigurationSupport {
         }
     }
 
+    // 解决跨域
     @Override
     protected void addCorsMappings(CorsRegistry registry) {
         super.addCorsMappings(registry);
@@ -128,6 +131,13 @@ public class WebMvcConfigurer extends WebMvcConfigurationSupport {
         registry.addResourceHandler("/webjars/**")
                 .addResourceLocations("classpath:/META-INF/resources/webjars/");
 
+    }
+
+    // 添加自定义HandlerMethodArgumentResolver
+    @Override
+    protected void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
+        // spring boot 自定义分页
+        argumentResolvers.add(new PageableHandlerMethodArgumentResolver());
     }
 
 }

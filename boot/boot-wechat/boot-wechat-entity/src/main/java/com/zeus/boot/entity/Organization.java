@@ -3,6 +3,8 @@ package com.zeus.boot.entity;
 
 import lombok.Data;
 import org.hibernate.annotations.Proxy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -16,19 +18,18 @@ import java.io.Serializable;
         }
 )
 @Proxy(lazy = false)
+@EntityListeners(AuditingEntityListener.class)
 public class Organization implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(columnDefinition = "varchar(255) COMMENT '组织ID'")
+    @Column()
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long ORG_ID;
 
-    @Column(nullable = false, columnDefinition = "varchar(255) COMMENT '创建日期'")
+    @Column()
+    @CreatedDate
     private String ORG_SETUPDATE;
-
-    @Column(nullable = false, columnDefinition = "varchar(255) COMMENT '创建时间'")
-    private String ORG_SETUPTIME;
 
     @Column(nullable = false, columnDefinition = "varchar(255) COMMENT '组织名字'")
     private String ORG_NAME;

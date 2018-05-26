@@ -4,6 +4,7 @@ import lombok.Data;
 import org.hibernate.annotations.Proxy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.*;
@@ -24,13 +25,13 @@ public class Recommend implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(columnDefinition = "varchar(255) COMMENT '推荐ID'")
+    @Column
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long RCM_ID;
 
+    @Column()
     @CreatedDate
-    @Column(nullable = false, columnDefinition = "varchar(255) COMMENT '创建日期'")
-    private Date RCM_SETUPDATE;
+    private String RCM_SETUPDATE;
 
     @Column(nullable = false, columnDefinition = "varchar(255) COMMENT '推荐人ID'")
     private String RCM_RCMERID;

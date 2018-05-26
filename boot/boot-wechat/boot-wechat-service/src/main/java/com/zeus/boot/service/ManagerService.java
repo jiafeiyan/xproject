@@ -1,7 +1,8 @@
 package com.zeus.boot.service;
 
-import java.util.Map;
+
+import java.util.List;
 
 public interface ManagerService {
-
+    void rcmBatchRemove(List<Long> list);
 }
