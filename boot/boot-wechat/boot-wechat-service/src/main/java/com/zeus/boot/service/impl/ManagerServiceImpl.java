@@ -24,8 +24,8 @@ public class ManagerServiceImpl implements ManagerService {
 
     @Override
     @Transactional
-    public void rcmBatchRemove(List<Long> rcms) {
-        rcms.stream().forEach(id -> recommendRepository.deleteById(id));
+    public void rcmBatchRemove(List<String> rcms) {
+        rcms.stream().forEach(id -> recommendRepository.deleteById(Long.parseLong(id)));
     }
 
 }

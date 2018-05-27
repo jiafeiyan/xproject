@@ -118,9 +118,12 @@ public class ManagerController {
 
     @ApiOperation(value = "批量删除", notes = "推单相关api")
     @DeleteMapping(path = "/rcm/batchremove")
-    private ResponseMessage<Object> batchRemoveRcm(@RequestParam Map<String, List<Long>> rcms){
+    private ResponseMessage<Object> batchRemoveRcm(@RequestParam Map<String, String> rcms){
         try {
-            managerService.rcmBatchRemove(rcms.get("params"));
+            String ids = (String) rcms.get("ids");
+            String[] arr = ids.split(",");
+            List<String> list = java.util.Arrays.asList(arr);
+            managerService.rcmBatchRemove(list);
             return ResponseMessage.ok();
         }catch (Exception e){
             logger.error(e.getMessage());

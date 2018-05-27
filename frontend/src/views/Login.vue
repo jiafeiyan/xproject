@@ -54,7 +54,7 @@
                   type: 'error'
                 });
               } else {
-                sessionStorage.setItem('user', JSON.stringify(user));
+                sessionStorage.setItem('user', JSON.stringify(data));
                 this.$router.push({ path: '/rcm' });
               }
             });

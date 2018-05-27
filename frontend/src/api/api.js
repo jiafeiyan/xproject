@@ -26,17 +26,17 @@ export const requestLogin = params => { return axios.post(`/crossApi/manager/log
  * getRcmListPage--分页查询推单
  * 
 */
-export const addRcm = params => { return axios.get(`/crossApi/rcm/add`, { params: params }); };
+export const addRcm = params => { return axios.put(`/crossApi/manager/rcm/add`, { params: params }); };
 
-export const removeRcm = params => { return axios.get(`/crossApi/rcm/remove`, { params: params }); };
+export const removeRcm = params => { return axios.delete(`/crossApi/manager/rcm/remove/${params}`)};
 
-export const batchRemoveRcm = params => { return axios.get(`/crossApi/rcm/batchremove`, { params: params }); };
+export const batchRemoveRcm = params => { return axios.delete(`/crossApi/manager/rcm/batchremove/`,{ params: params})};
 
-export const editRcm = params => { return axios.get(`/crossApi/rcm/edit`, { params: params }); };
+export const editRcm = params => { return axios.post(`/crossApi/manager/rcm/edit`, { params: params }); };
 
-export const getRcmList = params => { return axios.get(`/crossApi/rcm/list`, { params: params }); };
+export const getRcmList = params => { return axios.get(`/crossApi/manager/rcm/list`, { params: params }); };
 
-export const getRcmListPage = params => { return axios.get(`/crossApi/rcm/listpage`, { params: params }); };
+export const getRcmListPage = params => { return axios.get(`/crossApi/manager/rcm/listpage`, { params: params }); };
 
 
 /** 
@@ -49,17 +49,17 @@ export const getRcmListPage = params => { return axios.get(`/crossApi/rcm/listpa
  * getOrgListPage--分页查询推单
  * 
 */
-export const addOrg = params => { return axios.get(`/crossApi/org/add`, { params: params }); };
+export const addOrg = params => { return axios.get(`/crossApi/manager/org/add`, { params: params }); };
 
-export const removeOrg = params => { return axios.get(`/crossApi/org/remove`, { params: params }); };
+export const removeOrg = params => { return axios.get(`/crossApi/manager/org/remove`, { params: params }); };
 
-export const batchRemoveOrg = params => { return axios.get(`/crossApi/org/batchremove`, { params: params }); };
+export const batchRemoveOrg = params => { return axios.get(`/crossApi/manager/org/batchremove`, { params: params }); };
 
-export const editOrg = params => { return axios.get(`/crossApi/org/edit`, { params: params }); };
+export const editOrg = params => { return axios.get(`/crossApi/manager/org/edit`, { params: params }); };
 
-export const getOrgList = params => { return axios.get(`/crossApi/org/list`, { params: params }); };
+export const getOrgList = params => { return axios.get(`/crossApi/manager/org/list`, { params: params }); };
 
-export const getOrgListPage = params => { return axios.get(`/crossApi/org/listpage`, { params: params }); };
+export const getOrgListPage = params => { return axios.get(`/crossApi/manager/org/listpage`, { params: params }); };
 
 
 /** 
@@ -72,15 +72,15 @@ export const getOrgListPage = params => { return axios.get(`/crossApi/org/listpa
  * getBrdListPage--分页查询推单
  * 
 */
-export const addBrd = params => { return axios.get(`/crossApi/brd/add`, { params: params }); };
+export const addBrd = params => { return axios.get(`/crossApi/manager/brd/add`, { params: params }); };
 
-export const removeBrd = params => { return axios.get(`/crossApi/brd/remove`, { params: params }); };
+export const removeBrd = params => { return axios.get(`/crossApi/manager/brd/remove`, { params: params }); };
 
-export const batchRemoveBrd = params => { return axios.get(`/crossApi/brd/batchremove`, { params: params }); };
+export const batchRemoveBrd = params => { return axios.get(`/crossApi/manager/brd/batchremove`, { params: params }); };
 
-export const editBrd = params => { return axios.get(`/crossApi/brd/edit`, { params: params }); };
+export const editBrd = params => { return axios.get(`/crossApi/manager/brd/edit`, { params: params }); };
 
-export const getBrdList = params => { return axios.get(`/crossApi/brd/list`, { params: params }); };
+export const getBrdList = params => { return axios.get(`/crossApi/manager/brd/list`, { params: params }); };
 
-export const getBrdListPage = params => { return axios.get(`/crossApi/brd/listpage`, { params: params }); };
+export const getBrdListPage = params => { return axios.get(`/crossApi/manager/brd/listpage`, { params: params }); };
 
