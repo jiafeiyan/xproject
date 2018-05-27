@@ -21,33 +21,33 @@
 			</el-table-column >
 			<el-table-column type="index" label="序号" width="100">
 			</el-table-column>
-			<el-table-column prop="orgId" label="组织ID" width="120" v-if="false">
+			<el-table-column prop="org_id" label="组织ID" width="120" v-if="false">
 			</el-table-column>
-			<el-table-column prop="orgSetupDate" label="创建日期" width="120" v-if="false">
+			<el-table-column prop="org_setupdate" label="创建日期" width="120" v-if="false">
 			</el-table-column>
-			<el-table-column prop="orgSetupTime" label="创建时间" width="120" v-if="false">
+			<el-table-column prop="org_setuptime" label="创建时间" width="120" v-if="false">
 			</el-table-column>
-			<el-table-column prop="orgName" label="组织名字" width="120" >
+			<el-table-column prop="org_name" label="组织名字" width="120" >
 			</el-table-column>
-			<el-table-column prop="orgType" label="组织类型" min-width="120" sortable>
+			<el-table-column prop="org_type" label="组织类型" min-width="120" sortable>
 			</el-table-column>
-			<el-table-column prop="orgRecommandIndex" label="推荐指数" width="120" sortable>
+			<el-table-column prop="org_recommendindex" label="推荐指数" width="120" sortable>
 			</el-table-column>
-			<el-table-column prop="orgPriority" label="优先级别" width="150" sortable>
+			<el-table-column prop="org_priority" label="优先级别" width="150" sortable>
 			</el-table-column>
-			<el-table-column prop="orgKeyword" label="专家关键字" width="150" sortable>
+			<el-table-column prop="org_keyword" label="专家关键字" width="150" sortable>
 			</el-table-column>
-			<el-table-column prop="orgPic" label="组织头像" width="120" v-if="false">
+			<el-table-column prop="org_pic" label="组织头像" width="120" v-if="false">
 			</el-table-column>
-			<el-table-column prop="orgQRPic" label="组织二维码" min-width="150" v-if="false">
+			<el-table-column prop="org_qrpic" label="组织二维码" min-width="150" v-if="false">
 			</el-table-column>
-			<el-table-column prop="orgIntroduction" label="身份简介" width="250" sortable>
+			<el-table-column prop="org_introduction" label="身份简介" width="250" sortable>
 			</el-table-column>
-			<el-table-column prop="orgMotto" label="宣传语" width="250" sortable>
+			<el-table-column prop="org_motto" label="宣传语" width="250" sortable>
 			</el-table-column>	
-			<el-table-column prop="orgBelong" label="公众号归属人" width="180" sortable>
+			<el-table-column prop="org_belong" label="公众号归属人" width="180" sortable>
 			</el-table-column>
-			<el-table-column prop="orgContacts" label="归属人联系方式" width="180" sortable >
+			<el-table-column prop="org_contacts" label="归属人联系方式" width="180" sortable >
 			</el-table-column>
 			<el-table-column label="操作" width="150">
 				<template scope="scope">
@@ -68,16 +68,16 @@
 		<el-dialog title="编辑" v-model="editFormVisible" :close-on-click-modal="false">
 			<el-form :model="editForm" label-width="80px" :rules="editFormRules" ref="editForm">
         <el-form-item label="组织名字" >
-					<el-input v-model="editForm.orgName" auto-complete="off"></el-input>
+					<el-input v-model="editForm.org_name" auto-complete="off"></el-input>
 				</el-form-item>
         <el-form-item label="身份简介" >
-					<el-input v-model="editForm.orgIntroduction" auto-complete="off"></el-input>
+					<el-input v-model="editForm.org_introduction" auto-complete="off"></el-input>
 				</el-form-item>
         <el-form-item label="宣传语" >
-					<el-input v-model="editForm.orgMotto" auto-complete="off"></el-input>
+					<el-input v-model="editForm.org_motto" auto-complete="off"></el-input>
 				</el-form-item>
         <el-form-item label="组织类型">
-          <el-select v-model="editForm.orgType" placeholder="请选择组织类型">
+          <el-select v-model="editForm.org_type" placeholder="请选择组织类型">
 						<el-option label="公众号" value="1"></el-option>
 						<el-option label="名人" value="2"></el-option>
             <el-option label="微博" value="3"></el-option>
@@ -87,7 +87,7 @@
 					</el-select>
         </el-form-item>
         <el-form-item label="推荐指数">
-					<el-radio-group v-model="editForm.orgRecommandIndex">
+					<el-radio-group v-model="editForm.org_recommandindex">
 						<el-radio class="radio" :label="1">一</el-radio>
 						<el-radio class="radio" :label="2">二</el-radio>
 						<el-radio class="radio" :label="3">三</el-radio>
@@ -101,7 +101,7 @@
 					</el-radio-group>
 				</el-form-item>
         <el-form-item label="优先级别">
-					<el-radio-group v-model="editForm.orgPriority">
+					<el-radio-group v-model="editForm.org_priority">
 						<el-radio class="radio" :label="1">一</el-radio>
 						<el-radio class="radio" :label="2">二</el-radio>
 						<el-radio class="radio" :label="3">三</el-radio>
@@ -115,13 +115,13 @@
 					</el-radio-group>
 				</el-form-item>
         <el-form-item label="专家关键字" >
-					<el-input v-model="editForm.orgKeyword" auto-complete="off"></el-input>
+					<el-input v-model="editForm.org_keyword" auto-complete="off"></el-input>
 				</el-form-item>
         <el-form-item label="媒体归属人" >
-					<el-input v-model="editForm.orgBelong" auto-complete="off"></el-input>
+					<el-input v-model="editForm.org_belong" auto-complete="off"></el-input>
 				</el-form-item>
         <el-form-item label="归属人联系方式" >
-					<el-input v-model="editForm.orgContacts" auto-complete="off"></el-input>
+					<el-input v-model="editForm.org_contacts" auto-complete="off"></el-input>
 				</el-form-item>
 			</el-form>
 			<div slot="footer" class="dialog-footer">
@@ -221,20 +221,20 @@ export default {
       },
       //编辑界面数据
       editForm: {
-        orgId: "",
-        orgSetupDate: "",
-        orgSetupTime: "",
-        orgName: "",
-        orgPic: "",
-        orgQRPic: "",
-        orgIntroduction: "",
-        orgMotto: "",
-        orgType: "",
-        orgRecommandIndex: "",
-        orgPriority: "",
-        orgKeyword: "",
-        orgBelong: "",
-        orgContacts: ""
+        org_id: "",
+        org_setupdate: "",
+        org_setuptime: "",
+        org_name: "",
+        org_pic: "",
+        org_qrpic: "",
+        org_introduction: "",
+        org_motto: "",
+        org_type: "",
+        org_recommandindex: "",
+        org_priority: "",
+        org_keyword: "",
+        org_belong: "",
+        org_contacts: ""
       },
 
       addFormVisible: false, //新增界面是否显示
@@ -290,7 +290,7 @@ export default {
       })
         .then(() => {
           this.listLoading = true;
-          let para = { id: row.id };
+          let para = row.org_id;
           OrgMethods.removeOrg(para).then(res => {
             this.listLoading = false;
             this.$message({
@@ -304,7 +304,7 @@ export default {
     },
     //批量删除媒体机构
     batchRemove: function() {
-      var ids = this.sels.map(item => item.id).toString();
+      var ids = this.sels.map(item => item.org_id).toString();
       this.$confirm("确认删除选中记录吗？", "提示", {
         type: "warning"
       })
@@ -350,9 +350,9 @@ export default {
         name: this.filters.name
       };
       this.listLoading = true;
-      OrgMethods.getOrgListPage(para).then(res => {
-        this.total = res.data.total;
-        this.orgnizations = res.data.orgnizations;
+      OrgMethods.getOrgList(para).then(res => {
+        this.total = res.data.result.length;
+        this.orgnizations = res.data.result;
         this.listLoading = false;
       });
     },

@@ -21,19 +21,19 @@
 			</el-table-column >
 			<el-table-column type="index" label="序号" width="80">
 			</el-table-column>
-			<el-table-column prop="brdId" label="公告ID" width="120" v-if="false">
+			<el-table-column prop="brd_id" label="公告ID" width="120" v-if="false">
 			</el-table-column>
-			<el-table-column prop="brdSetupDate" label="创建日期" width="115" sortable>
+			<el-table-column prop="brd_setupdate" label="创建日期" width="115" sortable>
 			</el-table-column>
-			<el-table-column prop="brdSetupTime" label="创建时间" width="115" sortable>
+			<el-table-column prop="brd_setuptime" label="创建时间" width="115" sortable>
 			</el-table-column>
-			<el-table-column prop="rcmDate" label="推荐日期" width="115" sortable>
+			<el-table-column prop="brd_rcmdate" label="推荐日期" width="115" sortable>
 			</el-table-column>
-			<el-table-column prop="rcmTime" label="推荐时间" width="115" sortable>
+			<el-table-column prop="brd_rcmtime" label="推荐时间" width="115" sortable>
 			</el-table-column>
-			<el-table-column prop="rcmContent" label="推荐内容" width="150" >
+			<el-table-column prop="brd_rcmcontent" label="推荐内容" width="150" >
 			</el-table-column>
-			<el-table-column prop="rcmReason" label="推荐理由" width="250" >
+			<el-table-column prop="brd_rcmreason" label="推荐理由" width="250" >
 			</el-table-column>
 			<el-table-column label="操作" width="150">
 				<template scope="scope">
@@ -55,18 +55,18 @@
 			<el-form :model="editForm" label-width="80px" :rules="editFormRules" ref="editForm">
 				<el-form-item label="预告时间">
 					<el-col :span="11">
-						<el-date-picker type="date" placeholder="选择日期" v-model="editForm.rcmDate" style="width: 100%;"></el-date-picker>
+						<el-date-picker type="date" placeholder="选择日期" v-model="editForm.brd_rcmdate" style="width: 100%;"></el-date-picker>
 					</el-col>
 					<el-col class="line" :span="2">-</el-col>
 					<el-col :span="11">
-						<el-time-picker type="fixed-time" placeholder="选择时间" v-model="editForm.rcmTime" style="width: 100%;"></el-time-picker>
+						<el-time-picker type="fixed-time" placeholder="选择时间" v-model="editForm.brd_rcmtime" style="width: 100%;"></el-time-picker>
 					</el-col>
 				</el-form-item>
 				<el-form-item label="推荐内容" >
-					<el-input v-model="editForm.rcmContent" auto-complete="off"></el-input>
+					<el-input v-model="editForm.brd_rcmcontent" auto-complete="off"></el-input>
 				</el-form-item>
 				<el-form-item label="推荐理由" >
-					<el-input v-model="editForm.rcmReason" auto-complete="off"></el-input>
+					<el-input v-model="editForm.brd_rcmreason" auto-complete="off"></el-input>
 				</el-form-item>	
 			</el-form>
 			<div slot="footer" class="dialog-footer">
@@ -80,18 +80,18 @@
 			<el-form :model="addForm" label-width="80px" :rules="addFormRules" ref="addForm">
 				<el-form-item label="预告时间">
 					<el-col :span="11">
-						<el-date-picker type="date" placeholder="选择日期" v-model="editForm.rcmDate" style="width: 100%;"></el-date-picker>
+						<el-date-picker type="date" placeholder="选择日期" v-model="addForm.brdRcmdate" style="width: 100%;"></el-date-picker>
 					</el-col>
 					<el-col class="line" :span="2">-</el-col>
 					<el-col :span="11">
-						<el-time-picker type="fixed-time" placeholder="选择时间" v-model="editForm.rcmTime" style="width: 100%;"></el-time-picker>
+						<el-time-picker type="fixed-time" placeholder="选择时间" v-model="addForm.brdRcmtime" style="width: 100%;"></el-time-picker>
 					</el-col>
 				</el-form-item>
 				<el-form-item label="推荐内容" >
-					<el-input v-model="editForm.rcmContent" auto-complete="off"></el-input>
+					<el-input v-model="addForm.brdRcmcontent" auto-complete="off"></el-input>
 				</el-form-item>
 				<el-form-item label="推荐理由" >
-					<el-input v-model="editForm.rcmReason" auto-complete="off"></el-input>
+					<el-input v-model="addForm.brdRcmreason" auto-complete="off"></el-input>
 				</el-form-item>	
 			</el-form>
 			<div slot="footer" class="dialog-footer">
@@ -125,10 +125,10 @@ export default {
       },
       //编辑界面数据
       editForm: {
-        rcmDate: "",
-        rcmTime: "",
-        rcmContent: "",
-        rcmReason: ""
+        brd_rcmdate: "",
+        brd_rcmtime: "",
+        brd_rcmcontent: "",
+        brd_rcmreason: ""
       },
 
       addFormVisible: false, //新增界面是否显示
@@ -138,10 +138,10 @@ export default {
       },
       //新增界面数据
       addForm: {
-        rcmDate: "",
-        rcmTime: "",
-        rcmContent: "",
-        rcmReason: ""
+        brdRcmdate: "",
+        brdRcmtime: "",
+        brdRcmcontent: "",
+        brdRcmreason: ""
       }
     };
   },
@@ -178,7 +178,7 @@ export default {
       })
         .then(() => {
           this.listLoading = true;
-          let para = { id: row.id };
+          let para = row.brd_id ;
           BrdMethods.removeBrd(para).then(res => {
             this.listLoading = false;
             this.$message({
@@ -193,7 +193,7 @@ export default {
 
     //批量删除公告
     batchRemove: function() {
-      var ids = this.sels.map(item => item.id).toString();
+      var ids = this.sels.map(item => item.brd_id).toString();
       this.$confirm("确认删除选中记录吗？", "提示", {
         type: "warning"
       })
@@ -240,9 +240,9 @@ export default {
         name: this.filters.name
       };
       this.listLoading = true;
-      BrdMethods.getBrdListPage(para).then(res => {
-        this.total = res.data.total;
-        this.boards = res.data.boards;
+      BrdMethods.getBrdList(para).then(res => {
+        this.total = res.data.result.length;
+        this.boards = res.data.result;
         this.listLoading = false;
       });
     },

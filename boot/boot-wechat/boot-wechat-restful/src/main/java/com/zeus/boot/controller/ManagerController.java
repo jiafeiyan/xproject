@@ -3,6 +3,8 @@ package com.zeus.boot.controller;
 import com.zeus.boot.commons.message.ResponseMessage;
 import com.zeus.boot.commons.message.ResultCode;
 import com.zeus.boot.entity.Admin;
+import com.zeus.boot.entity.Board;
+import com.zeus.boot.entity.Organization;
 import com.zeus.boot.entity.Recommend;
 import com.zeus.boot.repo.AdminRepository;
 import com.zeus.boot.repo.BoardRepository;
@@ -10,6 +12,7 @@ import com.zeus.boot.repo.OrganizationRepository;
 import com.zeus.boot.repo.RecommendRepository;
 import com.zeus.boot.service.ManagerService;
 import io.swagger.annotations.*;
+import org.aspectj.weaver.ast.Or;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -189,74 +192,193 @@ public class ManagerController {
 
     @ApiOperation(value = "增加", notes = "媒体机构相关api")
     @PutMapping(path = "/org/add")
-    private Map<String, Object> addOrg(){
-        return null;
+    private ResponseMessage addOrg(@RequestBody Map<String, Map<String, String>> org){
+        try {
+            Map<String, String> params = org.get("params");
+            Organization organization = new Organization();
+            organization.setOrg_type(params.get("orgType"));
+            organization.setOrg_recommendindex(params.get("orgRecommandIndex"));
+            organization.setOrg_priority(params.get("orgPriority"));
+            organization.setOrg_name(params.get("orgName"));
+            organization.setOrg_motto(params.get("orgMotto"));
+            organization.setOrg_keyword(params.get("orgKeyword"));
+            organization.setOrg_introduction(params.get("orgIntroduction"));
+            organization.setOrg_contacts(params.get("orgContacts"));
+            organization.setOrg_belong(params.get("orgBelong"));
+            organizationRepository.save(organization);
+            return ResponseMessage.ok();
+        }catch (Exception e){
+            logger.error(e.getMessage());
+            return ResponseMessage.error(ResultCode.INTERNAL_SERVER_ERROR, "接口 [ /org/add ] 内部错误");
+        }
     }
 
+
     @ApiOperation(value = "删除", notes = "媒体机构相关api")
-    @DeleteMapping(path = "/org/remove")
-    private Map<String, Object> removeOrg(){
-        return null;
+    @DeleteMapping(path = "/org/remove/{id}")
+    private ResponseMessage<Object> removeOrg(@PathVariable("id") Long org_id){
+        try {
+            Organization organization = new Organization();
+            organization.setOrg_id(org_id);
+            organizationRepository.delete(organization);
+            return ResponseMessage.ok();
+        }catch (Exception e){
+            logger.error(e.getMessage());
+            return ResponseMessage.error(ResultCode.INTERNAL_SERVER_ERROR, "接口 [ /org/remove ] 内部错误");
+        }
     }
 
     @ApiOperation(value = "批量删除", notes = "媒体机构相关api")
     @DeleteMapping(path = "/org/batchremove")
-    private Map<String, Object> batchRemoveOrg(){
-        return null;
+    private ResponseMessage<Object> batchRemoveOrg(@RequestParam Map<String, String> orgs){
+        try {
+            String ids = (String) orgs.get("ids");
+            String[] arr = ids.split(",");
+            List<String> list = java.util.Arrays.asList(arr);
+            managerService.orgBatchRemove(list);
+            return ResponseMessage.ok();
+        }catch (Exception e){
+            logger.error(e.getMessage());
+            return ResponseMessage.error(ResultCode.INTERNAL_SERVER_ERROR, "接口 [ /org/batchremove ] 内部错误");
+        }
     }
 
     @ApiOperation(value = "更新修改", notes = "媒体机构相关api")
     @PostMapping(path = "/org/edit")
-    private Map<String, Object> editOrg(){
-        return null;
+    private ResponseMessage<Object> editOrg(@RequestBody Map<String, Map<String, String>> org){
+        try {
+            Map<String, String> params = org.get("params");
+            Organization organization = new Organization();
+            organization.setOrg_id(Long.valueOf(params.get("org_id")));
+            organization.setOrg_type(params.get("org_type"));
+            organization.setOrg_recommendindex(params.get("org_recommandindex"));
+            organization.setOrg_priority(params.get("org_priority"));
+            organization.setOrg_name(params.get("org_name"));
+            organization.setOrg_motto(params.get("org_motto"));
+            organization.setOrg_keyword(params.get("org_keyword"));
+            organization.setOrg_introduction(params.get("org_introduction"));
+            organization.setOrg_contacts(params.get("org_contacts"));
+            organization.setOrg_belong(params.get("org_belong"));
+            organizationRepository.save(organization);
+            return ResponseMessage.ok();
+        }catch (Exception e){
+            logger.error(e.getMessage());
+            return ResponseMessage.error(ResultCode.INTERNAL_SERVER_ERROR, "接口 [ /org/edit ] 内部错误");
+        }
     }
 
-    @ApiOperation(value = "查询所有推单", notes = "媒体机构相关api")
+    @ApiOperation(value = "查询所有机构", notes = "媒体机构相关api")
     @GetMapping(path = "/org/list")
-    private Map<String, Object> getOrgList(){
-        return null;
+    private ResponseMessage<Object> getOrgList(){
+        try {
+            List<Organization> all = organizationRepository.findAll();
+            return ResponseMessage.ok(all);
+        }catch (Exception e){
+            logger.error(e.getMessage());
+            return ResponseMessage.error(ResultCode.INTERNAL_SERVER_ERROR, "接口 [ /org/list ] 内部错误");
+        }
     }
 
-    @ApiOperation(value = "分页查询推单", notes = "媒体机构相关api")
+    @ApiOperation(value = "分页查询机构", notes = "媒体机构相关api")
     @GetMapping(path = "/org/listpage")
-    private Map<String, Object> getOrgListPage(){
-        return null;
+    private ResponseMessage<Page<Organization>> getOrgListPage(@PageableDefault() Pageable pageable){
+        try {
+            Page<Organization> page = organizationRepository.findAll(pageable);
+            return ResponseMessage.ok(page);
+        }catch (Exception e){
+            logger.error(e.getMessage());
+            return ResponseMessage.error(ResultCode.INTERNAL_SERVER_ERROR, "接口 [ /org/listpage ] 内部错误");
+        }
     }
 
     @ApiOperation(value = "增加", notes = "公告相关api")
     @PutMapping(path = "/brd/add")
-    private Map<String, Object> addBrd(){
-        return null;
+    private ResponseMessage addBrd(@RequestBody Map<String, Map<String, String>> brd){
+        try {
+            Map<String, String> params = brd.get("params");
+            Board board = new Board();
+            board.setBrd_rcmdate(params.get("brdRcmdate"));
+            board.setBrd_rcmtime(params.get("brdRcmtime"));
+            board.setBrd_rcmcontent(params.get("brdRcmcontent"));
+            board.setBrd_rcmreason(params.get("brdRcmreason"));
+            boardRepository.save(board);
+            return ResponseMessage.ok();
+        }catch (Exception e){
+            logger.error(e.getMessage());
+            return ResponseMessage.error(ResultCode.INTERNAL_SERVER_ERROR, "接口 [ /brd/add ] 内部错误");
+        }
     }
 
     @ApiOperation(value = "删除", notes = "公告相关api")
-    @DeleteMapping(path = "/brd/remove")
-    private Map<String, Object> removeBrd(){
-        return null;
+    @DeleteMapping(path = "/brd/remove/{id}")
+    private ResponseMessage<Object> removeBrd(@PathVariable("id") Long brd_id){
+        try {
+            Board board = new Board();
+            board.setBrd_id(brd_id);
+            boardRepository.delete(board);
+            return ResponseMessage.ok();
+        }catch (Exception e){
+            logger.error(e.getMessage());
+            return ResponseMessage.error(ResultCode.INTERNAL_SERVER_ERROR, "接口 [ /brd/remove ] 内部错误");
+        }
     }
 
     @ApiOperation(value = "批量删除", notes = "公告相关api")
     @DeleteMapping(path = "/brd/batchremove")
-    private Map<String, Object> batchRemoveBrd(){
-        return null;
+    private ResponseMessage<Object> batchRemoveBrd(@RequestParam Map<String, String> brds){
+        try {
+            String ids = (String) brds.get("ids");
+            String[] arr = ids.split(",");
+            List<String> list = java.util.Arrays.asList(arr);
+            managerService.brdBatchRemove(list);
+            return ResponseMessage.ok();
+        }catch (Exception e){
+            logger.error(e.getMessage());
+            return ResponseMessage.error(ResultCode.INTERNAL_SERVER_ERROR, "接口 [ /brd/batchremove ] 内部错误");
+        }
     }
 
     @ApiOperation(value = "更新修改", notes = "公告相关api")
     @PostMapping(path = "/brd/edit")
-    private Map<String, Object> editBrd(){
-        return null;
+    private ResponseMessage<Object> editBrd(@RequestBody Map<String, Map<String, String>> brd){
+        try {
+            Map<String, String> params = brd.get("params");
+            Board board = new Board();
+            board.setBrd_id(Long.valueOf(params.get("brd_id")));
+            board.setBrd_rcmdate(params.get("brd_rcmdate"));
+            board.setBrd_rcmtime(params.get("brd_rcmtime"));
+            board.setBrd_rcmcontent(params.get("brd_rcmcontent"));
+            board.setBrd_rcmreason(params.get("brd_rcmreason"));
+            boardRepository.save(board);
+            return ResponseMessage.ok();
+        }catch (Exception e){
+            logger.error(e.getMessage());
+            return ResponseMessage.error(ResultCode.INTERNAL_SERVER_ERROR, "接口 [ /brd/edit ] 内部错误");
+        }
     }
 
-    @ApiOperation(value = "查询所有推单", notes = "公告相关api")
+    @ApiOperation(value = "查询所有公告", notes = "公告相关api")
     @GetMapping(path = "/brd/list")
-    private Map<String, Object> getBrdList(){
-        return null;
+    private ResponseMessage<Object> getBrdList(){
+        try {
+            List<Board> all = boardRepository.findAll();
+            return ResponseMessage.ok(all);
+        }catch (Exception e){
+            logger.error(e.getMessage());
+            return ResponseMessage.error(ResultCode.INTERNAL_SERVER_ERROR, "接口 [ /brd/list ] 内部错误");
+        }
     }
 
-    @ApiOperation(value = "分页查询推单", notes = "公告相关api")
+    @ApiOperation(value = "分页查询公告", notes = "公告相关api")
     @GetMapping(path = "/brd/listpage")
-    private Map<String, Object> getBrdListPage(){
-        return null;
+    private ResponseMessage<Page<Board>> getBrdListPage(@PageableDefault() Pageable pageable){
+        try {
+            Page<Board> page = boardRepository.findAll(pageable);
+            return ResponseMessage.ok(page);
+        }catch (Exception e){
+            logger.error(e.getMessage());
+            return ResponseMessage.error(ResultCode.INTERNAL_SERVER_ERROR, "接口 [ /brd/listpage ] 内部错误");
+        }
     }
 
 

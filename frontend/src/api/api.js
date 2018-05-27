@@ -49,13 +49,13 @@ export const getRcmListPage = params => { return axios.get(`/crossApi/manager/rc
  * getOrgListPage--分页查询推单
  * 
 */
-export const addOrg = params => { return axios.get(`/crossApi/manager/org/add`, { params: params }); };
+export const addOrg = params => { return axios.put(`/crossApi/manager/org/add`, { params: params }); };
 
-export const removeOrg = params => { return axios.get(`/crossApi/manager/org/remove`, { params: params }); };
+export const removeOrg = params => { return axios.delete(`/crossApi/manager/org/remove/${params}`); };
 
-export const batchRemoveOrg = params => { return axios.get(`/crossApi/manager/org/batchremove`, { params: params }); };
+export const batchRemoveOrg = params => { return axios.delete(`/crossApi/manager/org/batchremove`, { params: params }); };
 
-export const editOrg = params => { return axios.get(`/crossApi/manager/org/edit`, { params: params }); };
+export const editOrg = params => { return axios.post(`/crossApi/manager/org/edit`, { params: params }); };
 
 export const getOrgList = params => { return axios.get(`/crossApi/manager/org/list`, { params: params }); };
 
@@ -72,13 +72,13 @@ export const getOrgListPage = params => { return axios.get(`/crossApi/manager/or
  * getBrdListPage--分页查询推单
  * 
 */
-export const addBrd = params => { return axios.get(`/crossApi/manager/brd/add`, { params: params }); };
+export const addBrd = params => { return axios.put(`/crossApi/manager/brd/add`, { params: params }); };
 
-export const removeBrd = params => { return axios.get(`/crossApi/manager/brd/remove`, { params: params }); };
+export const removeBrd = params => { return axios.delete(`/crossApi/manager/brd/remove/${params}`); };
 
-export const batchRemoveBrd = params => { return axios.get(`/crossApi/manager/brd/batchremove`, { params: params }); };
+export const batchRemoveBrd = params => { return axios.delete(`/crossApi/manager/brd/batchremove`, { params: params }); };
 
-export const editBrd = params => { return axios.get(`/crossApi/manager/brd/edit`, { params: params }); };
+export const editBrd = params => { return axios.post(`/crossApi/manager/brd/edit`, { params: params }); };
 
 export const getBrdList = params => { return axios.get(`/crossApi/manager/brd/list`, { params: params }); };
 

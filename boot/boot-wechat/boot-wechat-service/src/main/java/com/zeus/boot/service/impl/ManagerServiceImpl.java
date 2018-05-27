@@ -28,4 +28,14 @@ public class ManagerServiceImpl implements ManagerService {
         rcms.stream().forEach(id -> recommendRepository.deleteById(Long.parseLong(id)));
     }
 
+    @Override
+    public void orgBatchRemove(List<String> orgs) {
+        orgs.stream().forEach(id -> organizationRepository.deleteById(Long.parseLong(id)));
+    }
+
+    @Override
+    public void brdBatchRemove(List<String> brds) {
+        brds.stream().forEach(id -> boardRepository.deleteById(Long.parseLong(id)));
+    }
+
 }

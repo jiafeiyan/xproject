@@ -14,7 +14,7 @@ import java.io.Serializable;
 @Table(
         name = "t_Organization",
         indexes = {
-                @Index(name = "Organization_Index",columnList = "ORG_ID")
+                @Index(name = "Organization_Index",columnList = "org_id")
         }
 )
 @Proxy(lazy = false)
@@ -25,44 +25,48 @@ public class Organization implements Serializable {
     @Id
     @Column()
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long ORG_ID;
+    private Long org_id;
 
     @Column()
     @CreatedDate
-    private String ORG_SETUPDATE;
+    private String org_setupdate;
 
-    @Column(nullable = false, columnDefinition = "varchar(255) COMMENT '组织名字'")
-    private String ORG_NAME;
+    @Column()
+    @CreatedDate
+    private String org_setuptime;
 
-    @Column(nullable = false, columnDefinition = "varchar(255) COMMENT '组织头像'")
-    private String ORG_PIC;
+    @Column(nullable = true, columnDefinition = "varchar(255) COMMENT '组织名字'")
+    private String org_name;
 
-    @Column(nullable = false, columnDefinition = "varchar(255) COMMENT '组织二维码'")
-    private String ORG_QRPIC;
+    @Column(nullable = true, columnDefinition = "varchar(255) COMMENT '组织头像'")
+    private String org_pic;
 
-    @Column(nullable = false, columnDefinition = "varchar(255) COMMENT '身份简介'")
-    private String ORG_INTRODUCTION;
+    @Column(nullable = true, columnDefinition = "varchar(255) COMMENT '组织二维码'")
+    private String org_qrpic;
 
-    @Column(nullable = false, columnDefinition = "varchar(255) COMMENT '宣传语'")
-    private String ORG_MOTTO;
+    @Column(nullable = true, columnDefinition = "varchar(255) COMMENT '身份简介'")
+    private String org_introduction;
 
-    @Column(nullable = false, columnDefinition = "varchar(255) COMMENT '组织类型'")
-    private String ORG_TYPE;
+    @Column(nullable = true, columnDefinition = "varchar(255) COMMENT '宣传语'")
+    private String org_motto;
 
-    @Column(nullable = false, columnDefinition = "varchar(255) COMMENT '推荐指数'")
-    private String ORG_RECOMMENDINDEX;
+    @Column(nullable = true, columnDefinition = "varchar(255) COMMENT '组织类型'")
+    private String org_type;
 
-    @Column(nullable = false, columnDefinition = "varchar(255) COMMENT '优先级别'")
-    private String ORG_PRIORITY;
+    @Column(nullable = true, columnDefinition = "varchar(255) COMMENT '推荐指数'")
+    private String org_recommendindex;
 
-    @Column(nullable = false, columnDefinition = "varchar(255) COMMENT '专家关键字'")
-    private String ORG_KEYWORD;
+    @Column(nullable = true, columnDefinition = "varchar(255) COMMENT '优先级别'")
+    private String org_priority;
+
+    @Column(nullable = true, columnDefinition = "varchar(255) COMMENT '专家关键字'")
+    private String org_keyword;
 
     @Column(columnDefinition = "varchar(255) COMMENT '公众号归属人(机构)'")
-    private String ORG_BELONG;
+    private String org_belong;
 
     @Column(columnDefinition = "varchar(255) COMMENT '归属人联系方式'")
-    private String ORG_CONTACTS;
+    private String org_contacts;
 
 }
 

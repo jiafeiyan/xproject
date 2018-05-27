@@ -13,7 +13,7 @@ import java.io.Serializable;
 @Table(
         name = "t_Board",
         indexes = {
-                @Index(name = "Board_Index",columnList = "BRD_ID")
+                @Index(name = "Board_Index",columnList = "brd_id")
         }
 )
 @Proxy(lazy = false)
@@ -24,21 +24,25 @@ public class Board implements Serializable {
     @Id
     @Column()
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long BRD_ID;
+    private Long brd_id;
 
     @Column()
     @CreatedDate
-    private String BRD_SETUPDATE;
+    private String brd_setupdate;
 
-    @Column(nullable = false, columnDefinition = "varchar(255) COMMENT '推荐日期'")
-    private String BRD_RCMDATE;
+    @Column()
+    @CreatedDate
+    private String brd_setuptime;
 
-    @Column(nullable = false, columnDefinition = "varchar(255) COMMENT '推荐时间'")
-    private String BRD_RCMTIME;
+    @Column(nullable = true, columnDefinition = "varchar(255) COMMENT '推荐日期'")
+    private String brd_rcmdate;
 
-    @Column(nullable = false, columnDefinition = "varchar(255) COMMENT '推荐内容'")
-    private String BRD_RCMCONTENT;
+    @Column(nullable = true, columnDefinition = "varchar(255) COMMENT '推荐时间'")
+    private String brd_rcmtime;
 
-    @Column(nullable = false, columnDefinition = "varchar(255) COMMENT '推荐理由'")
-    private String BRD_RCMREASON;
+    @Column(nullable = true, columnDefinition = "varchar(255) COMMENT '推荐内容'")
+    private String brd_rcmcontent;
+
+    @Column(nullable = true, columnDefinition = "varchar(255) COMMENT '推荐理由'")
+    private String brd_rcmreason;
 }

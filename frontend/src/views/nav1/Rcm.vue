@@ -190,7 +190,7 @@
 				</el-form-item>
 				<el-form-item label="赛事时间">
 					<el-col :span="11">
-						<el-date-picker type="date" placeholder="选择日期" v-model="addForm.eventStartDate" style="width: 100%;"></el-date-picker>
+						<el-date-picker params placeholder="选择日期" v-model="addForm.eventStartDate" style="width: 100%;"></el-date-picker>
 					</el-col>
 					<el-col class="line" :span="2">-</el-col>
 					<el-col :span="11">

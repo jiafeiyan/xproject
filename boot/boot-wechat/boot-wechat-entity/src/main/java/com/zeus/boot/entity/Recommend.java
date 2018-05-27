@@ -16,7 +16,7 @@ import java.sql.Date;
 @Table(
         name = "t_Recommend",
         indexes = {
-                @Index(name = "Recommend_Index",columnList = "RCM_ID")
+                @Index(name = "Recommend_Index",columnList = "rcm_id")
         }
 )
 @Proxy(lazy = false)
@@ -28,6 +28,10 @@ public class Recommend implements Serializable {
     @Column
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long rcm_id;
+
+    @Column()
+    @CreatedDate
+    private String rcm_setupdate;
 
     @Column()
     @CreatedDate
