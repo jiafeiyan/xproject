@@ -123,6 +123,7 @@
         <el-form-item label="归属人联系方式" >
 					<el-input v-model="editForm.org_contacts" auto-complete="off"></el-input>
 				</el-form-item>
+        <el-form-item label="创建时间" v-model="editForm.org_setupdate" v-if="false"></el-form-item>
 			</el-form>
 			<div slot="footer" class="dialog-footer">
 				<el-button @click.native="editFormVisible = false">取消</el-button>

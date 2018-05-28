@@ -33,10 +33,6 @@ public class Recommend implements Serializable {
     @CreatedDate
     private String rcm_setupdate;
 
-    @Column()
-    @CreatedDate
-    private String rcm_setuptime;
-
     @Column(nullable = true, columnDefinition = "varchar(255) COMMENT '推荐人ID'")
     private String rcm_rcmerid;
 

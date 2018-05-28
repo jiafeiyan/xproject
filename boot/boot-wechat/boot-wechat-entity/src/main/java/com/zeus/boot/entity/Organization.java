@@ -31,10 +31,6 @@ public class Organization implements Serializable {
     @CreatedDate
     private String org_setupdate;
 
-    @Column()
-    @CreatedDate
-    private String org_setuptime;
-
     @Column(nullable = true, columnDefinition = "varchar(255) COMMENT '组织名字'")
     private String org_name;
 

@@ -30,10 +30,6 @@ public class Board implements Serializable {
     @CreatedDate
     private String brd_setupdate;
 
-    @Column()
-    @CreatedDate
-    private String brd_setuptime;
-
     @Column(nullable = true, columnDefinition = "varchar(255) COMMENT '推荐日期'")
     private String brd_rcmdate;
 

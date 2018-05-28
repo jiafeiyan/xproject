@@ -95,11 +95,11 @@
 				</el-form-item>
 				<el-form-item label="推荐时间">
 					<el-col :span="11">
-						<el-date-picker type="date" placeholder="选择日期" v-model="editForm.rcm_date" style="width: 100%;"></el-date-picker>
+						<el-date-picker type="date" placeholder="选择日期" v-model="editForm.rcm_date" @change="setEditRcmDate" format="yyyy-MM-dd" style="width: 100%;"></el-date-picker>
 					</el-col>
 					<el-col class="line" :span="2">-</el-col>
 					<el-col :span="11">
-						<el-time-picker type="fixed-time" placeholder="选择时间" v-model="editForm.rcm_time" style="width: 100%;"></el-time-picker>
+						<el-time-picker type="fixed-time" placeholder="选择时间" v-model="editForm.rcm_time" @change="setEditEventStartDate" format="yyyy-MM-dd"  style="width: 100%;"></el-time-picker>
 					</el-col>
 				</el-form-item>
 				<el-form-item label="推荐内容" >
@@ -114,7 +114,7 @@
 				</el-form-item>
 				<el-form-item label="赛事时间">
 					<el-col :span="11">
-						<el-date-picker type="date" placeholder="选择日期" v-model="editForm.eve_startdate" style="width: 100%;"></el-date-picker>
+						<el-date-picker type="date" placeholder="选择日期" v-model="editForm.eve_startdate"  style="width: 100%;"></el-date-picker>
 					</el-col>
 					<el-col class="line" :span="2">-</el-col>
 					<el-col :span="11">
@@ -143,6 +143,7 @@
 				<el-form-item label="赛果" >
 					<el-input v-model="editForm.eve_result" auto-complete="off"></el-input>
 				</el-form-item>
+        <el-form-item label="创建日期" v-model="editForm.rcm_setupdate" v-if="false"></el-form-item>
 			</el-form>
 			<div slot="footer" class="dialog-footer">
 				<el-button @click.native="editFormVisible = false">取消</el-button>
@@ -305,8 +306,8 @@ export default {
   mounted() {
     this.getRcms();
     RcmMethod.getOrgList().then(res => {
-			this.total = res.data.result.length;
-			this.orgnazations = res.data.result;
+      this.total = res.data.result.length;
+      this.orgnazations = res.data.result;
     });
   },
   methods: {
@@ -440,6 +441,13 @@ export default {
     setEventStartDate: function(val) {
       this.addForm.eventStartDate = val;
     },
+    setEditRcmDate: function(val) {
+      this.editForm.rcm_date = val;
+    },
+    setEditEventStartDate: function(val) {
+      this.editForm.eve_startdate = val;
+    },
+
     //显示编辑界面
     handleEdit: function(index, row) {
       this.editFormVisible = true;

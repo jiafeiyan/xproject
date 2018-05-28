@@ -23,9 +23,7 @@
 			</el-table-column>
 			<el-table-column prop="brd_id" label="公告ID" width="120" v-if="false">
 			</el-table-column>
-			<el-table-column prop="brd_setupdate" label="创建日期" width="115" sortable>
-			</el-table-column>
-			<el-table-column prop="brd_setuptime" label="创建时间" width="115" sortable>
+			<el-table-column prop="brd_setupdate" label="创建日期" width="150" sortable>
 			</el-table-column>
 			<el-table-column prop="brd_rcmdate" label="推荐日期" width="115" sortable>
 			</el-table-column>
@@ -55,7 +53,7 @@
 			<el-form :model="editForm" label-width="80px" :rules="editFormRules" ref="editForm">
 				<el-form-item label="预告时间">
 					<el-col :span="11">
-						<el-date-picker type="date" placeholder="选择日期" v-model="editForm.brd_rcmdate" style="width: 100%;"></el-date-picker>
+						<el-date-picker type="date" placeholder="选择日期" v-model="editForm.brd_rcmdate" @change="setEditRcmDate" format="yyyy-MM-dd"  style="width: 100%;"></el-date-picker>
 					</el-col>
 					<el-col class="line" :span="2">-</el-col>
 					<el-col :span="11">
@@ -68,6 +66,7 @@
 				<el-form-item label="推荐理由" >
 					<el-input v-model="editForm.brd_rcmreason" auto-complete="off"></el-input>
 				</el-form-item>	
+        <el-form-item v-model="editForm.brd_setupdate" label="创建时间" v-if="false"></el-form-item>	
 			</el-form>
 			<div slot="footer" class="dialog-footer">
 				<el-button @click.native="editFormVisible = false">取消</el-button>
@@ -80,7 +79,7 @@
 			<el-form :model="addForm" label-width="80px" :rules="addFormRules" ref="addForm">
 				<el-form-item label="预告时间">
 					<el-col :span="11">
-						<el-date-picker type="date" placeholder="选择日期" v-model="addForm.brdRcmdate" style="width: 100%;"></el-date-picker>
+						<el-date-picker type="date" placeholder="选择日期" v-model="addForm.brdRcmdate"  @change="setRcmDate" format="yyyy-MM-dd"  style="width: 100%;"></el-date-picker>
 					</el-col>
 					<el-col class="line" :span="2">-</el-col>
 					<el-col :span="11">
@@ -125,6 +124,7 @@ export default {
       },
       //编辑界面数据
       editForm: {
+        brd_setupdate:"",
         brd_rcmdate: "",
         brd_rcmtime: "",
         brd_rcmcontent: "",
@@ -245,6 +245,13 @@ export default {
         this.boards = res.data.result;
         this.listLoading = false;
       });
+    },
+    //格式化时间
+    setRcmDate: function(val) {
+      this.addForm.brdRcmdate = val;
+    },
+    setEditRcmDate: function(val) {
+      this.editForm.brd_rcmdate = val;
     },
     handleCurrentChange(val) {
       this.page = val;
