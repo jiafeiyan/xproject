@@ -29,7 +29,7 @@
 			</el-table-column>
 			<el-table-column prop="rcmer_id" label="推荐人ID" width="120" v-if="false">
 			</el-table-column>
-			<el-table-column prop="rcm_date" label="推荐日期" width="120" sortable>
+			<el-table-column prop="rcm_date" label="推荐日期" format="yyyy-MM-dd" width="120" sortable>
 			</el-table-column>
 			<el-table-column prop="rcm_rcmername" label="推荐人姓名" min-width="150">
 			</el-table-column>
@@ -80,9 +80,8 @@
 		<el-dialog title="编辑" v-model="editFormVisible" :close-on-click-modal="false">
 			<el-form :model="editForm" label-width="80px" :rules="editFormRules" ref="editForm">
 				<el-form-item label="推荐人">
-					<el-select v-model="editForm.rcmer_name" placeholder="请选择推荐人">
-						<el-option label="区域一" value="shanghai"></el-option>
-						<el-option label="区域二" value="beijing"></el-option>
+					<el-select v-model="editForm.rcmer_id" placeholder="请选择推荐人">
+						<el-option v-for="item in orgnazations" :key="item.org_id" :label="item.org_name" :value="item.org_id" ></el-option>
 					</el-select>
 				</el-form-item>
 				<el-form-item label="推荐简介" >
@@ -90,8 +89,8 @@
 				</el-form-item>
 				<el-form-item label="付费标志">
 					<el-radio-group v-model="editForm.rcm_payflag">
-						<el-radio class="radio" :label="1">免费</el-radio>
-						<el-radio class="radio" :label="0">付费</el-radio>
+						<el-radio class="radio" :label="0">免费</el-radio>
+						<el-radio class="radio" :label="1">付费</el-radio>
 					</el-radio-group>
 				</el-form-item>
 				<el-form-item label="推荐时间">
@@ -155,9 +154,8 @@
 		<el-dialog title="新增" v-model="addFormVisible" :close-on-click-modal="false">
 			<el-form :model="addForm" label-width="80px" :rules="addFormRules" ref="addForm">
 				<el-form-item label="推荐人">
-					<el-select v-model="addForm.rcmerName" placeholder="请选择推荐人">
-						<el-option label="区域一" value="shanghai"></el-option>
-						<el-option label="区域二" value="beijing"></el-option>
+					<el-select v-model="addForm.rcmerId" placeholder="请选择推荐人">
+						<el-option v-for="item in orgnazations" :key="item.org_id" :label="item.org_name" :value="item.org_id" ></el-option>
 					</el-select>
 				</el-form-item>
 				<el-form-item label="推荐简介" >
@@ -165,13 +163,13 @@
 				</el-form-item>
 				<el-form-item label="付费标志">
 					<el-radio-group v-model="addForm.rcmPayFlag">
-						<el-radio class="radio" :label="1">免费</el-radio>
-						<el-radio class="radio" :label="0">付费</el-radio>
+						<el-radio class="radio" :label="0">免费</el-radio>
+						<el-radio class="radio" :label="1">付费</el-radio>
 					</el-radio-group>
 				</el-form-item>
 				<el-form-item label="推荐时间">
 					<el-col :span="11">
-						<el-date-picker type="date" placeholder="选择日期" v-model="addForm.rcmDate" style="width: 100%;"></el-date-picker>
+						<el-date-picker type="date" placeholder="选择日期" v-model="addForm.rcmDate" @change="setRcmDate" format="yyyy-MM-dd" style="width: 100%;"></el-date-picker>
 					</el-col>
 					<el-col class="line" :span="2">-</el-col>
 					<el-col :span="11">
@@ -190,7 +188,7 @@
 				</el-form-item>
 				<el-form-item label="赛事时间">
 					<el-col :span="11">
-						<el-date-picker params placeholder="选择日期" v-model="addForm.eventStartDate" style="width: 100%;"></el-date-picker>
+						<el-date-picker params placeholder="选择日期" v-model="addForm.eventStartDate" @change="setEventStartDate" format="yyyy-MM-dd" style="width: 100%;"></el-date-picker>
 					</el-col>
 					<el-col class="line" :span="2">-</el-col>
 					<el-col :span="11">
@@ -239,6 +237,7 @@ export default {
         name: ""
       },
       recommends: [],
+      orgnazations: [],
       total: 0,
       page: 1,
       listLoading: false,
@@ -305,6 +304,10 @@ export default {
   },
   mounted() {
     this.getRcms();
+    RcmMethod.getOrgList().then(res => {
+			this.total = res.data.result.length;
+			this.orgnazations = res.data.result;
+    });
   },
   methods: {
     //获取推单列表--调用接口--getUserListPage
@@ -401,7 +404,7 @@ export default {
         })
         .catch(() => {});
     },
-    //推单类型翻译 免费-付费
+    //推单类型翻译 免费-付费（）
     formatPayFlag: function(row, column) {
       return row.rcm_payflag == 1
         ? "付费"
@@ -411,21 +414,31 @@ export default {
     formatRcmerType: function(row, column) {
       return row.rcm_rcmertype == 1
         ? "公众号"
-        : row.rcm_rcmertype == 2 ? "名人" : row.rcm_rcmertype == 3 ? "内部群" : "其他";
+        : row.rcm_rcmertype == 2
+          ? "名人"
+          : row.rcm_rcmertype == 3 ? "内部群" : "其他";
     },
     //推单结果翻译 黑-走水-红
     formatRcmResult: function(row, column) {
-      return row.rcm_result == 1
+      return row.rcm_result == 0
         ? "黑"
-        : row.rcm_result == 2 ? "走水" : row.rcm_result == 3 ? "红" : "其他";
+        : row.rcm_result == 1 ? "走水" : row.rcm_result == 2 ? "红" : "其他";
     },
     //赛事状态翻译 未开始-正在进行-结束
     formateveStatus: function(row, column) {
-      return row.eve_status == 1
+      return row.eve_status == 0
         ? "未开始"
-        : row.eve_status == 2
+        : row.eve_status == 1
           ? "正在进行"
-          : row.eve_status == 3 ? "结束" : "其他";
+          : row.eve_status == 2 ? "结束" : "其他";
+    },
+
+    //日期时间化
+    setRcmDate: function(val) {
+      this.addForm.rcmDate = val;
+    },
+    setEventStartDate: function(val) {
+      this.addForm.eventStartDate = val;
     },
     //显示编辑界面
     handleEdit: function(index, row) {

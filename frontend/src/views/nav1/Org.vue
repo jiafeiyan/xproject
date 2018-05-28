@@ -66,7 +66,7 @@
 
 		<!--编辑界面-->
 		<el-dialog title="编辑" v-model="editFormVisible" :close-on-click-modal="false">
-			<el-form :model="editForm" label-width="80px" :rules="editFormRules" ref="editForm">
+			<el-form :model="editForm" label-width="110px" :rules="editFormRules" ref="editForm">
         <el-form-item label="组织名字" >
 					<el-input v-model="editForm.org_name" auto-complete="off"></el-input>
 				</el-form-item>
@@ -132,7 +132,7 @@
 
 		<!--新增界面-->
 		<el-dialog title="新增" v-model="addFormVisible" :close-on-click-modal="false">
-			<el-form :model="addForm" label-width="80px" :rules="addFormRules" ref="addForm">
+			<el-form :model="addForm" label-width="110px" :rules="addFormRules" ref="addForm">
         <el-form-item label="组织名字" >
 					<el-input v-model="addForm.orgName" auto-complete="off"></el-input>
 				</el-form-item>
