@@ -29,7 +29,7 @@
 			</el-table-column>
 			<el-table-column prop="org_name" label="组织名字" width="120" >
 			</el-table-column>
-			<el-table-column prop="org_type" label="组织类型" min-width="120" sortable>
+			<el-table-column prop="org_type" label="组织类型" min-width="120" :formatter="formatOrgType" sortable>
 			</el-table-column>
 			<el-table-column prop="org_recommendindex" label="推荐指数" width="120" sortable>
 			</el-table-column>
@@ -67,7 +67,7 @@
 		<!--编辑界面-->
 		<el-dialog title="编辑" v-model="editFormVisible" :close-on-click-modal="false">
 			<el-form :model="editForm" label-width="110px" :rules="editFormRules" ref="editForm">
-        <el-form-item label="组织名字" >
+        <el-form-item label="组织名字" prop="org_name">
 					<el-input v-model="editForm.org_name" auto-complete="off"></el-input>
 				</el-form-item>
         <el-form-item label="身份简介" >
@@ -76,7 +76,7 @@
         <el-form-item label="宣传语" >
 					<el-input v-model="editForm.org_motto" auto-complete="off"></el-input>
 				</el-form-item>
-        <el-form-item label="组织类型">
+        <el-form-item label="组织类型" prop="org_type">
           <el-select v-model="editForm.org_type" placeholder="请选择组织类型">
 						<el-option label="公众号" value="1"></el-option>
 						<el-option label="名人" value="2"></el-option>
@@ -86,32 +86,30 @@
             <el-option label="其他" value="6"></el-option>
 					</el-select>
         </el-form-item>
-        <el-form-item label="推荐指数">
-					<el-radio-group v-model="editForm.org_recommandindex">
-						<el-radio class="radio" :label="1">一</el-radio>
-						<el-radio class="radio" :label="2">二</el-radio>
-						<el-radio class="radio" :label="3">三</el-radio>
-            <el-radio class="radio" :label="4">四</el-radio>
-						<el-radio class="radio" :label="5">五</el-radio>
-            <el-radio class="radio" :label="6">六</el-radio>
-            <el-radio class="radio" :label="7">七</el-radio>
-						<el-radio class="radio" :label="8">八</el-radio>
-            <el-radio class="radio" :label="9">九</el-radio>
-						<el-radio class="radio" :label="10">十</el-radio>
+        <el-form-item label="推荐指数" prop="org_recommendindex">
+					<el-radio-group v-model="editForm.org_recommendindex">
+						<el-radio class="radio" label="1">一</el-radio>
+						<el-radio class="radio" label="2">二</el-radio>
+            <el-radio class="radio" label="3">三</el-radio>
+            <el-radio class="radio" label="4">四</el-radio>
+            <el-radio class="radio" label="5">五</el-radio>
+            <el-radio class="radio" label="6">六</el-radio>
+            <el-radio class="radio" label="7">七</el-radio>
+            <el-radio class="radio" label="8">八</el-radio>
+            <el-radio class="radio" label="9">九</el-radio>
 					</el-radio-group>
 				</el-form-item>
-        <el-form-item label="优先级别">
+        <el-form-item label="优先级别" prop="org_priority">
 					<el-radio-group v-model="editForm.org_priority">
-						<el-radio class="radio" :label="1">一</el-radio>
-						<el-radio class="radio" :label="2">二</el-radio>
-						<el-radio class="radio" :label="3">三</el-radio>
-            <el-radio class="radio" :label="4">四</el-radio>
-						<el-radio class="radio" :label="5">五</el-radio>
-            <el-radio class="radio" :label="6">六</el-radio>
-            <el-radio class="radio" :label="7">七</el-radio>
-						<el-radio class="radio" :label="8">八</el-radio>
-            <el-radio class="radio" :label="9">九</el-radio>
-						<el-radio class="radio" :label="10">十</el-radio>
+						<el-radio class="radio" label="1">一</el-radio>
+						<el-radio class="radio" label="2">二</el-radio>
+            <el-radio class="radio" label="3">三</el-radio>
+            <el-radio class="radio" label="4">四</el-radio>
+            <el-radio class="radio" label="5">五</el-radio>
+            <el-radio class="radio" label="6">六</el-radio>
+            <el-radio class="radio" label="7">七</el-radio>
+            <el-radio class="radio" label="8">八</el-radio>
+            <el-radio class="radio" label="9">九</el-radio>
 					</el-radio-group>
 				</el-form-item>
         <el-form-item label="专家关键字" >
@@ -134,7 +132,7 @@
 		<!--新增界面-->
 		<el-dialog title="新增" v-model="addFormVisible" :close-on-click-modal="false">
 			<el-form :model="addForm" label-width="110px" :rules="addFormRules" ref="addForm">
-        <el-form-item label="组织名字" >
+        <el-form-item label="组织名字" prop="orgName">
 					<el-input v-model="addForm.orgName" auto-complete="off"></el-input>
 				</el-form-item>
         <el-form-item label="身份简介" >
@@ -143,7 +141,7 @@
         <el-form-item label="宣传语" >
 					<el-input v-model="addForm.orgMotto" auto-complete="off"></el-input>
 				</el-form-item>
-        <el-form-item label="组织类型">
+        <el-form-item label="组织类型" prop="orgType">
           <el-select v-model="addForm.orgType" placeholder="请选择组织类型">
 						<el-option label="公众号" value="1"></el-option>
 						<el-option label="名人" value="2"></el-option>
@@ -154,31 +152,29 @@
 					</el-select>
         </el-form-item>
         <el-form-item label="推荐指数">
-					<el-radio-group v-model="addForm.orgRecommandIndex">
-						<el-radio class="radio" :label="1">一</el-radio>
-						<el-radio class="radio" :label="2">二</el-radio>
-						<el-radio class="radio" :label="3">三</el-radio>
-            <el-radio class="radio" :label="4">四</el-radio>
-						<el-radio class="radio" :label="5">五</el-radio>
-            <el-radio class="radio" :label="6">六</el-radio>
-            <el-radio class="radio" :label="7">七</el-radio>
-						<el-radio class="radio" :label="8">八</el-radio>
-            <el-radio class="radio" :label="9">九</el-radio>
-						<el-radio class="radio" :label="10">十</el-radio>
+					<el-radio-group v-model="addForm.orgRecommendIndex">
+						<el-radio class="radio" label="1">一</el-radio>
+						<el-radio class="radio" label="2">二</el-radio>
+            <el-radio class="radio" label="3">三</el-radio>
+            <el-radio class="radio" label="4">四</el-radio>
+            <el-radio class="radio" label="5">五</el-radio>
+            <el-radio class="radio" label="6">六</el-radio>
+            <el-radio class="radio" label="7">七</el-radio>
+            <el-radio class="radio" label="8">八</el-radio>
+            <el-radio class="radio" label="9">九</el-radio>
 					</el-radio-group>
 				</el-form-item>
         <el-form-item label="优先级别">
 					<el-radio-group v-model="addForm.orgPriority">
-						<el-radio class="radio" :label="1">一</el-radio>
-						<el-radio class="radio" :label="2">二</el-radio>
-						<el-radio class="radio" :label="3">三</el-radio>
-            <el-radio class="radio" :label="4">四</el-radio>
-						<el-radio class="radio" :label="5">五</el-radio>
-            <el-radio class="radio" :label="6">六</el-radio>
-            <el-radio class="radio" :label="7">七</el-radio>
-						<el-radio class="radio" :label="8">八</el-radio>
-            <el-radio class="radio" :label="9">九</el-radio>
-						<el-radio class="radio" :label="10">十</el-radio>
+						<el-radio class="radio" label="1">一</el-radio>
+						<el-radio class="radio" label="2">二</el-radio>
+            <el-radio class="radio" label="3">三</el-radio>
+            <el-radio class="radio" label="4">四</el-radio>
+            <el-radio class="radio" label="5">五</el-radio>
+            <el-radio class="radio" label="6">六</el-radio>
+            <el-radio class="radio" label="7">七</el-radio>
+            <el-radio class="radio" label="8">八</el-radio>
+            <el-radio class="radio" label="9">九</el-radio>
 					</el-radio-group>
 				</el-form-item>
         <el-form-item label="专家关键字" >
@@ -218,7 +214,8 @@ export default {
       editFormVisible: false, //编辑界面是否显示
       editLoading: false,
       editFormRules: {
-        name: [{ required: true, message: "请输入姓名", trigger: "blur" }]
+        org_name: [{ required: true, message: "请输入媒体机构姓名", trigger: "blur" }],
+        org_type: [{ required: true, message: "请选择媒体机构类型", trigger: "blur" }],
       },
       //编辑界面数据
       editForm: {
@@ -231,7 +228,7 @@ export default {
         org_introduction: "",
         org_motto: "",
         org_type: "",
-        org_recommandindex: "",
+        org_recommendindex: "",
         org_priority: "",
         org_keyword: "",
         org_belong: "",
@@ -241,7 +238,8 @@ export default {
       addFormVisible: false, //新增界面是否显示
       addLoading: false,
       addFormRules: {
-        name: [{ required: true, message: "请输入姓名", trigger: "blur" }]
+        orgName: [{ required: true, message: "请输入媒体机构姓名", trigger: "blur" }],
+        orgType: [{ required: true, message: "请选择媒体机构类型", trigger: "blur" }],
       },
       //新增界面数据
       addForm: {
@@ -254,7 +252,7 @@ export default {
         orgIntroduction: "",
         orgMotto: "",
         orgType: "",
-        orgRecommandIndex: "",
+        orgRecommendIndex: "",
         orgPriority: "",
         orgKeyword: "",
         orgBelong: "",
@@ -265,7 +263,7 @@ export default {
   methods: {
     //新增媒体机构
     addSubmit: function() {
-      this.$refs.addForm.validate(valid => {
+      this.$refs["addForm"].validate(valid => {
         if (valid) {
           this.$confirm("确认提交吗？", "提示", {}).then(() => {
             this.addLoading = true;
@@ -325,7 +323,7 @@ export default {
     },
     //编辑媒体机构
     editSubmit: function() {
-      this.$refs.editForm.validate(valid => {
+      this.$refs["editForm"].validate(valid => {
         if (valid) {
           this.$confirm("确认提交吗？", "提示", {}).then(() => {
             this.editLoading = true;
@@ -356,6 +354,15 @@ export default {
         this.orgnizations = res.data.result;
         this.listLoading = false;
       });
+    },
+    //翻译组织类型
+    formatOrgType:function(row, column){
+        return row.org_type == 1 ? "公众号"
+        : row.org_type == 2 ? "名人" 
+        : row.org_type == 3 ? "微博" 
+        : row.org_type == 4 ? "微信" 
+        : row.org_type == 5 ? "QQ" 
+        : "其他";
     },
 
     handleCurrentChange(val) {

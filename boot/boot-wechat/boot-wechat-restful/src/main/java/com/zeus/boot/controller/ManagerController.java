@@ -142,7 +142,7 @@ public class ManagerController {
             Recommend recommend = new Recommend();
             recommend.setRcm_setupdate(params.get("rcm_setupdate"));
             recommend.setRcm_id(Long.valueOf(params.get("rcm_id")));
-            recommend.setRcm_rcmerid(params.get("rcmer_id"));
+            recommend.setRcm_rcmerid(params.get("rcm_rcmerid"));
             Organization org = organizationRepository.getOne(Long.parseLong(params.get("rcm_rcmerid")));
             recommend.setRcm_rcmername(org.getOrg_name());
             recommend.setRcm_rcmertype(org.getOrg_type());
@@ -199,7 +199,7 @@ public class ManagerController {
             Map<String, String> params = org.get("params");
             Organization organization = new Organization();
             organization.setOrg_type(params.get("orgType"));
-            organization.setOrg_recommendindex(params.get("orgRecommandIndex"));
+            organization.setOrg_recommendindex(params.get("orgRecommendIndex"));
             organization.setOrg_priority(params.get("orgPriority"));
             organization.setOrg_name(params.get("orgName"));
             organization.setOrg_motto(params.get("orgMotto"));
@@ -254,7 +254,7 @@ public class ManagerController {
             organization.setOrg_setupdate(params.get("org_setupdate"));
             organization.setOrg_id(Long.valueOf(params.get("org_id")));
             organization.setOrg_type(params.get("org_type"));
-            organization.setOrg_recommendindex(params.get("org_recommandindex"));
+            organization.setOrg_recommendindex(params.get("org_recommendindex"));
             organization.setOrg_priority(params.get("org_priority"));
             organization.setOrg_name(params.get("org_name"));
             organization.setOrg_motto(params.get("org_motto"));

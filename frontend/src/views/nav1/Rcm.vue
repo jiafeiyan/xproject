@@ -79,9 +79,9 @@
 		<!--编辑推荐列表-->
 		<el-dialog title="编辑" v-model="editFormVisible" :close-on-click-modal="false">
 			<el-form :model="editForm" label-width="80px" :rules="editFormRules" ref="editForm">
-				<el-form-item label="推荐人">
-					<el-select v-model="editForm.rcmer_id" placeholder="请选择推荐人">
-						<el-option v-for="item in orgnazations" :key="item.org_id" :label="item.org_name" :value="item.org_id" ></el-option>
+				<el-form-item label="推荐人" prop="rcm_rcmerid">
+					<el-select v-model="editForm.rcm_rcmerid" placeholder="请选择推荐人">
+						<el-option v-for="item in orgnazations" :key="item.org_id" :label="item.org_name" :value="item.org_id+''" ></el-option>
 					</el-select>
 				</el-form-item>
 				<el-form-item label="推荐简介" >
@@ -89,8 +89,8 @@
 				</el-form-item>
 				<el-form-item label="付费标志">
 					<el-radio-group v-model="editForm.rcm_payflag">
-						<el-radio class="radio" :label="0">免费</el-radio>
-						<el-radio class="radio" :label="1">付费</el-radio>
+						<el-radio class="radio" label="0">免费</el-radio>
+						<el-radio class="radio" label="1">付费</el-radio>
 					</el-radio-group>
 				</el-form-item>
 				<el-form-item label="推荐时间">
@@ -107,9 +107,9 @@
 				</el-form-item>
 				<el-form-item label="推单结果">
 					<el-radio-group v-model="editForm.rcm_result">
-						<el-radio class="radio" :label="2">红</el-radio>
-						<el-radio class="radio" :label="1">走</el-radio>
-						<el-radio class="radio" :label="0">黑</el-radio>
+						<el-radio class="radio" label="2">红</el-radio>
+						<el-radio class="radio" label="1">走</el-radio>
+						<el-radio class="radio" label="0">黑</el-radio>
 					</el-radio-group>
 				</el-form-item>
 				<el-form-item label="赛事时间">
@@ -123,9 +123,9 @@
 				</el-form-item>
 				<el-form-item label="赛事状态">
 					<el-radio-group v-model="editForm.eve_status">
-						<el-radio class="radio" :label="0">未开始</el-radio>
-						<el-radio class="radio" :label="1">正在进行</el-radio>
-						<el-radio class="radio" :label="2">已结束</el-radio>
+						<el-radio class="radio" label="0">未开始</el-radio>
+						<el-radio class="radio" label="1">正在进行</el-radio>
+						<el-radio class="radio" label="2">已结束</el-radio>
 					</el-radio-group>
 				</el-form-item>
 				<el-form-item label="联赛种类" >
@@ -154,9 +154,9 @@
 		<!--新增推荐-->
 		<el-dialog title="新增" v-model="addFormVisible" :close-on-click-modal="false">
 			<el-form :model="addForm" label-width="80px" :rules="addFormRules" ref="addForm">
-				<el-form-item label="推荐人">
+				<el-form-item label="推荐人" prop="rcmerId">
 					<el-select v-model="addForm.rcmerId" placeholder="请选择推荐人">
-						<el-option v-for="item in orgnazations" :key="item.org_id" :label="item.org_name" :value="item.org_id" ></el-option>
+						<el-option v-for="item in orgnazations" :key="item.org_id" :label="item.org_name" :value="item.org_id +''" ></el-option>
 					</el-select>
 				</el-form-item>
 				<el-form-item label="推荐简介" >
@@ -164,8 +164,8 @@
 				</el-form-item>
 				<el-form-item label="付费标志">
 					<el-radio-group v-model="addForm.rcmPayFlag">
-						<el-radio class="radio" :label="0">免费</el-radio>
-						<el-radio class="radio" :label="1">付费</el-radio>
+						<el-radio class="radio" label="0">免费</el-radio>
+						<el-radio class="radio" label="1">付费</el-radio>
 					</el-radio-group>
 				</el-form-item>
 				<el-form-item label="推荐时间">
@@ -182,9 +182,9 @@
 				</el-form-item>
 				<el-form-item label="推单结果">
 					<el-radio-group v-model="addForm.rcmResult">
-						<el-radio class="radio" :label="2">红</el-radio>
-						<el-radio class="radio" :label="1">走</el-radio>
-						<el-radio class="radio" :label="0">黑</el-radio>
+						<el-radio class="radio" label="2">红</el-radio>
+						<el-radio class="radio" label="1">走</el-radio>
+						<el-radio class="radio" label="0">黑</el-radio>
 					</el-radio-group>
 				</el-form-item>
 				<el-form-item label="赛事时间">
@@ -198,9 +198,9 @@
 				</el-form-item>
 				<el-form-item label="赛事状态">
 					<el-radio-group v-model="addForm.eventStatus">
-						<el-radio class="radio" :label="0">未开始</el-radio>
-						<el-radio class="radio" :label="1">正在进行</el-radio>
-						<el-radio class="radio" :label="2">已结束</el-radio>
+						<el-radio class="radio" label="0">未开始</el-radio>
+						<el-radio class="radio" label="1">正在进行</el-radio>
+						<el-radio class="radio" label="2">已结束</el-radio>
 					</el-radio-group>
 				</el-form-item>
 				<el-form-item label="联赛种类" >
@@ -247,16 +247,14 @@ export default {
       editFormVisible: false, //编辑界面是否显示
       editLoading: false,
       editFormRules: {
-        name: [{ required: true, message: "请输入姓名", trigger: "blur" }]
+        rcmer_id: [{ required: true, message: "请输入姓名", trigger: "blur" }]
       },
       //编辑界面数据
       editForm: {
         rcm_id: "",
         rcm_setupdate: "",
         rcm_setuptime: "",
-        rcmer_id: "",
-        rcmer_name: "",
-        rcmer_type: "",
+        rcm_rcmerid: "",
         rcm_introduction: "",
         rcm_payflag: "",
         rcm_date: "",
@@ -276,7 +274,7 @@ export default {
       addFormVisible: false, //新增界面是否显示
       addLoading: false,
       addFormRules: {
-        name: [{ required: true, message: "请输入姓名", trigger: "blur" }]
+        rcmerId: [{ required: true, message: "请选择媒体机构", trigger: "blur" }]
       },
       //新增界面数据
       addForm: {

@@ -51,8 +51,8 @@
 		<!--编辑界面-->
 		<el-dialog title="编辑" v-model="editFormVisible" :close-on-click-modal="false">
 			<el-form :model="editForm" label-width="80px" :rules="editFormRules" ref="editForm">
-				<el-form-item label="预告时间">
-					<el-col :span="11">
+				<el-form-item label="预告时间" prop="brd_rcmdate">
+					<el-col :span="11" >
 						<el-date-picker type="date" placeholder="选择日期" v-model="editForm.brd_rcmdate" @change="setEditRcmDate" format="yyyy-MM-dd"  style="width: 100%;"></el-date-picker>
 					</el-col>
 					<el-col class="line" :span="2">-</el-col>
@@ -60,10 +60,10 @@
 						<el-time-picker type="fixed-time" placeholder="选择时间" v-model="editForm.brd_rcmtime" style="width: 100%;"></el-time-picker>
 					</el-col>
 				</el-form-item>
-				<el-form-item label="推荐内容" >
+				<el-form-item label="推荐内容" prop="brd_rcmcontent">
 					<el-input v-model="editForm.brd_rcmcontent" auto-complete="off"></el-input>
 				</el-form-item>
-				<el-form-item label="推荐理由" >
+				<el-form-item label="推荐理由" prop="brd_rcmreason">
 					<el-input v-model="editForm.brd_rcmreason" auto-complete="off"></el-input>
 				</el-form-item>	
         <el-form-item v-model="editForm.brd_setupdate" label="创建时间" v-if="false"></el-form-item>	
@@ -86,10 +86,10 @@
 						<el-time-picker type="fixed-time" placeholder="选择时间" v-model="addForm.brdRcmtime" style="width: 100%;"></el-time-picker>
 					</el-col>
 				</el-form-item>
-				<el-form-item label="推荐内容" >
+				<el-form-item label="推荐内容" prop="brdRcmcontent">
 					<el-input v-model="addForm.brdRcmcontent" auto-complete="off"></el-input>
 				</el-form-item>
-				<el-form-item label="推荐理由" >
+				<el-form-item label="推荐理由" prop="brdRcmreason">
 					<el-input v-model="addForm.brdRcmreason" auto-complete="off"></el-input>
 				</el-form-item>	
 			</el-form>
@@ -120,7 +120,8 @@ export default {
       editFormVisible: false, //编辑界面是否显示
       editLoading: false,
       editFormRules: {
-        name: [{ required: true, message: "请输入姓名", trigger: "blur" }]
+        brd_rcmcontent: [{ required: true, message: "请输入推荐内容", trigger: "blur" }],
+        brd_rcmreason: [{ required: true, message: "请输入推荐理由", trigger: "blur" }],
       },
       //编辑界面数据
       editForm: {
@@ -134,7 +135,10 @@ export default {
       addFormVisible: false, //新增界面是否显示
       addLoading: false,
       addFormRules: {
-        name: [{ required: true, message: "请输入姓名", trigger: "blur" }]
+        brdRcmdate: [{ required: true, message: "请输入推荐日期", trigger: "blur" }],
+        brdRcmtime: [{ required: true, message: "请输入推荐时间", trigger: "blur" }],
+        brdRcmcontent: [{ required: true, message: "请输入推荐内容", trigger: "blur" }],
+        brdRcmreason: [{ required: true, message: "请输入推荐理由", trigger: "blur" }],
       },
       //新增界面数据
       addForm: {
@@ -151,7 +155,7 @@ export default {
   methods: {
     //新增公告
     addSubmit: function() {
-      this.$refs.addForm.validate(valid => {
+      this.$refs["addForm"].validate(valid => {
         if (valid) {
           this.$confirm("确认提交吗？", "提示", {}).then(() => {
             this.addLoading = true;
@@ -214,7 +218,7 @@ export default {
 
     //修改公告
     editSubmit: function() {
-      this.$refs.editForm.validate(valid => {
+      this.$refs["editForm"].validate(valid => {
         if (valid) {
           this.$confirm("确认提交吗？", "提示", {}).then(() => {
             this.editLoading = true;
