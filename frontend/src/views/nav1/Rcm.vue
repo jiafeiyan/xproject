@@ -324,7 +324,7 @@ export default {
     },
     //新增推单--调用接口--addUser
     addSubmit: function() {
-      this.$refs.addForm.validate(valid => {
+      this.$refs["addForm"].validate(valid => {
         if (valid) {
           this.$confirm("确认提交吗？", "提示", {}).then(() => {
             this.addLoading = true;
@@ -345,7 +345,7 @@ export default {
     },
     //编辑推单--调用接口--editUser
     editSubmit: function() {
-      this.$refs.editForm.validate(valid => {
+      this.$refs["editForm"].validate(valid => {
         if (valid) {
           this.$confirm("确认提交吗？", "提示", {}).then(() => {
             this.editLoading = true;
