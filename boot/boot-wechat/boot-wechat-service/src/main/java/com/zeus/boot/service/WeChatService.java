@@ -1,5 +1,7 @@
 package com.zeus.boot.service;
 
-public interface WeChatService {
+import java.util.Map;
 
+public interface WeChatService {
+    Map<Object,Object> getOrgInfos();
 }
