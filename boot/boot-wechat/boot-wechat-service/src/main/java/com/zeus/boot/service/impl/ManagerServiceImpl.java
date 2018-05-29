@@ -29,11 +29,13 @@ public class ManagerServiceImpl implements ManagerService {
     }
 
     @Override
+    @Transactional
     public void orgBatchRemove(List<String> orgs) {
         orgs.stream().forEach(id -> organizationRepository.deleteById(Long.parseLong(id)));
     }
 
     @Override
+    @Transactional
     public void brdBatchRemove(List<String> brds) {
         brds.stream().forEach(id -> boardRepository.deleteById(Long.parseLong(id)));
     }
