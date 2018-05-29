@@ -1,6 +1,7 @@
 web:
   url: http://localhost:8080
 
+# 数据库配置
 spring:
   jpa:
       show-sql: true
@@ -34,13 +35,15 @@ spring:
       filters: stat
       connect-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
 
-
+# 日志基本
 logging:
   level:
     org:
       springframework:
         web: debug
+        security: debug
 
+# 服务器配置
 server:
   port: 8080
 #  ssl:
