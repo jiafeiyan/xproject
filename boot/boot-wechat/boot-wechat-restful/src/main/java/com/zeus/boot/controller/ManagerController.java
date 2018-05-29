@@ -2,11 +2,9 @@ package com.zeus.boot.controller;
 
 import com.zeus.boot.commons.message.ResponseMessage;
 import com.zeus.boot.commons.message.ResultCode;
-import com.zeus.boot.entity.Admin;
 import com.zeus.boot.entity.Board;
 import com.zeus.boot.entity.Organization;
 import com.zeus.boot.entity.Recommend;
-import com.zeus.boot.repo.AdminRepository;
 import com.zeus.boot.repo.BoardRepository;
 import com.zeus.boot.repo.OrganizationRepository;
 import com.zeus.boot.repo.RecommendRepository;
@@ -20,7 +18,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -37,9 +34,6 @@ public class ManagerController {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
-    private AdminRepository adminRepository;
-
-    @Autowired
     private RecommendRepository recommendRepository;
 
     @Autowired
@@ -50,28 +44,6 @@ public class ManagerController {
 
     @Autowired
     private BoardRepository boardRepository;
-
-    @ApiOperation(value = "管理员登陆接口")
-    @ApiResponses({@ApiResponse(code = 200, message = "操作成功"),
-            @ApiResponse(code = 500, message = "服务器内部异常")})
-    @PostMapping(path = "/login")
-    private Map<String, Object> login(@RequestBody Map<String, String> user) {
-        String username = user.get("username");
-        String password = user.get("password");
-        Admin admin = adminRepository.findAdminByUsername(username);
-
-        Map<String, Object> result = new HashMap<>();
-        if (null == admin) {
-            result.put("error", "user not find");
-        } else {
-            if (password.equals(admin.getPassword())) {
-                result.put("username", admin.getUsername());
-                result.put("password", admin.getPassword());
-                result.put("code", 200);
-            }
-        }
-        return result;
-    }
 
     @ApiOperation(value = "增加", notes = "推单相关api")
     @PutMapping(path = "/rcm/add")

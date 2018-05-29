@@ -12,12 +12,13 @@
     <artifactId>boot-wechat</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>boot-wechat-service</module>
         <module>boot-wechat-starter</module>
+        <module>boot-wechat-service</module>
         <module>boot-wechat-commons</module>
         <module>boot-wechat-repo</module>
         <module>boot-wechat-restful</module>
         <module>boot-wechat-entity</module>
+        <module>boot-wechat-auth</module>
     </modules>
 
 </project>
