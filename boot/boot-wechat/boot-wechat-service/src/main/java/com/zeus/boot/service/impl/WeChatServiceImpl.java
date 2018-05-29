@@ -5,6 +5,7 @@ import com.zeus.boot.entity.Recommend;
 import com.zeus.boot.repo.OrganizationRepository;
 import com.zeus.boot.repo.RecommendRepository;
 import com.zeus.boot.service.WeChatService;
+import com.zeus.boot.vo.OrgInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +30,7 @@ public class WeChatServiceImpl implements WeChatService {
         List<Organization> orgs = organizationRepository.findAll();
         //遍历查询每一个机构近20场数据
         for (int i = 0; i < orgs.size(); i++) {
+            OrgInfo orgInfo = new OrgInfo();
             //获取ID
             Long orgId = orgs.get(i).getOrg_id();
             String orgName = orgs.get(i).getOrg_name();
@@ -51,6 +53,7 @@ public class WeChatServiceImpl implements WeChatService {
             String rate10 = (rcmResultList.stream().limit(10).filter(k -> true).count() * 1.0) / (rcmResultList.stream().limit(10).count() * 1.0) + "%";
             //计算近20场胜率
             String rate20 = (rcmResultList.stream().limit(20).filter(k -> true).count() * 1.0) / (rcmResultList.stream().limit(20).count() * 1.0) + "%";
+            orgInfo.setOrgId(orgId+"");
 
 
         }
