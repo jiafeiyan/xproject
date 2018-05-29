@@ -4,7 +4,6 @@ package com.zeus.boot.jwt.config;
 import com.zeus.boot.jwt.filter.JWTAuthenticationFilter;
 import com.zeus.boot.jwt.filter.JWTLoginFilter;
 import com.zeus.boot.jwt.service.impl.CustomAuthenticationProvider;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;

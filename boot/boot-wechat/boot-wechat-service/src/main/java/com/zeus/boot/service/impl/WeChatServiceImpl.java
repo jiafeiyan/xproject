@@ -2,11 +2,8 @@ package com.zeus.boot.service.impl;
 
 import com.zeus.boot.entity.Organization;
 import com.zeus.boot.entity.Recommend;
-import com.zeus.boot.repo.AdminRepository;
-import com.zeus.boot.repo.BoardRepository;
 import com.zeus.boot.repo.OrganizationRepository;
 import com.zeus.boot.repo.RecommendRepository;
-import com.zeus.boot.service.ManagerService;
 import com.zeus.boot.service.WeChatService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

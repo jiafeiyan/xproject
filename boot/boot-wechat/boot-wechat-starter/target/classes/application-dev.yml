@@ -1,6 +1,7 @@
 web:
   url: http://localhost:8080
 
+
 # 数据库配置
 spring:
   jpa:
@@ -12,7 +13,7 @@ spring:
     druid:
       url: jdbc:mysql://localhost:3306/zeus
       username: root
-      password: 123456
+      password: chenyan
       driver-class-name: com.mysql.jdbc.Driver
       # 初始化大小，最小，最大
       initial-size: 5
