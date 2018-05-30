@@ -19,6 +19,7 @@
         <module>boot-wechat-restful</module>
         <module>boot-wechat-entity</module>
         <module>boot-wechat-auth</module>
+        <module>boot-wechat-vo</module>
     </modules>
 
 </project>
