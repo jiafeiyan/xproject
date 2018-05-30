@@ -19,7 +19,7 @@
         </dependency>
         <dependency>
             <groupId>com.zeus</groupId>
-            <artifactId>boot-wechat-restful</artifactId>
+            <artifactId>boot-wechat-vo</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>

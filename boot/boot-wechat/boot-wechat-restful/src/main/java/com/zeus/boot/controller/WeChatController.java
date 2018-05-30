@@ -6,6 +6,7 @@ import com.zeus.boot.repo.BoardRepository;
 import com.zeus.boot.repo.OrganizationRepository;
 import com.zeus.boot.repo.RecommendRepository;
 import com.zeus.boot.service.impl.WeChatServiceImpl;
+import com.zeus.boot.vo.OrgInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Map;
 
 @Api(value = "Web Api", tags = {"wechat接口调用"})
@@ -31,7 +33,7 @@ public class WeChatController {
     @GetMapping(path = "/qry/orgInfo")
     private ResponseMessage<Object> getRcmList() {
         try {
-            Map<Object, Object> orgInfos =weChatService.getOrgInfos();
+            List<OrgInfo> orgInfos = weChatService.getOrgInfos();
             return ResponseMessage.ok(orgInfos);
         } catch (Exception e) {
             logger.error(e.getMessage());
