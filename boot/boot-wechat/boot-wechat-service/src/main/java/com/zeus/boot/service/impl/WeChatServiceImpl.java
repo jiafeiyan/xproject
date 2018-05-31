@@ -8,6 +8,7 @@ import com.zeus.boot.repo.RecommendRepository;
 import com.zeus.boot.service.WeChatService;
 import com.zeus.boot.vo.OrgInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,10 +29,10 @@ public class WeChatServiceImpl implements WeChatService{
 
     @Override
     @Transactional
-    public List<OrgInfo> getOrgInfos() {
+    public List<OrgInfo> getOrgInfos(String orgType) {
         ArrayList<OrgInfo> orgInfoArrayList= new ArrayList<>();
         //查询所有机构信息
-        List<Organization> orgs = organizationRepository.findAll();
+        List<Organization> orgs = organizationRepository.findAllByOrg_type(orgType);
         //遍历查询每一个机构近20场数据
         for (int i = 0; i < orgs.size(); i++) {
             OrgInfo orgInfo = new OrgInfo();
@@ -40,10 +41,10 @@ public class WeChatServiceImpl implements WeChatService{
             //机构名称赋值
             String orgName = orgs.get(i).getOrg_name();
             //根据ID查询近20场数据
-            List<Recommend> rcms = recommendRepository.findAll();
+            List<Recommend> rcms = recommendRepository.getAllByRcm_rcmeridOrderByRcm_dateDesc(String.valueOf(orgId));
             //将推单结果字段组合成数组
             ArrayList rcmResultList = new ArrayList();
-            for (int j = 0; i < rcms.size(); j++) {
+            for (int j = 0; j < rcms.size(); j++) {
                 String result = rcms.get(j).getRcm_result();
                 if ("2" == result) {
                     rcmResultList.add(true);

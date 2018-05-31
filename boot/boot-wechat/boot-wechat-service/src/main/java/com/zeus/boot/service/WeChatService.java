@@ -5,5 +5,5 @@ import com.zeus.boot.vo.OrgInfo;
 import java.util.List;
 
 public interface WeChatService {
-    List<OrgInfo> getOrgInfos();
+    List<OrgInfo> getOrgInfos(String orgType);
 }

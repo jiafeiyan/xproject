@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,10 +31,10 @@ public class WeChatController {
     private WeChatServiceImpl weChatService;
 
     @ApiOperation(value = "查询名人(专家)胜率信息", notes = "wechat相关api")
-    @GetMapping(path = "/qry/orgInfo")
-    private ResponseMessage<Object> getRcmList() {
+    @GetMapping(path = "/qry/orgInfo/{id}")
+    private ResponseMessage<Object> getRcmList(@PathVariable("orgType") String orgType) {
         try {
-            List<OrgInfo> orgInfos = weChatService.getOrgInfos();
+            List<OrgInfo> orgInfos = weChatService.getOrgInfos(orgType);
             return ResponseMessage.ok(orgInfos);
         } catch (Exception e) {
             logger.error(e.getMessage());
