@@ -14,9 +14,9 @@ import java.sql.Date;
 @Data
 @Entity
 @Table(
-        name = "t_Recommend",
+        name = "tRecommend",
         indexes = {
-                @Index(name = "Recommend_Index",columnList = "rcm_id")
+                @Index(name = "Recommend_Index",columnList = "rcmId")
         }
 )
 @Proxy(lazy = false)
@@ -27,60 +27,60 @@ public class Recommend implements Serializable {
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long rcm_id;
+    private Long rcmId;
 
     @Column()
     @CreatedDate
-    private String rcm_setupdate;
+    private String rcmSetupdate;
 
     @Column(nullable = true, columnDefinition = "varchar(255) COMMENT '推荐人ID'")
-    private String rcm_rcmerid;
+    private String rcmRcmerid;
 
     @Column(nullable = true, columnDefinition = "varchar(255) COMMENT '推荐人姓名'")
-    private String rcm_rcmername;
+    private String rcmRcmername;
 
     @Column(nullable = true, columnDefinition = "varchar(255) COMMENT '推荐人类型'")
-    private String rcm_rcmertype;
+    private String rcmRcmertype;
 
     @Column(nullable = true, columnDefinition = "varchar(255) COMMENT '推荐简介'")
-    private String rcm_introduction;
+    private String rcmIntroduction;
 
     @Column(nullable = true, columnDefinition = "varchar(255) COMMENT '付费标志'")
-    private String rcm_payflag;
+    private String rcmPayflag;
 
     @Column(nullable = true, columnDefinition = "varchar(255) COMMENT '推荐日期'")
-    private String rcm_date;
+    private String rcmDate;
 
     @Column(nullable = true, columnDefinition = "varchar(255) COMMENT '推荐时间'")
-    private String rcm_time;
+    private String rcmTime;
 
     @Column(nullable = true, columnDefinition = "varchar(255) COMMENT '推荐内容'")
-    private String rcm_content;
+    private String rcmContent;
 
     @Column(nullable = true, columnDefinition = "varchar(255) COMMENT '推单结果'")
-    private String rcm_result;
+    private String rcmResult;
 
     @Column(nullable = true, columnDefinition = "varchar(255) COMMENT '赛事开始日期'")
-    private String eve_startdate;
+    private String eveStartdate;
 
     @Column(nullable = true, columnDefinition = "varchar(255) COMMENT '赛事开始时间'")
-    private String eve_starttime;
+    private String eveStarttime;
 
     @Column(nullable = true, columnDefinition = "varchar(255) COMMENT '赛事状态'")
-    private String eve_status;
+    private String eveStatus;
 
     @Column(nullable = true, columnDefinition = "varchar(255) COMMENT '联赛种类'")
-    private String eve_leaguetype;
+    private String eveLeaguetype;
 
     @Column(nullable = true, columnDefinition = "varchar(255) COMMENT '归属球种'")
-    private String eve_balltype;
+    private String eveBalltype;
 
     @Column(nullable = true, columnDefinition = "varchar(255) COMMENT '主队'")
-    private String eve_hometeam;
+    private String eveHometeam;
 
     @Column(nullable = true, columnDefinition = "varchar(255) COMMENT '客队'")
-    private String eve_visitteam;
+    private String eveVisitteam;
 
     @Column(nullable = true, columnDefinition = "varchar(255) COMMENT '赛果'")
-    private String eve_result;
+    private String eveResult;
 }

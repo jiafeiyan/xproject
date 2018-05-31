@@ -14,7 +14,7 @@ import java.io.Serializable;
 @Table(
         name = "t_Organization",
         indexes = {
-                @Index(name = "Organization_Index",columnList = "org_id")
+                @Index(name = "Organization_Index",columnList = "orgId")
         }
 )
 @Proxy(lazy = false)
@@ -25,44 +25,44 @@ public class Organization implements Serializable {
     @Id
     @Column()
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long org_id;
+    private Long orgId;
 
     @Column()
     @CreatedDate
-    private String org_setupdate;
+    private String orgSetupdate;
 
     @Column(nullable = true, columnDefinition = "varchar(255) COMMENT '组织名字'")
-    private String org_name;
+    private String orgName;
 
     @Column(nullable = true, columnDefinition = "varchar(255) COMMENT '组织头像'")
-    private String org_pic;
+    private String orgPic;
 
     @Column(nullable = true, columnDefinition = "varchar(255) COMMENT '组织二维码'")
-    private String org_qrpic;
+    private String orgQrpic;
 
     @Column(nullable = true, columnDefinition = "varchar(255) COMMENT '身份简介'")
-    private String org_introduction;
+    private String orgIntroduction;
 
     @Column(nullable = true, columnDefinition = "varchar(255) COMMENT '宣传语'")
-    private String org_motto;
+    private String orgMotto;
 
     @Column(nullable = true, columnDefinition = "varchar(255) COMMENT '组织类型'")
-    private String org_type;
+    private String orgType;
 
     @Column(nullable = true, columnDefinition = "varchar(255) COMMENT '推荐指数'")
-    private String org_recommendindex;
+    private String orgRecommendindex;
 
     @Column(nullable = true, columnDefinition = "varchar(255) COMMENT '优先级别'")
-    private String org_priority;
+    private String orgPriority;
 
     @Column(nullable = true, columnDefinition = "varchar(255) COMMENT '专家关键字'")
-    private String org_keyword;
+    private String orgKeyword;
 
     @Column(columnDefinition = "varchar(255) COMMENT '公众号归属人(机构)'")
-    private String org_belong;
+    private String orgBelong;
 
     @Column(columnDefinition = "varchar(255) COMMENT '归属人联系方式'")
-    private String org_contacts;
+    private String orgContacts;
 
 }
 

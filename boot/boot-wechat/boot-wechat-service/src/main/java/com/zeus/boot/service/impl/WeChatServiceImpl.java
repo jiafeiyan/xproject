@@ -32,20 +32,20 @@ public class WeChatServiceImpl implements WeChatService{
     public List<OrgInfo> getOrgInfos(String orgType) {
         ArrayList<OrgInfo> orgInfoArrayList= new ArrayList<>();
         //查询所有机构信息
-        List<Organization> orgs = organizationRepository.findAllByOrg_type(orgType);
+        List<Organization> orgs = organizationRepository.findAllByOrgType(orgType);
         //遍历查询每一个机构近20场数据
         for (int i = 0; i < orgs.size(); i++) {
             OrgInfo orgInfo = new OrgInfo();
             //获取机构ID
-            Long orgId = orgs.get(i).getOrg_id();
+            Long orgId = orgs.get(i).getOrgId();
             //机构名称赋值
-            String orgName = orgs.get(i).getOrg_name();
+            String orgName = orgs.get(i).getOrgName();
             //根据ID查询近20场数据
-            List<Recommend> rcms = recommendRepository.getAllByRcm_rcmeridOrderByRcm_dateDesc(String.valueOf(orgId));
+            List<Recommend> rcms = recommendRepository.getAllByRcmRcmeridOrderByRcmDateDesc(String.valueOf(orgId));
             //将推单结果字段组合成数组
             ArrayList rcmResultList = new ArrayList();
             for (int j = 0; j < rcms.size(); j++) {
-                String result = rcms.get(j).getRcm_result();
+                String result = rcms.get(j).getRcmResult();
                 if ("2" == result) {
                     rcmResultList.add(true);
                 } else {

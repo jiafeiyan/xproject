@@ -51,24 +51,24 @@ public class ManagerController {
         try {
             Map<String, String> params = rcm.get("params");
             Recommend recommend = new Recommend();
-            recommend.setRcm_rcmerid(params.get("rcmerId"));
+            recommend.setRcmRcmerid(params.get("rcmerId"));
             Organization org = organizationRepository.getOne(Long.parseLong(params.get("rcmerId")));
-            recommend.setRcm_rcmername(org.getOrg_name());
-            recommend.setRcm_rcmertype(org.getOrg_type());
-            recommend.setRcm_introduction(params.get("rcmIntrocution"));
-            recommend.setRcm_payflag(params.get("rcmPayFlag"));
-            recommend.setRcm_date(params.get("rcmDate"));
-            recommend.setRcm_time(params.get("rcmTime"));
-            recommend.setRcm_content(params.get("rcmContent"));
-            recommend.setRcm_result(params.get("rcmResult"));
-            recommend.setEve_startdate(params.get("eventStartDate"));
-            recommend.setEve_starttime((params.get("eventStartTime")).length() > 19 ? (params.get("eventStartTime")).substring(11, 19) : "");
-            recommend.setEve_status(params.get("eventStatus"));
-            recommend.setEve_leaguetype(params.get("eventLeagueType"));
-            recommend.setEve_balltype(params.get("eventBallType"));
-            recommend.setEve_hometeam(params.get("eventHomeTeam"));
-            recommend.setEve_visitteam(params.get("eventVisitTeam"));
-            recommend.setEve_result(params.get("eventResult"));
+            recommend.setRcmRcmername(org.getOrgName());
+            recommend.setRcmRcmertype(org.getOrgType());
+            recommend.setRcmIntroduction(params.get("rcmIntrocution"));
+            recommend.setRcmPayflag(params.get("rcmPayFlag"));
+            recommend.setRcmDate(params.get("rcmDate"));
+            recommend.setRcmTime(params.get("rcmTime"));
+            recommend.setRcmContent(params.get("rcmContent"));
+            recommend.setRcmResult(params.get("rcmResult"));
+            recommend.setEveStartdate(params.get("eventStartDate"));
+            recommend.setEveStarttime((params.get("eventStartTime")).length() > 19 ? (params.get("eventStartTime")).substring(11, 19) : "");
+            recommend.setEveStatus(params.get("eventStatus"));
+            recommend.setEveLeaguetype(params.get("eventLeagueType"));
+            recommend.setEveBalltype(params.get("eventBallType"));
+            recommend.setEveHometeam(params.get("eventHomeTeam"));
+            recommend.setEveVisitteam(params.get("eventVisitTeam"));
+            recommend.setEveResult(params.get("eventResult"));
             recommendRepository.save(recommend);
             return ResponseMessage.ok();
         } catch (Exception e) {
@@ -79,10 +79,10 @@ public class ManagerController {
 
     @ApiOperation(value = "删除", notes = "推单相关api")
     @DeleteMapping(path = "/rcm/remove/{id}")
-    private ResponseMessage<Object> removeRcm(@PathVariable("id") Long rcm_id) {
+    private ResponseMessage<Object> removeRcm(@PathVariable("id") Long rcmId) {
         try {
             Recommend recommend = new Recommend();
-            recommend.setRcm_id(rcm_id);
+            recommend.setRcmId(rcmId);
             recommendRepository.delete(recommend);
             return ResponseMessage.ok();
         } catch (Exception e) {
@@ -112,26 +112,26 @@ public class ManagerController {
         try {
             Map<String, String> params = rcm.get("params");
             Recommend recommend = new Recommend();
-            recommend.setRcm_setupdate(params.get("rcm_setupdate"));
-            recommend.setRcm_id(Long.valueOf(params.get("rcm_id")));
-            recommend.setRcm_rcmerid(params.get("rcm_rcmerid"));
-            Organization org = organizationRepository.getOne(Long.parseLong(params.get("rcm_rcmerid")));
-            recommend.setRcm_rcmername(org.getOrg_name());
-            recommend.setRcm_rcmertype(org.getOrg_type());
-            recommend.setRcm_introduction(params.get("rcm_introduction"));
-            recommend.setRcm_payflag(params.get("rcm_payflag"));
-            recommend.setRcm_date(params.get("rcm_date"));
-            recommend.setRcm_time(params.get("rcm_time"));
-            recommend.setRcm_content(params.get("rcm_content"));
-            recommend.setRcm_result(params.get("rcm_result"));
-            recommend.setEve_startdate(params.get("eve_startdate"));
-            recommend.setEve_starttime(params.get("eve_starttime"));
-            recommend.setEve_status(params.get("eve_status"));
-            recommend.setEve_leaguetype(params.get("eve_leaguetype"));
-            recommend.setEve_balltype(params.get("eve_balltype"));
-            recommend.setEve_hometeam(params.get("eve_hometeam"));
-            recommend.setEve_visitteam(params.get("eve_visitteam"));
-            recommend.setEve_result(params.get("eve_result"));
+            recommend.setRcmSetupdate(params.get("rcmSetupdate"));
+            recommend.setRcmId(Long.valueOf(params.get("rcmId")));
+            recommend.setRcmRcmerid(params.get("rcmRcmerid"));
+            Organization org = organizationRepository.getOne(Long.parseLong(params.get("rcmRcmerid")));
+            recommend.setRcmRcmername(org.getOrgName());
+            recommend.setRcmRcmertype(org.getOrgType());
+            recommend.setRcmIntroduction(params.get("rcmIntroduction"));
+            recommend.setRcmPayflag(params.get("rcmPayflag"));
+            recommend.setRcmDate(params.get("rcmDate"));
+            recommend.setRcmTime(params.get("rcmTime"));
+            recommend.setRcmContent(params.get("rcmContent"));
+            recommend.setRcmResult(params.get("rcmResult"));
+            recommend.setEveStartdate(params.get("eveStartdate"));
+            recommend.setEveStarttime(params.get("eveStarttime"));
+            recommend.setEveStatus(params.get("eveStatus"));
+            recommend.setEveLeaguetype(params.get("eveLeaguetype"));
+            recommend.setEveBalltype(params.get("eveBalltype"));
+            recommend.setEveHometeam(params.get("eveHometeam"));
+            recommend.setEveVisitteam(params.get("eveVisitteam"));
+            recommend.setEveResult(params.get("eveResult"));
             recommendRepository.save(recommend);
             return ResponseMessage.ok();
         } catch (Exception e) {
@@ -170,15 +170,15 @@ public class ManagerController {
         try {
             Map<String, String> params = org.get("params");
             Organization organization = new Organization();
-            organization.setOrg_type(params.get("orgType"));
-            organization.setOrg_recommendindex(params.get("orgRecommendIndex"));
-            organization.setOrg_priority(params.get("orgPriority"));
-            organization.setOrg_name(params.get("orgName"));
-            organization.setOrg_motto(params.get("orgMotto"));
-            organization.setOrg_keyword(params.get("orgKeyword"));
-            organization.setOrg_introduction(params.get("orgIntroduction"));
-            organization.setOrg_contacts(params.get("orgContacts"));
-            organization.setOrg_belong(params.get("orgBelong"));
+            organization.setOrgType(params.get("orgType"));
+            organization.setOrgRecommendindex(params.get("orgRecommendIndex"));
+            organization.setOrgPriority(params.get("orgPriority"));
+            organization.setOrgName(params.get("orgName"));
+            organization.setOrgMotto(params.get("orgMotto"));
+            organization.setOrgKeyword(params.get("orgKeyword"));
+            organization.setOrgIntroduction(params.get("orgIntroduction"));
+            organization.setOrgContacts(params.get("orgContacts"));
+            organization.setOrgBelong(params.get("orgBelong"));
             organizationRepository.save(organization);
             return ResponseMessage.ok();
         } catch (Exception e) {
@@ -190,10 +190,10 @@ public class ManagerController {
 
     @ApiOperation(value = "删除", notes = "媒体机构相关api")
     @DeleteMapping(path = "/org/remove/{id}")
-    private ResponseMessage<Object> removeOrg(@PathVariable("id") Long org_id) {
+    private ResponseMessage<Object> removeOrg(@PathVariable("id") Long orgId) {
         try {
             Organization organization = new Organization();
-            organization.setOrg_id(org_id);
+            organization.setOrgId(orgId);
             organizationRepository.delete(organization);
             return ResponseMessage.ok();
         } catch (Exception e) {
@@ -223,17 +223,17 @@ public class ManagerController {
         try {
             Map<String, String> params = org.get("params");
             Organization organization = new Organization();
-            organization.setOrg_setupdate(params.get("org_setupdate"));
-            organization.setOrg_id(Long.valueOf(params.get("org_id")));
-            organization.setOrg_type(params.get("org_type"));
-            organization.setOrg_recommendindex(params.get("org_recommendindex"));
-            organization.setOrg_priority(params.get("org_priority"));
-            organization.setOrg_name(params.get("org_name"));
-            organization.setOrg_motto(params.get("org_motto"));
-            organization.setOrg_keyword(params.get("org_keyword"));
-            organization.setOrg_introduction(params.get("org_introduction"));
-            organization.setOrg_contacts(params.get("org_contacts"));
-            organization.setOrg_belong(params.get("org_belong"));
+            organization.setOrgSetupdate(params.get("orgSetupdate"));
+            organization.setOrgId(Long.valueOf(params.get("orgId")));
+            organization.setOrgType(params.get("orgType"));
+            organization.setOrgRecommendindex(params.get("orgRecommendindex"));
+            organization.setOrgPriority(params.get("orgPriority"));
+            organization.setOrgName(params.get("orgName"));
+            organization.setOrgMotto(params.get("orgMotto"));
+            organization.setOrgKeyword(params.get("orgKeyword"));
+            organization.setOrgIntroduction(params.get("orgIntroduction"));
+            organization.setOrgContacts(params.get("orgContacts"));
+            organization.setOrgBelong(params.get("orgBelong"));
             organizationRepository.save(organization);
             return ResponseMessage.ok();
         } catch (Exception e) {
@@ -272,10 +272,10 @@ public class ManagerController {
         try {
             Map<String, String> params = brd.get("params");
             Board board = new Board();
-            board.setBrd_rcmdate(params.get("brdRcmdate"));
-            board.setBrd_rcmtime((params.get("brdRcmtime")).length() > 19 ? (params.get("brdRcmtime")).substring(11, 19) : "");
-            board.setBrd_rcmcontent(params.get("brdRcmcontent"));
-            board.setBrd_rcmreason(params.get("brdRcmreason"));
+            board.setBrdRcmdate(params.get("brdRcmdate"));
+            board.setBrdRcmtime((params.get("brdRcmtime")).length() > 19 ? (params.get("brdRcmtime")).substring(11, 19) : "");
+            board.setBrdRcmcontent(params.get("brdRcmcontent"));
+            board.setBrdRcmreason(params.get("brdRcmreason"));
             boardRepository.save(board);
             return ResponseMessage.ok();
         } catch (Exception e) {
@@ -286,10 +286,10 @@ public class ManagerController {
 
     @ApiOperation(value = "删除", notes = "公告相关api")
     @DeleteMapping(path = "/brd/remove/{id}")
-    private ResponseMessage<Object> removeBrd(@PathVariable("id") Long brd_id) {
+    private ResponseMessage<Object> removeBrd(@PathVariable("id") Long brdId) {
         try {
             Board board = new Board();
-            board.setBrd_id(brd_id);
+            board.setBrdId(brdId);
             boardRepository.delete(board);
             return ResponseMessage.ok();
         } catch (Exception e) {
@@ -319,12 +319,12 @@ public class ManagerController {
         try {
             Map<String, String> params = brd.get("params");
             Board board = new Board();
-            board.setBrd_setupdate(params.get("brd_setupdate"));
-            board.setBrd_id(Long.valueOf(params.get("brd_id")));
-            board.setBrd_rcmdate(params.get("brd_rcmdate"));
-            board.setBrd_rcmtime((params.get("brd_rcmtime")).length() > 19 ? (params.get("brd_rcmtime")).substring(11, 19) : "");
-            board.setBrd_rcmcontent(params.get("brd_rcmcontent"));
-            board.setBrd_rcmreason(params.get("brd_rcmreason"));
+            board.setBrdSetupdate(params.get("brdSetupdate"));
+            board.setBrdId(Long.valueOf(params.get("brdId")));
+            board.setBrdRcmdate(params.get("brdRcmdate"));
+            board.setBrdRcmtime((params.get("brdRcmtime")).length() > 19 ? (params.get("brdRcmtime")).substring(11, 19) : "");
+            board.setBrdRcmcontent(params.get("brdRcmcontent"));
+            board.setBrdRcmreason(params.get("brdRcmreason"));
             boardRepository.save(board);
             return ResponseMessage.ok();
         } catch (Exception e) {

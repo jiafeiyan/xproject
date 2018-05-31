@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface OrganizationRepository extends JpaRepository<Organization,Long> {
     //根据组织类型查询机构信息
-    List<Organization> findAllByOrg_type(String org_type);
+    List<Organization> findAllByOrgType(String org_type);
 }

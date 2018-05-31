@@ -13,7 +13,7 @@ import java.io.Serializable;
 @Table(
         name = "t_Board",
         indexes = {
-                @Index(name = "Board_Index",columnList = "brd_id")
+                @Index(name = "Board_Index",columnList = "brdId")
         }
 )
 @Proxy(lazy = false)
@@ -24,21 +24,21 @@ public class Board implements Serializable {
     @Id
     @Column()
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long brd_id;
+    private Long brdId;
 
     @Column()
     @CreatedDate
-    private String brd_setupdate;
+    private String brdSetupdate;
 
     @Column(nullable = true, columnDefinition = "varchar(255) COMMENT '推荐日期'")
-    private String brd_rcmdate;
+    private String brdRcmdate;
 
     @Column(nullable = true, columnDefinition = "varchar(255) COMMENT '推荐时间'")
-    private String brd_rcmtime;
+    private String brdRcmtime;
 
     @Column(nullable = true, columnDefinition = "varchar(255) COMMENT '推荐内容'")
-    private String brd_rcmcontent;
+    private String brdRcmcontent;
 
     @Column(nullable = true, columnDefinition = "varchar(255) COMMENT '推荐理由'")
-    private String brd_rcmreason;
+    private String brdRcmreason;
 }
