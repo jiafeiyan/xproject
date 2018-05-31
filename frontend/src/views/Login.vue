@@ -45,16 +45,17 @@
           if (valid) {
             this.logining = true;
             var loginParams = { username: this.ruleForm2.account, password: this.ruleForm2.checkPass };
-            requestLogin(loginParams).then(data => {
+            requestLogin(loginParams).then(rsp => {
               this.logining = false;
-              let { msg, code, user } = data;
+              let code = rsp.status;
               if (code !== 200) {
                 this.$message({
                   message: msg,
                   type: 'error'
                 });
               } else {
-                sessionStorage.setItem('user', JSON.stringify(data));
+                sessionStorage.setItem('auth',rsp.headers.authorization);
+                sessionStorage.setItem('user', JSON.stringify({username:''}));
                 this.$router.push({ path: '/rcm' });
               }
             });
