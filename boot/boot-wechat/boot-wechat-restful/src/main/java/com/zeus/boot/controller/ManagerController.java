@@ -55,7 +55,7 @@ public class ManagerController {
             Organization org = organizationRepository.getOne(Long.parseLong(params.get("rcmerId")));
             recommend.setRcmRcmername(org.getOrgName());
             recommend.setRcmRcmertype(org.getOrgType());
-            recommend.setRcmIntroduction(params.get("rcmIntrocution"));
+            recommend.setRcmIntroduction(params.get("rcmIntroduction"));
             recommend.setRcmPayflag(params.get("rcmPayFlag"));
             recommend.setRcmDate(params.get("rcmDate"));
             recommend.setRcmTime(params.get("rcmTime"));
@@ -125,7 +125,7 @@ public class ManagerController {
             recommend.setRcmContent(params.get("rcmContent"));
             recommend.setRcmResult(params.get("rcmResult"));
             recommend.setEveStartdate(params.get("eveStartdate"));
-            recommend.setEveStarttime(params.get("eveStarttime"));
+            recommend.setEveStarttime((params.get("eventStartTime")).length() > 19 ? (params.get("eventStartTime")).substring(11, 19) : "");
             recommend.setEveStatus(params.get("eveStatus"));
             recommend.setEveLeaguetype(params.get("eveLeaguetype"));
             recommend.setEveBalltype(params.get("eveBalltype"));

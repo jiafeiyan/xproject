@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface RecommendRepository extends JpaRepository<Recommend, Long> {
-    List<Recommend> getAllByRcmRcmeridOrderByRcmDateDesc(String rcmerId);
+    List<Recommend> getTop20ByRcmRcmeridOrderByRcmDateDesc(String rcmerId);
 }

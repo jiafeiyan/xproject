@@ -32,7 +32,7 @@ public class WeChatController {
 
     @ApiOperation(value = "查询名人(专家)胜率信息", notes = "wechat相关api")
     @GetMapping(path = "/qry/orgInfo/{id}")
-    private ResponseMessage<Object> getRcmList(@PathVariable("orgType") String orgType) {
+    private ResponseMessage<Object> getRcmList(@PathVariable("id") String orgType) {
         try {
             List<OrgInfo> orgInfos = weChatService.getOrgInfos(orgType);
             return ResponseMessage.ok(orgInfos);

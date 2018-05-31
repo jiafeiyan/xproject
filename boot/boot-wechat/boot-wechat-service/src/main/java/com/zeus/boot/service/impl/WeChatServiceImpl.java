@@ -42,7 +42,7 @@ public class WeChatServiceImpl implements WeChatService{
             //机构名称赋值
             String orgName = orgs.get(i).getOrgName();
             //根据ID查询近20场数据
-            List<Recommend> rcms = recommendRepository.getAllByRcmRcmeridOrderByRcmDateDesc(String.valueOf(orgId));
+            List<Recommend> rcms = recommendRepository.getTop20ByRcmRcmeridOrderByRcmDateDesc(String.valueOf(orgId));
 
             //计算近5场胜率
             Stream<Recommend> top5 = rcms.stream().limit(5);

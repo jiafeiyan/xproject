@@ -21,17 +21,17 @@
 			</el-table-column >
 			<el-table-column type="index" label="序号" width="80">
 			</el-table-column>
-			<el-table-column prop="brd_id" label="公告ID" width="120" v-if="false">
+			<el-table-column prop="brdId" label="公告ID" width="120" v-if="false">
 			</el-table-column>
-			<el-table-column prop="brd_setupdate" label="创建日期" width="150" sortable>
+			<el-table-column prop="brdSetupdate" label="创建日期" width="150" sortable>
 			</el-table-column>
-			<el-table-column prop="brd_rcmdate" label="推荐日期" width="115" sortable>
+			<el-table-column prop="brdRcmdate" label="推荐日期" width="115" sortable>
 			</el-table-column>
-			<el-table-column prop="brd_rcmtime" label="推荐时间" width="115" sortable>
+			<el-table-column prop="brdRcmtime" label="推荐时间" width="115" sortable>
 			</el-table-column>
-			<el-table-column prop="brd_rcmcontent" label="推荐内容" width="150" >
+			<el-table-column prop="brdRcmcontent" label="推荐内容" width="150" >
 			</el-table-column>
-			<el-table-column prop="brd_rcmreason" label="推荐理由" width="250" >
+			<el-table-column prop="brdRcmreason" label="推荐理由" width="250" >
 			</el-table-column>
 			<el-table-column label="操作" width="150">
 				<template scope="scope">
@@ -51,22 +51,22 @@
 		<!--编辑界面-->
 		<el-dialog title="编辑" v-model="editFormVisible" :close-on-click-modal="false">
 			<el-form :model="editForm" label-width="80px" :rules="editFormRules" ref="editForm">
-				<el-form-item label="预告时间" prop="brd_rcmdate">
+				<el-form-item label="预告时间" prop="brdRcmdate">
 					<el-col :span="11" >
-						<el-date-picker type="date" placeholder="选择日期" v-model="editForm.brd_rcmdate" @change="setEditRcmDate" format="yyyy-MM-dd"  style="width: 100%;"></el-date-picker>
+						<el-date-picker type="date" placeholder="选择日期" v-model="editForm.brdRcmdate" @change="setEditRcmDate" format="yyyy-MM-dd"  style="width: 100%;"></el-date-picker>
 					</el-col>
 					<el-col class="line" :span="2">-</el-col>
 					<el-col :span="11">
-						<el-time-picker type="fixed-time" placeholder="选择时间" v-model="editForm.brd_rcmtime" style="width: 100%;"></el-time-picker>
+						<el-time-picker type="fixed-time" placeholder="选择时间" v-model="editForm.brdRcmtime" style="width: 100%;"></el-time-picker>
 					</el-col>
 				</el-form-item>
-				<el-form-item label="推荐内容" prop="brd_rcmcontent">
-					<el-input v-model="editForm.brd_rcmcontent" auto-complete="off"></el-input>
+				<el-form-item label="推荐内容" prop="brdRcmcontent">
+					<el-input v-model="editForm.brdRcmcontent" auto-complete="off"></el-input>
 				</el-form-item>
-				<el-form-item label="推荐理由" prop="brd_rcmreason">
-					<el-input v-model="editForm.brd_rcmreason" auto-complete="off"></el-input>
+				<el-form-item label="推荐理由" prop="brdRcmreason">
+					<el-input v-model="editForm.brdRcmreason" auto-complete="off"></el-input>
 				</el-form-item>	
-        <el-form-item v-model="editForm.brd_setupdate" label="创建时间" v-if="false"></el-form-item>	
+        <el-form-item v-model="editForm.brdSetupdate" label="创建时间" v-if="false"></el-form-item>	
 			</el-form>
 			<div slot="footer" class="dialog-footer">
 				<el-button @click.native="editFormVisible = false">取消</el-button>
@@ -120,16 +120,16 @@ export default {
       editFormVisible: false, //编辑界面是否显示
       editLoading: false,
       editFormRules: {
-        brd_rcmcontent: [{ required: true, message: "请输入推荐内容", trigger: "blur" }],
-        brd_rcmreason: [{ required: true, message: "请输入推荐理由", trigger: "blur" }],
+        brdRcmcontent: [{ required: true, message: "请输入推荐内容", trigger: "blur" }],
+        brdRcmreason: [{ required: true, message: "请输入推荐理由", trigger: "blur" }],
       },
       //编辑界面数据
       editForm: {
-        brd_setupdate:"",
-        brd_rcmdate: "",
-        brd_rcmtime: "",
-        brd_rcmcontent: "",
-        brd_rcmreason: ""
+        brdSetupdate:"",
+        brdRcmdate: "",
+        brdRcmtime: "",
+        brdRcmcontent: "",
+        brdRcmreason: ""
       },
 
       addFormVisible: false, //新增界面是否显示
@@ -182,7 +182,7 @@ export default {
       })
         .then(() => {
           this.listLoading = true;
-          let para = row.brd_id ;
+          let para = row.brdId ;
           BrdMethods.removeBrd(para).then(res => {
             this.listLoading = false;
             this.$message({
@@ -197,7 +197,7 @@ export default {
 
     //批量删除公告
     batchRemove: function() {
-      var ids = this.sels.map(item => item.brd_id).toString();
+      var ids = this.sels.map(item => item.brdId).toString();
       this.$confirm("确认删除选中记录吗？", "提示", {
         type: "warning"
       })
