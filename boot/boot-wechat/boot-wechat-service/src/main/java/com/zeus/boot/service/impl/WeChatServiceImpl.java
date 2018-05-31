@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 @Service
 public class WeChatServiceImpl implements WeChatService{
@@ -42,22 +43,19 @@ public class WeChatServiceImpl implements WeChatService{
             String orgName = orgs.get(i).getOrgName();
             //根据ID查询近20场数据
             List<Recommend> rcms = recommendRepository.getAllByRcmRcmeridOrderByRcmDateDesc(String.valueOf(orgId));
-            //将推单结果字段组合成数组
-            ArrayList rcmResultList = new ArrayList();
-            for (int j = 0; j < rcms.size(); j++) {
-                String result = rcms.get(j).getRcmResult();
-                if ("2" == result) {
-                    rcmResultList.add(true);
-                } else {
-                    rcmResultList.add(false);
-                }
-            }
+
             //计算近5场胜率
-            String rate5 = (rcmResultList.stream().limit(5).filter(k -> true).count() * 1.0) / (rcmResultList.stream().limit(5).count() * 1.0) + "%";
+            Stream<Recommend> top5 = rcms.stream().limit(5);
+            String rate5 = (top5.filter(recommend -> "2".equals(recommend.getRcmResult())).count() * 1.0) / (top5.count() * 1.0) + "%";
+
             //计算近10场胜率
-            String rate10 = (rcmResultList.stream().limit(10).filter(k -> true).count() * 1.0) / (rcmResultList.stream().limit(10).count() * 1.0) + "%";
+            Stream<Recommend> top10 = rcms.stream().limit(10);
+            String rate10 = (top10.filter(recommend -> "2".equals(recommend.getRcmResult())).count() * 1.0) / (top10.count() * 1.0) + "%";
+
             //计算近20场胜率
-            String rate20 = (rcmResultList.stream().limit(20).filter(k -> true).count() * 1.0) / (rcmResultList.stream().limit(20).count() * 1.0) + "%";
+            Stream<Recommend> top20 = rcms.stream().limit(20);
+            String rate20 = (top20.filter(recommend -> "2".equals(recommend.getRcmResult())).count() * 1.0) / (top20.count() * 1.0) + "%";
+
             orgInfo.setOrgId(orgId+"");
             orgInfo.setOrgName(orgName);
             orgInfo.setRate5(rate5);
