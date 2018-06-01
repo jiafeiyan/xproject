@@ -160,7 +160,7 @@
 					</el-select>
 				</el-form-item>
 				<el-form-item label="推荐简介" >
-					<el-input v-model="addForm.rcmIntrocution" auto-complete="off"></el-input>
+					<el-input v-model="addForm.rcmIntroduction" auto-complete="off"></el-input>
 				</el-form-item>
 				<el-form-item label="付费标志">
 					<el-radio-group v-model="addForm.rcmPayFlag">
@@ -263,8 +263,8 @@ export default {
         rcmTime: "",
         rcmContent: "",
         rcmResult: "",
-        eventStartDate: "",
-        eventStartTime: "",
+        eventStartdate: "",
+        eventStarttime: "",
         eventStatus: "",
         eventLeagueType: "",
         eventBallType: "",
@@ -276,7 +276,9 @@ export default {
       addFormVisible: false, //新增界面是否显示
       addLoading: false,
       addFormRules: {
-        rcmerId: [{ required: true, message: "请选择媒体机构", trigger: "blur" }]
+        rcmerId: [
+          { required: true, message: "请选择媒体机构", trigger: "blur" }
+        ]
       },
       //新增界面数据
       addForm: {
@@ -333,10 +335,19 @@ export default {
             let para = Object.assign({}, this.addForm);
             RcmMethod.addRcm(para).then(res => {
               this.addLoading = false;
-              this.$message({
-                message: "提交成功",
-                type: "success"
-              });
+              let code = res.data.status;
+              let message = res.data.message;
+              if (code != 200) {
+                this.$message({
+                  message: message,
+                  type: "error"
+                });
+              } else {
+                this.$message({
+                  message: "提交成功",
+                  type: "success"
+                });
+              }
               this.$refs["addForm"].resetFields();
               this.addFormVisible = false;
               this.getRcms();
@@ -354,10 +365,19 @@ export default {
             let para = Object.assign({}, this.editForm);
             RcmMethod.editRcm(para).then(res => {
               this.editLoading = false;
-              this.$message({
-                message: "提交成功",
-                type: "success"
-              });
+              let code = res.data.status;
+              let message = res.data.message;
+              if (code != 200) {
+                this.$message({
+                  message: message,
+                  type: "error"
+                });
+              } else {
+                this.$message({
+                  message: "提交成功",
+                  type: "success"
+                });
+              }
               this.$refs["editForm"].resetFields();
               this.editFormVisible = false;
               this.getRcms();
@@ -376,10 +396,19 @@ export default {
           let para = row.rcmId;
           RcmMethod.removeRcm(para).then(res => {
             this.listLoading = false;
-            this.$message({
-              message: "删除成功",
-              type: "success"
-            });
+            let code = res.data.status;
+            let message = res.data.message;
+            if (code != 200) {
+              this.$message({
+                message: message,
+                type: "error"
+              });
+            } else {
+              this.$message({
+                message: "删除成功",
+                type: "success"
+              });
+            }
             this.getRcms();
           });
         })
@@ -396,10 +425,19 @@ export default {
           let para = { ids: ids };
           RcmMethod.batchRemoveRcm(para).then(res => {
             this.listLoading = false;
-            this.$message({
-              message: "删除成功",
-              type: "success"
-            });
+            let code = res.data.status;
+            let message = res.data.message;
+            if (code != 200) {
+              this.$message({
+                message: message,
+                type: "error"
+              });
+            } else {
+              this.$message({
+                message: "删除成功",
+                type: "success"
+              });
+            }
             this.getRcms();
           });
         })

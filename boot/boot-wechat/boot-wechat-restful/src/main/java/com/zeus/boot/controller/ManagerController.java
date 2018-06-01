@@ -62,7 +62,7 @@ public class ManagerController {
             recommend.setRcmContent(params.get("rcmContent"));
             recommend.setRcmResult(params.get("rcmResult"));
             recommend.setEveStartdate(params.get("eventStartDate"));
-            recommend.setEveStarttime((params.get("eventStartTime")).length() > 19 ? (params.get("eventStartTime")).substring(11, 19) : "");
+            recommend.setEveStarttime(params.get("eventStartTime"));
             recommend.setEveStatus(params.get("eventStatus"));
             recommend.setEveLeaguetype(params.get("eventLeagueType"));
             recommend.setEveBalltype(params.get("eventBallType"));
@@ -125,7 +125,7 @@ public class ManagerController {
             recommend.setRcmContent(params.get("rcmContent"));
             recommend.setRcmResult(params.get("rcmResult"));
             recommend.setEveStartdate(params.get("eveStartdate"));
-            recommend.setEveStarttime((params.get("eventStartTime")).length() > 19 ? (params.get("eventStartTime")).substring(11, 19) : "");
+            recommend.setEveStarttime(params.get("eveStarttime"));
             recommend.setEveStatus(params.get("eveStatus"));
             recommend.setEveLeaguetype(params.get("eveLeaguetype"));
             recommend.setEveBalltype(params.get("eveBalltype"));
@@ -273,7 +273,7 @@ public class ManagerController {
             Map<String, String> params = brd.get("params");
             Board board = new Board();
             board.setBrdRcmdate(params.get("brdRcmdate"));
-            board.setBrdRcmtime((params.get("brdRcmtime")).length() > 19 ? (params.get("brdRcmtime")).substring(11, 19) : "");
+            board.setBrdRcmtime(params.get("brdRcmtime"));
             board.setBrdRcmcontent(params.get("brdRcmcontent"));
             board.setBrdRcmreason(params.get("brdRcmreason"));
             boardRepository.save(board);
@@ -322,7 +322,7 @@ public class ManagerController {
             board.setBrdSetupdate(params.get("brdSetupdate"));
             board.setBrdId(Long.valueOf(params.get("brdId")));
             board.setBrdRcmdate(params.get("brdRcmdate"));
-            board.setBrdRcmtime((params.get("brdRcmtime")).length() > 19 ? (params.get("brdRcmtime")).substring(11, 19) : "");
+            board.setBrdRcmtime(params.get("brdRcmtime"));
             board.setBrdRcmcontent(params.get("brdRcmcontent"));
             board.setBrdRcmreason(params.get("brdRcmreason"));
             boardRepository.save(board);

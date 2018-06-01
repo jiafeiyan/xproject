@@ -120,12 +120,16 @@ export default {
       editFormVisible: false, //编辑界面是否显示
       editLoading: false,
       editFormRules: {
-        brdRcmcontent: [{ required: true, message: "请输入推荐内容", trigger: "blur" }],
-        brdRcmreason: [{ required: true, message: "请输入推荐理由", trigger: "blur" }],
+        brdRcmcontent: [
+          { required: true, message: "请输入推荐内容", trigger: "blur" }
+        ],
+        brdRcmreason: [
+          { required: true, message: "请输入推荐理由", trigger: "blur" }
+        ]
       },
       //编辑界面数据
       editForm: {
-        brdSetupdate:"",
+        brdSetupdate: "",
         brdRcmdate: "",
         brdRcmtime: "",
         brdRcmcontent: "",
@@ -135,10 +139,18 @@ export default {
       addFormVisible: false, //新增界面是否显示
       addLoading: false,
       addFormRules: {
-        brdRcmdate: [{ required: true, message: "请输入推荐日期", trigger: "blur" }],
-        brdRcmtime: [{ required: true, message: "请输入推荐时间", trigger: "blur" }],
-        brdRcmcontent: [{ required: true, message: "请输入推荐内容", trigger: "blur" }],
-        brdRcmreason: [{ required: true, message: "请输入推荐理由", trigger: "blur" }],
+        brdRcmdate: [
+          { required: true, message: "请输入推荐日期", trigger: "blur" }
+        ],
+        brdRcmtime: [
+          { required: true, message: "请输入推荐时间", trigger: "blur" }
+        ],
+        brdRcmcontent: [
+          { required: true, message: "请输入推荐内容", trigger: "blur" }
+        ],
+        brdRcmreason: [
+          { required: true, message: "请输入推荐理由", trigger: "blur" }
+        ]
       },
       //新增界面数据
       addForm: {
@@ -162,10 +174,19 @@ export default {
             let para = Object.assign({}, this.addForm);
             BrdMethods.addBrd(para).then(res => {
               this.addLoading = false;
-              this.$message({
-                message: "提交成功",
-                type: "success"
-              });
+              let code = res.data.status;
+              let message = res.data.message;
+              if (code != 200) {
+                this.$message({
+                  message: message,
+                  type: "error"
+                });
+              } else {
+                this.$message({
+                  message: "提交成功",
+                  type: "success"
+                });
+              }
               this.$refs["addForm"].resetFields();
               this.addFormVisible = false;
               this.getBrds();
@@ -182,13 +203,22 @@ export default {
       })
         .then(() => {
           this.listLoading = true;
-          let para = row.brdId ;
+          let para = row.brdId;
           BrdMethods.removeBrd(para).then(res => {
             this.listLoading = false;
-            this.$message({
-              message: "删除成功",
-              type: "success"
-            });
+            let code = res.data.status;
+            let message = res.data.message;
+            if (code != 200) {
+              this.$message({
+                message: message,
+                type: "error"
+              });
+            } else {
+              this.$message({
+                message: "删除成功",
+                type: "success"
+              });
+            }
             this.getBrds();
           });
         })
@@ -206,10 +236,19 @@ export default {
           let para = { ids: ids };
           BrdMethods.batchRemoveBrd(para).then(res => {
             this.listLoading = false;
-            this.$message({
-              message: "删除成功",
-              type: "success"
-            });
+            let code = res.data.status;
+            let message = res.data.message;
+            if (code != 200) {
+              this.$message({
+                message: message,
+                type: "error"
+              });
+            } else {
+              this.$message({
+                message: "删除成功",
+                type: "success"
+              });
+            }
             this.getBrds();
           });
         })
@@ -225,10 +264,19 @@ export default {
             let para = Object.assign({}, this.editForm);
             BrdMethods.editBrd(para).then(res => {
               this.editLoading = false;
-              this.$message({
-                message: "提交成功",
-                type: "success"
-              });
+              let code = res.data.status;
+              let message = res.data.message;
+              if (code != 200) {
+                this.$message({
+                  message: message,
+                  type: "error"
+                });
+              } else {
+                this.$message({
+                  message: "提交成功",
+                  type: "success"
+                });
+              }
               this.$refs["editForm"].resetFields();
               this.editFormVisible = false;
               this.getBrds();

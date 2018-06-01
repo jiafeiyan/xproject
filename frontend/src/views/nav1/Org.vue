@@ -214,8 +214,12 @@ export default {
       editFormVisible: false, //编辑界面是否显示
       editLoading: false,
       editFormRules: {
-        orgName: [{ required: true, message: "请输入媒体机构姓名", trigger: "blur" }],
-        orgType: [{ required: true, message: "请选择媒体机构类型", trigger: "blur" }],
+        orgName: [
+          { required: true, message: "请输入媒体机构姓名", trigger: "blur" }
+        ],
+        orgType: [
+          { required: true, message: "请选择媒体机构类型", trigger: "blur" }
+        ]
       },
       //编辑界面数据
       editForm: {
@@ -238,8 +242,12 @@ export default {
       addFormVisible: false, //新增界面是否显示
       addLoading: false,
       addFormRules: {
-        orgName: [{ required: true, message: "请输入媒体机构姓名", trigger: "blur" }],
-        orgType: [{ required: true, message: "请选择媒体机构类型", trigger: "blur" }],
+        orgName: [
+          { required: true, message: "请输入媒体机构姓名", trigger: "blur" }
+        ],
+        orgType: [
+          { required: true, message: "请选择媒体机构类型", trigger: "blur" }
+        ]
       },
       //新增界面数据
       addForm: {
@@ -270,10 +278,19 @@ export default {
             let para = Object.assign({}, this.addForm);
             OrgMethods.addOrg(para).then(res => {
               this.addLoading = false;
-              this.$message({
-                message: "提交成功",
-                type: "success"
-              });
+              let code = res.data.status;
+              let message = res.data.message;
+              if (code != 200) {
+                this.$message({
+                  message: message,
+                  type: "error"
+                });
+              } else {
+                this.$message({
+                  message: "提交成功",
+                  type: "success"
+                });
+              }
               this.$refs["addForm"].resetFields();
               this.addFormVisible = false;
               this.getOrgs();
@@ -292,10 +309,19 @@ export default {
           let para = row.orgId;
           OrgMethods.removeOrg(para).then(res => {
             this.listLoading = false;
-            this.$message({
-              message: "删除成功",
-              type: "success"
-            });
+            let code = res.data.status;
+            let message = res.data.message;
+            if (code != 200) {
+              this.$message({
+                message: message,
+                type: "error"
+              });
+            } else {
+              this.$message({
+                message: message,
+                type: "删除成功"
+              });
+            }
             this.getOrgs();
           });
         })
@@ -312,10 +338,19 @@ export default {
           let para = { ids: ids };
           OrgMethods.batchRemoveOrg(para).then(res => {
             this.listLoading = false;
-            this.$message({
-              message: "删除成功",
-              type: "success"
-            });
+            let code = res.data.status;
+            let message = res.data.message;
+            if (code != 200) {
+              this.$message({
+                message: message,
+                type: "error"
+              });
+            } else {
+              this.$message({
+                message: message,
+                type: "删除成功"
+              });
+            }
             this.getOrgs();
           });
         })
@@ -330,10 +365,19 @@ export default {
             let para = Object.assign({}, this.editForm);
             OrgMethods.editOrg(para).then(res => {
               this.editLoading = false;
-              this.$message({
-                message: "提交成功",
-                type: "success"
-              });
+              let code = res.data.status;
+              let message = res.data.message;
+              if (code != 200) {
+                this.$message({
+                  message: message,
+                  type: "error"
+                });
+              } else {
+                this.$message({
+                  message: message,
+                  type: "提交成功"
+                });
+              }
               this.$refs["editForm"].resetFields();
               this.editFormVisible = false;
               this.getOrgs();
@@ -356,13 +400,14 @@ export default {
       });
     },
     //翻译组织类型
-    formatOrgType:function(row, column){
-        return row.org_type == 1 ? "公众号"
-        : row.org_type == 2 ? "名人" 
-        : row.org_type == 3 ? "微博" 
-        : row.org_type == 4 ? "微信" 
-        : row.org_type == 5 ? "QQ" 
-        : "其他";
+    formatOrgType: function(row, column) {
+      return row.org_type == 1
+        ? "公众号"
+        : row.org_type == 2
+          ? "名人"
+          : row.org_type == 3
+            ? "微博"
+            : row.org_type == 4 ? "微信" : row.org_type == 5 ? "QQ" : "其他";
     },
 
     handleCurrentChange(val) {
