@@ -6,5 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface RecommendRepository extends JpaRepository<Recommend, Long> {
-    List<Recommend> getTop20ByRcmRcmeridOrderByRcmDateDesc(String rcmerId);
+    //根据推荐人ID查询近20场比赛记录
+    List<Recommend> getTop20ByRcmRcmeridOrderByRcmDateDesc(Long rcmerId);
 }
