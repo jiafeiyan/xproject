@@ -318,8 +318,8 @@ export default {
               });
             } else {
               this.$message({
-                message: message,
-                type: "删除成功"
+                message: "删除成功",
+                type: "success"
               });
             }
             this.getOrgs();
@@ -347,8 +347,8 @@ export default {
               });
             } else {
               this.$message({
-                message: message,
-                type: "删除成功"
+                message: "删除成功",
+                type: "success"
               });
             }
             this.getOrgs();
@@ -374,8 +374,8 @@ export default {
                 });
               } else {
                 this.$message({
-                  message: message,
-                  type: "提交成功"
+                  message: "提交成功",
+                  type: "success"
                 });
               }
               this.$refs["editForm"].resetFields();
