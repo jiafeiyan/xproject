@@ -21,7 +21,7 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 @Service
-public class WeChatServiceImpl implements WeChatService{
+public class WeChatServiceImpl implements WeChatService {
 
     @Autowired
     private RecommendRepository recommendRepository;
@@ -34,13 +34,14 @@ public class WeChatServiceImpl implements WeChatService{
 
     /**
      * 查询机构近（5，10，20）胜率情况
+     *
      * @param orgType
      * @return
      */
     @Override
     @Transactional
     public List<OrgInfo> getOrgInfosByOrgType(String orgType) {
-        ArrayList<OrgInfo> orgInfoArrayList= new ArrayList<>();
+        ArrayList<OrgInfo> orgInfoArrayList = new ArrayList<>();
         //查询所有机构信息
         List<Organization> orgs = organizationRepository.findAllByOrgType(orgType);
         //遍历查询每一个机构近20场数据
@@ -65,7 +66,7 @@ public class WeChatServiceImpl implements WeChatService{
             Stream<Recommend> top20 = rcms.stream().limit(20);
             String rate20 = (top20.filter(recommend -> "2".equals(recommend.getRcmResult())).count() * 1.0) / (top20.count() * 1.0) + "%";
 
-            orgInfo.setOrgId(orgId+"");
+            orgInfo.setOrgId(orgId + "");
             orgInfo.setOrgName(orgName);
             orgInfo.setRate5(rate5);
             orgInfo.setRate10(rate10);
@@ -77,15 +78,16 @@ public class WeChatServiceImpl implements WeChatService{
 
     /**
      * 根据组织类型，组织名字模糊查询组织信息
+     *
      * @param orgType
      * @param orgName
      * @return
      */
     @Override
     public List<OrgInfo> getOrgInfosByOrgName(String orgType, String orgName) {
-        ArrayList<OrgInfo> orgInfoArrayList= new ArrayList<>();
+        ArrayList<OrgInfo> orgInfoArrayList = new ArrayList<>();
         //根据机构类型，机构名称查询机构信息
-        List<Organization> orgs = organizationRepository.findAllByOrgTypeAndOrgName(orgType,orgName);
+        List<Organization> orgs = organizationRepository.findAllByOrgTypeAndOrgName(orgType, orgName);
         //遍历查询每一个机构近20场数据
         for (int i = 0; i < orgs.size(); i++) {
             OrgInfo orgInfo = new OrgInfo();
@@ -102,7 +104,7 @@ public class WeChatServiceImpl implements WeChatService{
             //计算近20场胜率
             Stream<Recommend> top20 = rcms.stream().limit(20);
             String rate20 = (top20.filter(recommend -> "2".equals(recommend.getRcmResult())).count() * 1.0) / (top20.count() * 1.0) + "%";
-            orgInfo.setOrgId(orgId+"");
+            orgInfo.setOrgId(orgId + "");
             orgInfo.setOrgName(orgName);
             orgInfo.setRate5(rate5);
             orgInfo.setRate10(rate10);
@@ -114,15 +116,16 @@ public class WeChatServiceImpl implements WeChatService{
 
     /**
      * 根据组织类型，关键字查询组织信息
+     *
      * @param orgType
      * @param keyword
      * @return
      */
     @Override
     public List<OrgInfo> getOrgInfosByKeyword(String orgType, String keyword) {
-        ArrayList<OrgInfo> orgInfoArrayList= new ArrayList<>();
+        ArrayList<OrgInfo> orgInfoArrayList = new ArrayList<>();
         //查询所有机构信息
-        List<Organization> orgs = organizationRepository.findAllByOrgTypeAndOrgKeyword(orgType,keyword);
+        List<Organization> orgs = organizationRepository.findAllByOrgTypeAndOrgKeyword(orgType, keyword);
         //遍历查询每一个机构近20场数据
         for (int i = 0; i < orgs.size(); i++) {
             OrgInfo orgInfo = new OrgInfo();
@@ -141,7 +144,7 @@ public class WeChatServiceImpl implements WeChatService{
             //计算近20场胜率
             Stream<Recommend> top20 = rcms.stream().limit(20);
             String rate20 = (top20.filter(recommend -> "2".equals(recommend.getRcmResult())).count() * 1.0) / (top20.count() * 1.0) + "%";
-            orgInfo.setOrgId(orgId+"");
+            orgInfo.setOrgId(orgId + "");
             orgInfo.setOrgName(orgName);
             orgInfo.setRate5(rate5);
             orgInfo.setRate10(rate10);
@@ -153,6 +156,7 @@ public class WeChatServiceImpl implements WeChatService{
 
     /**
      * 查询机构详情界面，机构信息，近20场推单情况
+     *
      * @param orgId
      * @return
      */
@@ -175,17 +179,48 @@ public class WeChatServiceImpl implements WeChatService{
 
     /**
      * 连红榜查询
+     *
      * @return
      */
     @Override
     public List<WinBoard> getContinueWin() {
         ArrayList<WinBoard> winBoards = new ArrayList<>();
+        //查询所有机构
+        List<Organization> organizations = organizationRepository.findAll();
+        //遍历所有机构
+        for (int i = 0; i < organizations.size(); i++) {
+            WinBoard winBoard = new WinBoard();
+            //获取机构ID
+            Long orgId = organizations.get(i).getOrgId();
+            String orgName = organizations.get(i).getOrgName();
+            //查询机构所有推单
+            final List<Recommend> recommends = recommendRepository.findAll();
+            //获取所有推单结果，放入数组
+            ArrayList arrayList = new ArrayList();
+            for (int j = 0; j < recommends.size(); j++) {
+                arrayList.add(recommends.get(j).getRcmResult());
+            }
+            //判断连红场数
+            int k = 0;
+            for (int m=0;m<arrayList.size();m++){
+                if (arrayList.get(m) == "2"){
+                    k++;
+                }else{
+                    break;
+                }
+            }
+            winBoard.setOrgId(String.valueOf(orgId));
+            winBoard.setOrgName(orgName);
+            winBoard.setContinueWin(String.valueOf(k));
+            winBoards.add(winBoard);
 
-        return null;
+        }
+        return winBoards;
     }
 
     /**
      * 公告查询
+     *
      * @return
      */
     @Override

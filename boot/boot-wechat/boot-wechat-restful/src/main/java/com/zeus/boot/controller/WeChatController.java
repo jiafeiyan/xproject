@@ -9,6 +9,7 @@ import com.zeus.boot.repo.RecommendRepository;
 import com.zeus.boot.service.impl.WeChatServiceImpl;
 import com.zeus.boot.vo.OrgDetails;
 import com.zeus.boot.vo.OrgInfo;
+import com.zeus.boot.vo.WinBoard;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -82,6 +83,18 @@ public class WeChatController {
         } catch (Exception e) {
             logger.error(e.getMessage());
             return ResponseMessage.error(ResultCode.INTERNAL_SERVER_ERROR, "接口 [ /qry/orgDetails ] 内部错误");
+        }
+    }
+
+    @ApiOperation(value = "查询连红榜", notes = "wechat相关api")
+    @GetMapping(path = "/qry/continueWin")
+    private ResponseMessage<Object> getContinueWin() {
+        try {
+            List<WinBoard> continueWin = weChatService.getContinueWin();
+            return ResponseMessage.ok(continueWin);
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            return ResponseMessage.error(ResultCode.INTERNAL_SERVER_ERROR, "接口 [ /qry/continueWin ] 内部错误");
         }
     }
 
