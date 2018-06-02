@@ -401,13 +401,13 @@ export default {
     },
     //翻译组织类型
     formatOrgType: function(row, column) {
-      return row.org_type == 1
+      return row.orgType == 1
         ? "公众号"
-        : row.org_type == 2
+        : row.orgType == 2
           ? "名人"
-          : row.org_type == 3
+          : row.orgType == 3
             ? "微博"
-            : row.org_type == 4 ? "微信" : row.org_type == 5 ? "QQ" : "其他";
+            : row.orgType == 4 ? "微信" : row.orgType == 5 ? "QQ" : "其他";
     },
 
     handleCurrentChange(val) {
