@@ -45,34 +45,7 @@ public class WeChatServiceImpl implements WeChatService {
         //查询所有机构信息
         List<Organization> orgs = organizationRepository.findAllByOrgType(orgType);
         //遍历查询每一个机构近20场数据
-        for (int i = 0; i < orgs.size(); i++) {
-            OrgInfo orgInfo = new OrgInfo();
-            //获取机构ID
-            Long orgId = orgs.get(i).getOrgId();
-            //机构名称赋值
-            String orgName = orgs.get(i).getOrgName();
-            //根据ID查询近20场数据
-            List<Recommend> rcms = recommendRepository.getTop20ByRcmRcmeridOrderByRcmDateDesc(orgId);
-
-            //计算近5场胜率
-            Stream<Recommend> top5 = rcms.stream().limit(5);
-            String rate5 = (top5.filter(recommend -> "2".equals(recommend.getRcmResult())).count() * 1.0) / (top5.count() * 1.0) + "%";
-
-            //计算近10场胜率
-            Stream<Recommend> top10 = rcms.stream().limit(10);
-            String rate10 = (top10.filter(recommend -> "2".equals(recommend.getRcmResult())).count() * 1.0) / (top10.count() * 1.0) + "%";
-
-            //计算近20场胜率
-            Stream<Recommend> top20 = rcms.stream().limit(20);
-            String rate20 = (top20.filter(recommend -> "2".equals(recommend.getRcmResult())).count() * 1.0) / (top20.count() * 1.0) + "%";
-
-            orgInfo.setOrgId(orgId + "");
-            orgInfo.setOrgName(orgName);
-            orgInfo.setRate5(rate5);
-            orgInfo.setRate10(rate10);
-            orgInfo.setRate20(rate20);
-            orgInfoArrayList.add(orgInfo);
-        }
+        getWinningRate(orgInfoArrayList, orgs);
         return orgInfoArrayList;
     }
 
@@ -89,28 +62,7 @@ public class WeChatServiceImpl implements WeChatService {
         //根据机构类型，机构名称查询机构信息
         List<Organization> orgs = organizationRepository.findAllByOrgTypeAndOrgName(orgType, orgName);
         //遍历查询每一个机构近20场数据
-        for (int i = 0; i < orgs.size(); i++) {
-            OrgInfo orgInfo = new OrgInfo();
-            //获取机构ID
-            Long orgId = orgs.get(i).getOrgId();
-            //根据ID查询近20场数据
-            List<Recommend> rcms = recommendRepository.getTop20ByRcmRcmeridOrderByRcmDateDesc(orgId);
-            //计算近5场胜率
-            Stream<Recommend> top5 = rcms.stream().limit(5);
-            String rate5 = (top5.filter(recommend -> "2".equals(recommend.getRcmResult())).count() * 1.0) / (top5.count() * 1.0) + "%";
-            //计算近10场胜率
-            Stream<Recommend> top10 = rcms.stream().limit(10);
-            String rate10 = (top10.filter(recommend -> "2".equals(recommend.getRcmResult())).count() * 1.0) / (top10.count() * 1.0) + "%";
-            //计算近20场胜率
-            Stream<Recommend> top20 = rcms.stream().limit(20);
-            String rate20 = (top20.filter(recommend -> "2".equals(recommend.getRcmResult())).count() * 1.0) / (top20.count() * 1.0) + "%";
-            orgInfo.setOrgId(orgId + "");
-            orgInfo.setOrgName(orgName);
-            orgInfo.setRate5(rate5);
-            orgInfo.setRate10(rate10);
-            orgInfo.setRate20(rate20);
-            orgInfoArrayList.add(orgInfo);
-        }
+        getWinningRate(orgInfoArrayList, orgs);
         return orgInfoArrayList;
     }
 
@@ -127,30 +79,7 @@ public class WeChatServiceImpl implements WeChatService {
         //查询所有机构信息
         List<Organization> orgs = organizationRepository.findAllByOrgTypeAndOrgKeyword(orgType, keyword);
         //遍历查询每一个机构近20场数据
-        for (int i = 0; i < orgs.size(); i++) {
-            OrgInfo orgInfo = new OrgInfo();
-            //获取机构ID
-            Long orgId = orgs.get(i).getOrgId();
-            //机构名称赋值
-            String orgName = orgs.get(i).getOrgName();
-            //根据ID查询近20场数据
-            List<Recommend> rcms = recommendRepository.getTop20ByRcmRcmeridOrderByRcmDateDesc(orgId);
-            //计算近5场胜率
-            Stream<Recommend> top5 = rcms.stream().limit(5);
-            String rate5 = (top5.filter(recommend -> "2".equals(recommend.getRcmResult())).count() * 1.0) / (top5.count() * 1.0) + "%";
-            //计算近10场胜率
-            Stream<Recommend> top10 = rcms.stream().limit(10);
-            String rate10 = (top10.filter(recommend -> "2".equals(recommend.getRcmResult())).count() * 1.0) / (top10.count() * 1.0) + "%";
-            //计算近20场胜率
-            Stream<Recommend> top20 = rcms.stream().limit(20);
-            String rate20 = (top20.filter(recommend -> "2".equals(recommend.getRcmResult())).count() * 1.0) / (top20.count() * 1.0) + "%";
-            orgInfo.setOrgId(orgId + "");
-            orgInfo.setOrgName(orgName);
-            orgInfo.setRate5(rate5);
-            orgInfo.setRate10(rate10);
-            orgInfo.setRate20(rate20);
-            orgInfoArrayList.add(orgInfo);
-        }
+        getWinningRate(orgInfoArrayList, orgs);
         return orgInfoArrayList;
     }
 
@@ -188,24 +117,24 @@ public class WeChatServiceImpl implements WeChatService {
         //查询所有机构
         List<Organization> organizations = organizationRepository.findAll();
         //遍历所有机构
-        for (int i = 0; i < organizations.size(); i++) {
+        for (Organization organization : organizations) {
             WinBoard winBoard = new WinBoard();
             //获取机构ID
-            Long orgId = organizations.get(i).getOrgId();
-            String orgName = organizations.get(i).getOrgName();
+            Long orgId = organization.getOrgId();
+            String orgName = organization.getOrgName();
             //查询机构所有推单
             final List<Recommend> recommends = recommendRepository.findAll();
             //获取所有推单结果，放入数组
             ArrayList arrayList = new ArrayList();
-            for (int j = 0; j < recommends.size(); j++) {
-                arrayList.add(recommends.get(j).getRcmResult());
+            for (Recommend recommend : recommends) {
+                arrayList.add(recommend.getRcmResult());
             }
             //判断连红场数
             int k = 0;
-            for (int m=0;m<arrayList.size();m++){
-                if (arrayList.get(m) == "2"){
+            for (Object anArrayList : arrayList) {
+                if (anArrayList == "2") {
                     k++;
-                }else{
+                } else {
                     break;
                 }
             }
@@ -228,5 +157,32 @@ public class WeChatServiceImpl implements WeChatService {
         ArrayList<Board> boards = new ArrayList<>();
         List<Board> all = boardRepository.findAll();
         return all;
+    }
+
+    private void getWinningRate(ArrayList<OrgInfo> orgInfoArrayList, List<Organization> orgs) {
+        for (int i = 0; i < orgs.size(); i++) {
+            OrgInfo orgInfo = new OrgInfo();
+            //获取机构ID
+            Long orgId = orgs.get(i).getOrgId();
+            //机构名称赋值
+            String orgName = orgs.get(i).getOrgName();
+            //根据ID查询近20场数据
+            List<Recommend> rcms = recommendRepository.getTop20ByRcmRcmeridOrderByRcmDateDesc(orgId);
+            //计算近5场胜率
+            Stream<Recommend> top5 = rcms.stream().limit(5);
+            String rate5 = (top5.filter(recommend -> "2".equals(recommend.getRcmResult())).count() * 1.0) / (top5.count() * 1.0) + "%";
+            //计算近10场胜率
+            Stream<Recommend> top10 = rcms.stream().limit(10);
+            String rate10 = (top10.filter(recommend -> "2".equals(recommend.getRcmResult())).count() * 1.0) / (top10.count() * 1.0) + "%";
+            //计算近20场胜率
+            Stream<Recommend> top20 = rcms.stream().limit(20);
+            String rate20 = (top20.filter(recommend -> "2".equals(recommend.getRcmResult())).count() * 1.0) / (top20.count() * 1.0) + "%";
+            orgInfo.setOrgId(orgId + "");
+            orgInfo.setOrgName(orgName);
+            orgInfo.setRate5(rate5);
+            orgInfo.setRate10(rate10);
+            orgInfo.setRate20(rate20);
+            orgInfoArrayList.add(orgInfo);
+        }
     }
 }
