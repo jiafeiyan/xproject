@@ -158,7 +158,7 @@ public class WeChatServiceImpl implements WeChatService {
     @Override
     public List<Board> getBoards() {
         ArrayList<Board> boards = new ArrayList<>();
-        List<Board> all = boardRepository.findAll();
+        List<Board> all = boardRepository.findAllByOrderByBrdRcmdateDesc();
         return all;
     }
 

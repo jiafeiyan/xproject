@@ -7,5 +7,5 @@ import com.zeus.boot.entity.Board;
 
 public interface BoardRepository extends JpaRepository<Board, Long> {
     //查询近10条公告
-    List<Board> findAll();
+    List<Board> findAllByOrderByBrdRcmdateDesc();
 }
