@@ -11,13 +11,14 @@ import com.zeus.boot.vo.OrgDetails;
 import com.zeus.boot.vo.OrgInfo;
 import com.zeus.boot.vo.WinBoard;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Stream;
 
 @Service
@@ -101,7 +102,9 @@ public class WeChatServiceImpl implements WeChatService {
         orgDetails.setOrgName(organization.getOrgName());
         orgDetails.setOrgPic(organization.getOrgPic());
         orgDetails.setOrgQRPic(organization.getOrgPic());
-        List<Recommend> recommendList = recommendRepository.getTop20ByRcmRcmeridOrderByRcmDateDesc(Long.parseLong(orgId));
+        Pageable pageable = PageRequest.of(0,20);
+        Page<Recommend> pageRecommendList = recommendRepository.findByRcmRcmerid(orgId,pageable);
+        List<Recommend> recommendList = pageRecommendList.getContent();
         orgDetails.setList(recommendList);
         return orgDetails;
     }
@@ -123,7 +126,7 @@ public class WeChatServiceImpl implements WeChatService {
             Long orgId = organization.getOrgId();
             String orgName = organization.getOrgName();
             //查询机构所有推单
-            final List<Recommend> recommends = recommendRepository.findAll();
+            final List<Recommend> recommends = recommendRepository.findByRcmRcmerid(String.valueOf(orgId));
             //获取所有推单结果，放入数组
             ArrayList arrayList = new ArrayList();
             for (Recommend recommend : recommends) {
@@ -132,7 +135,7 @@ public class WeChatServiceImpl implements WeChatService {
             //判断连红场数
             int k = 0;
             for (Object anArrayList : arrayList) {
-                if (anArrayList == "2") {
+                if (anArrayList.equals("2")) {
                     k++;
                 } else {
                     break;
@@ -167,16 +170,33 @@ public class WeChatServiceImpl implements WeChatService {
             //机构名称赋值
             String orgName = orgs.get(i).getOrgName();
             //根据ID查询近20场数据
-            List<Recommend> rcms = recommendRepository.getTop20ByRcmRcmeridOrderByRcmDateDesc(orgId);
+            Pageable pageable = PageRequest.of(0,20);
+            Page<Recommend> pageRcms = recommendRepository.findByRcmRcmerid(String.valueOf(orgId),pageable);
+            List<Recommend> rcms = pageRcms.getContent();
+            String rate5;
+            String rate10;
+            String rate20;
             //计算近5场胜率
-            Stream<Recommend> top5 = rcms.stream().limit(5);
-            String rate5 = (top5.filter(recommend -> "2".equals(recommend.getRcmResult())).count() * 1.0) / (top5.count() * 1.0) + "%";
+            if(rcms.size() >= 5){
+                Stream<Recommend> top5 = rcms.stream().limit(5);
+                rate5 = (top5.filter(recommend -> "2".equals(recommend.getRcmResult())).count() * 1.0) / (top5.count() * 1.0) + "%";
+            }else{
+                rate5 = "--";
+            }
             //计算近10场胜率
-            Stream<Recommend> top10 = rcms.stream().limit(10);
-            String rate10 = (top10.filter(recommend -> "2".equals(recommend.getRcmResult())).count() * 1.0) / (top10.count() * 1.0) + "%";
+            if(rcms.size() >= 10){
+                Stream<Recommend> top10 = rcms.stream().limit(10);
+                rate10 = (top10.filter(recommend -> "2".equals(recommend.getRcmResult())).count() * 1.0) / (top10.count() * 1.0) + "%";
+            }else{
+                rate10 = "--";
+            }
             //计算近20场胜率
-            Stream<Recommend> top20 = rcms.stream().limit(20);
-            String rate20 = (top20.filter(recommend -> "2".equals(recommend.getRcmResult())).count() * 1.0) / (top20.count() * 1.0) + "%";
+            if(rcms.size() >= 20){
+                Stream<Recommend> top20 = rcms.stream().limit(20);
+                rate20 = (top20.filter(recommend -> "2".equals(recommend.getRcmResult())).count() * 1.0) / (top20.count() * 1.0) + "%";
+            }else{
+                rate20 = "--";
+            }
             orgInfo.setOrgId(orgId + "");
             orgInfo.setOrgName(orgName);
             orgInfo.setRate5(rate5);

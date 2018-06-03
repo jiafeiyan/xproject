@@ -3,9 +3,6 @@ package com.zeus.boot.controller;
 import com.zeus.boot.commons.message.ResponseMessage;
 import com.zeus.boot.commons.message.ResultCode;
 import com.zeus.boot.entity.Board;
-import com.zeus.boot.repo.BoardRepository;
-import com.zeus.boot.repo.OrganizationRepository;
-import com.zeus.boot.repo.RecommendRepository;
 import com.zeus.boot.service.impl.WeChatServiceImpl;
 import com.zeus.boot.vo.OrgDetails;
 import com.zeus.boot.vo.OrgInfo;
@@ -43,11 +40,10 @@ public class WeChatController {
     }
 
     @ApiOperation(value = "根据姓名搜索名人(专家)胜率信息", notes = "wechat相关api")
-    @GetMapping(path = "/qry/orgInfoByName")
-    private ResponseMessage<Object> getOrgInfosByOrgTypeAndOrgName(@RequestBody Map<String, Map<String, String>> rcm) {
-        Map<String, String> params = rcm.get("params");
-        String orgType = params.get("orgType");
-        String orgName = params.get("orgName");
+    @PostMapping(path = "/qry/orgInfoByName")
+    private ResponseMessage<Object> getOrgInfosByOrgTypeAndOrgName(@RequestBody Map<String, String> rcm) {
+        String orgType = rcm.get("orgType");
+        String orgName = rcm.get("orgName");
         try {
             List<OrgInfo> orgInfos = weChatService.getOrgInfosByOrgName(orgType,orgName);
             return ResponseMessage.ok(orgInfos);
@@ -58,11 +54,10 @@ public class WeChatController {
     }
 
     @ApiOperation(value = "根据关键字搜索名人(专家)胜率信息", notes = "wechat相关api")
-    @GetMapping(path = "/qry/orgInfoByKeyword")
-    private ResponseMessage<Object> getOrgInfosByOrgTypeAndKeyword(@RequestBody Map<String, Map<String, String>> rcm) {
-        Map<String, String> params = rcm.get("params");
-        String orgType = params.get("orgType");
-        String keyWord = params.get("orgName");
+    @PostMapping(path = "/qry/orgInfoByKeyword")
+    private ResponseMessage<Object> getOrgInfosByOrgTypeAndKeyword(@RequestBody Map<String, String> rcm) {
+        String orgType = rcm.get("orgType");
+        String keyWord = rcm.get("keyWord");
         try {
             List<OrgInfo> orgInfos = weChatService.getOrgInfosByKeyword(orgType,keyWord);
             return ResponseMessage.ok(orgInfos);
@@ -73,10 +68,9 @@ public class WeChatController {
     }
 
     @ApiOperation(value = "查询机构详细信息", notes = "wechat相关api")
-    @GetMapping(path = "/qry/orgDetails")
-    private ResponseMessage<Object> getOrgDetails(@RequestBody Map<String, Map<String, String>> rcm) {
-        Map<String, String> params = rcm.get("params");
-        String orgId = params.get("orgId");
+    @PostMapping(path = "/qry/orgDetails")
+    private ResponseMessage<Object> getOrgDetails(@RequestBody Map<String, String> rcm) {
+        String orgId = rcm.get("orgId");
         try {
             OrgDetails orgDetails = weChatService.getOrgDetails(orgId);
             return ResponseMessage.ok(orgDetails);
