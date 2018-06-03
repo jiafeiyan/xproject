@@ -40,7 +40,6 @@ public class WeChatServiceImpl implements WeChatService {
      * @return
      */
     @Override
-    @Transactional
     public List<OrgInfo> getOrgInfosByOrgType(String orgType) {
         ArrayList<OrgInfo> orgInfoArrayList = new ArrayList<>();
         //查询所有机构信息
