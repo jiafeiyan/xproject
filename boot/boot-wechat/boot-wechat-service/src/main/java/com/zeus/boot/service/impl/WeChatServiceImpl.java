@@ -178,22 +178,19 @@ public class WeChatServiceImpl implements WeChatService {
             String rate20;
             //计算近5场胜率
             if(rcms.size() >= 5){
-                Stream<Recommend> top5 = rcms.stream().limit(5);
-                rate5 = (top5.filter(recommend -> "2".equals(recommend.getRcmResult())).count() * 1.0) / (top5.count() * 1.0) + "%";
+                rate5 = (rcms.stream().limit(5).filter(recommend -> "2".equals(recommend.getRcmResult())).count() * 1.0) / (rcms.stream().limit(5).count() * 1.0) * 100 + "%";
             }else{
                 rate5 = "--";
             }
             //计算近10场胜率
             if(rcms.size() >= 10){
-                Stream<Recommend> top10 = rcms.stream().limit(10);
-                rate10 = (top10.filter(recommend -> "2".equals(recommend.getRcmResult())).count() * 1.0) / (top10.count() * 1.0) + "%";
+                rate10 = (rcms.stream().limit(10).filter(recommend -> "2".equals(recommend.getRcmResult())).count() * 1.0) / (rcms.stream().limit(10).count() * 1.0) * 100 + "%";
             }else{
                 rate10 = "--";
             }
             //计算近20场胜率
             if(rcms.size() >= 20){
-                Stream<Recommend> top20 = rcms.stream().limit(20);
-                rate20 = (top20.filter(recommend -> "2".equals(recommend.getRcmResult())).count() * 1.0) / (top20.count() * 1.0) + "%";
+                rate20 = (rcms.stream().limit(20).filter(recommend -> "2".equals(recommend.getRcmResult())).count() * 1.0) / (rcms.stream().limit(20).count() * 1.0) * 100 + "%";
             }else{
                 rate20 = "--";
             }
